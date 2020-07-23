@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# LabTop Mk III GUID
+# 8265d473-a6c2-42b4-897b-bc220faa2d32
+
+# Lite Mk II GUID
+# 797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0
+date=$(date '+%Y-%m-%d')
+echo "Which laptop are you creating an update for?"
+select m in "I2" "L3"
+	do
+		break
+	done
+read -p "What is the version of the update? " v
+array=()
+while IFS= read -r -p "Enter changes for release notes: " line; do
+    [[ $line ]] || break
+    array+=("$line")
+done
+
+crn=$(printf '\\t\\t<li>%s</li>\\n' "${array[@]}")
+ern=$(printf 'echo "%s"\\n' "${array[@]}")
+
+
+
+if [[ "$m" == "I2" ]]; then
+	name="Star Lite Mk II"
+	guid="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
+	s="/P /N"
+elif [[ "$m" == "L3" ]]; then
+	name="Star LabTop Mk III"
+	guid="8265d473-a6c2-42b4-897b-bc220faa2d32"
+	s="/P /B /N"
+fi
+
+p=$(echo "$m/$v")
+
+
+echo "Backing up original files"
+	echo
+	mkdir -p "$p/Original/"
+	cp "$v.rom" "$p/Original/"
+	cp "$v.fd" "$p/Original/"
+echo "Done"
+
+echo "Creating EFI Shell Update"
+	echo
+	mkdir -p "$p/EFI/"
+	cp MasterFiles/AfuEfix64.efi "$p/EFI/"
+	cp MasterFiles/startup.nsh "$p/EFI/"
+	cp "$v.rom" "$p/EFI/$v.rom"
+	rm "$v.rom"
+
+
+	sed -i "s#%SWITCH%#$s#g" "$p/EFI/startup.nsh"
+	sed -i "s#%VERSION%#$v#g" "$p/EFI/startup.nsh"
+	sed -i "s#%RELEASE%#$ern#" "$p/EFI/startup.nsh"
+	echo "Creating .zip"
+	zip -rj "$p/$m-$v.zip" "$p/EFI/"* &>/dev/null
+
+echo "Done"
+echo
+
+echo "Creating CAB Update"
+	echo
+	mkdir -p "$p/CAB/"
+	cp MasterFiles/master.metainfo.xml "$p/CAB/$m.metainfo.xml"
+	./header.py --guid "$guid" --bin "$v.fd" --cap "$p/CAB/$v.cap"
+	rm "$v.fd"
+	sed -i "s#%MODEL%#$m#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%NAME%#$name#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%GUID%#$guid#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%VERSION%#$v#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%DATE%#$date#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%RELEASE%#$crn#" "$p/CAB/$m.metainfo.xml"
+	echo "Creating .cab"
+	gcab -cn "$p/$m.cab" "$p/CAB/"*
+echo "Done"
+echo
+
+echo "Upload to GitHub?"
+select git in "Yes" "No"
+        do
+                break
+        done
+if [[ "$git" == 'Yes' ]]; then
+	git add *
+	git commit -m "Added $name $v"
+	git push
+fi

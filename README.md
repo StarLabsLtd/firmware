@@ -3,10 +3,10 @@
 
 ## Star LabTop Mk III
 #### 1.4.0
-*Updated Microcode to D6
-*Updated CSME to 11.8.79.3772
-*Added System PK
-*Fixed adjustable keyboard backlight
+* Updated Microcode to D6
+* Updated CSME to 11.8.79.3772
+* Added System PK
+* Fixed adjustable keyboard backlight
 
 # [© Star Labs® / All Rights Reserved.](https://starlabs.systems)
 Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)

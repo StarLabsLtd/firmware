@@ -2,11 +2,12 @@
 
 
 ## Star LabTop Mk III
-#### 1.4.0
+#### 4
 * Updated Microcode to D6
 * Updated CSME to 11.8.79.3772
 * Added System PK
 * Fixed adjustable keyboard backlight
+* Added option to enable BLE
 
 #### 1.3.0
 * Improved ACPI support

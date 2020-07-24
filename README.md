@@ -2,7 +2,7 @@
 
 
 ## Star LabTop Mk III
-#### 4
+#### 2.0.0
 * Updated Microcode to D6
 * Updated CSME to 11.8.79.3772
 * Added System PK

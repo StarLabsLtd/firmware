@@ -11,7 +11,8 @@ echo " \____/ \__\__,_|_|  \_____/\__,_|_.__/|___/"
 echo *********** BIOS & Firmware Update **********
 echo
 echo "This update contains the following changes:"
-echo "New option to reverse Ctrl + Fn keys"
+echo "Staged option to reverse Ctrl + Fn Keys"
+echo "Updated Microcode"
 
 for %a run (0 10)
 if exist fs%a:\AfuEfix64.efi then

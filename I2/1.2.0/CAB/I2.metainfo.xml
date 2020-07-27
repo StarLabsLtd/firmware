@@ -27,12 +27,13 @@
   <category>X-Device</category>
 </categories>
   <releases>
-    <release urgency="medium" version="1.2.0" date="2020-07-23">
+    <release urgency="medium" version="1.2.0" date="2020-07-27">
     <checksum filename="1.2.0.cap" target="content"/>
       <description>
         <p>This stable release includes the following features:</p>
         <ul>
-		<li>New option to reverse Ctrl + Fn keys</li>
+		<li>Staged option to reverse Ctrl + Fn Keys</li>
+		<li>Updated Microcode</li>
 
 	</ul>
       </description>

@@ -11,11 +11,7 @@ echo " \____/ \__\__,_|_|  \_____/\__,_|_.__/|___/"
 echo *********** BIOS & Firmware Update **********
 echo
 echo "This update contains the following changes:"
-echo "Updated Microcode to D6"
-echo "Updated CSME to 11.8.79.3772"
-echo "Added System PK"
-echo "Fixed adjustable keyboard backlight"
-echo "Added option to enable BLE"
+echo "Enabled BLE"
 
 for %a run (0 10)
 if exist fs%a:\AfuEfix64.efi then

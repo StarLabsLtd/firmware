@@ -34,7 +34,8 @@
 
 ## Star Lite Mk II
 #### 1.2.0
-* New option to reverse Ctrl + Fn keys
+* Staged option to reverse Ctrl + Fn Keys
+* Updated Microcode
 
 #### 1.1.0
 * Fixed pop sound from speakers

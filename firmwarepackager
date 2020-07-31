@@ -27,7 +27,7 @@
 
 date=$(date '+%Y-%m-%d')
 echo "Which laptop are you creating an update for?"
-select m in "I2" "L3"
+select m in "I2" "L3" "L4"
 	do
 		break
 	done

@@ -95,7 +95,7 @@ echo "Creating EFI Shell Update"
 	cp "MasterFiles/$t.nsh" "$p/EFI/startup.nsh"
 	cp "MasterFiles/$tool" "$p/EFI/"
 	cp "$v.$ext" "$p/EFI/$v.$ext"
-
+	rm "$v.rom"
 	sed -i "s#%SWITCH%#$s#g" "$p/EFI/startup.nsh"
 	sed -i "s#%VERSION%#$v#g" "$p/EFI/startup.nsh"
 	sed -i "s#%RELEASE%#$ern#" "$p/EFI/startup.nsh"

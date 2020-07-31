@@ -1,16 +1,45 @@
 #!/bin/bash
 
 # LabTop Mk III GUID
+# HWID
+# e868c4d1-8efa-58dd-ad82-768303e52f05
+# BIOS
 # 8265d473-a6c2-42b4-897b-bc220faa2d32
+# EC
+# 0aa07091-dc02-5e62-a0cd-9d3880721b64
 
 # Lite Mk II GUID
+# HWID
+# b29597d2-f144-52f1-85c3-b40567f2e0bf
+# BIOS
 # 797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0
+# EC
+# 0aa07091-dc02-5e62-a0cd-9d3880721b64
+
+# LabTop Mk IV
+# HWID
+# baf1d04e-fd16-5e6a-93cc-1c23d171f879
+# BIOS
+# 502bff68-b8db-4b01-86ef-ab65f6502a77
+# EC
+# 0aa07091-dc02-5e62-a0cd-9d3880721b64
+
+
 date=$(date '+%Y-%m-%d')
 echo "Which laptop are you creating an update for?"
 select m in "I2" "L3"
 	do
 		break
 	done
+
+echo "Which type of update is it?"
+select t in "BIOS" "EC"
+	do
+		break
+	done
+
+
+
 read -p "What is the version of the update? " v
 array=()
 while IFS= read -r -p "Enter changes for release notes: " line; do
@@ -25,32 +54,51 @@ ern=$(printf 'echo "%s"\\n' "${array[@]}")
 
 if [[ "$m" == "I2" ]]; then
 	name="Star Lite Mk II"
-	guid="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
+	hwid="b29597d2-f144-52f1-85c3-b40567f2e0bf"
+	bios="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
+	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /N"
 elif [[ "$m" == "L3" ]]; then
 	name="Star LabTop Mk III"
-	guid="8265d473-a6c2-42b4-897b-bc220faa2d32"
+	hwid="e868c4d1-8efa-58dd-ad82-768303e52f05"
+	bios="8265d473-a6c2-42b4-897b-bc220faa2d32"
+	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
+	s="/P /B /N"
+elif [[ "$m" == "L4" ]]; then
+	name="Star LabTop Mk IV"
+	hwid="baf1d04e-fd16-5e6a-93cc-1c23d171f879"
+	bios="502bff68-b8db-4b01-86ef-ab65f6502a77"
+	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /B /N"
 fi
 
-p=$(echo "$m/$v")
+p=$(echo "$m/$t/$v")
 
+if [[ "$t" == "BIOS" ]]; then
+	
+elif [[ "$t" == "EC" ]]' then
+
+fi
 
 echo "Backing up original files"
 	echo
 	mkdir -p "$p/Original/"
-	cp "$v.rom" "$p/Original/"
-	cp "$v.fd" "$p/Original/"
+	cp "$v.*" "$p/Original/"
 echo "Done"
 
 echo "Creating EFI Shell Update"
 	echo
 	mkdir -p "$p/EFI/"
-	cp MasterFiles/AfuEfix64.efi "$p/EFI/"
-	cp MasterFiles/startup.nsh "$p/EFI/"
-	cp "$v.rom" "$p/EFI/$v.rom"
-	rm "$v.rom"
 
+	cp "MasterFiles/$t.nsh" "$p/EFI/startup.nsh"
+	if [[ "$t" == "BIOS" ]]; then
+		cp MasterFiles/AfuEfix64.efi "$p/EFI/"
+		cp "$v.rom" "$p/EFI/$v.rom"
+		rm "$v.rom"
+	elif [[ "$t" == "EC" ]]; then
+		cp MasterFiles/eFuitX64.efi "$p/EFI/"
+		cp "$v.bin" "$p/EFI/$v.bin"
+	fi
 
 	sed -i "s#%SWITCH%#$s#g" "$p/EFI/startup.nsh"
 	sed -i "s#%VERSION%#$v#g" "$p/EFI/startup.nsh"
@@ -64,12 +112,19 @@ echo
 echo "Creating CAB Update"
 	echo
 	mkdir -p "$p/CAB/"
-	cp MasterFiles/master.metainfo.xml "$p/CAB/$m.metainfo.xml"
-	./header.py --guid "$guid" --bin "$v.fd" --cap "$p/CAB/$v.cap"
-	rm "$v.fd"
+	cp "MasterFiles/$t.metainfo.xml" "$p/CAB/$m.metainfo.xml"
+	if [[ "$t" == "BIOS" ]]; then
+		./header.py --guid "$bios" --bin "$v.fd" --cap "$p/CAB/$v.cap"
+		rm "$v.fd"
+	elif [[ "$t" == "EC" ]]; then
+		cp "$v.bin" "$p/CAB/$v.bin"
+		rm "$v.bin"
+	fi
 	sed -i "s#%MODEL%#$m#g" "$p/CAB/$m.metainfo.xml"
 	sed -i "s#%NAME%#$name#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%GUID%#$guid#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%BIOS%#$bios#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%EC%#$ec#g" "$p/CAB/$m.metainfo.xml"
+	sed -i "s#%HWID%#$hwid#g" "$p/CAB/$m.metainfo.xml"
 	sed -i "s#%VERSION%#$v#g" "$p/CAB/$m.metainfo.xml"
 	sed -i "s#%DATE%#$date#g" "$p/CAB/$m.metainfo.xml"
 	sed -i "s#%RELEASE%#$crn#" "$p/CAB/$m.metainfo.xml"

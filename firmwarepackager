@@ -75,15 +75,17 @@ fi
 p=$(echo "$m/$t/$v")
 
 if [[ "$t" == "BIOS" ]]; then
-	
-elif [[ "$t" == "EC" ]]' then
-
+	tool="AfuEfix64.efi"
+	ext="rom"
+elif [[ "$t" == "EC" ]]; then
+	tool="eFuitX64.efi"
+	ext="bin"
 fi
 
 echo "Backing up original files"
 	echo
 	mkdir -p "$p/Original/"
-	cp "$v.*" "$p/Original/"
+	cp "$v.$ext" "$p/Original/"
 echo "Done"
 
 echo "Creating EFI Shell Update"
@@ -91,14 +93,8 @@ echo "Creating EFI Shell Update"
 	mkdir -p "$p/EFI/"
 
 	cp "MasterFiles/$t.nsh" "$p/EFI/startup.nsh"
-	if [[ "$t" == "BIOS" ]]; then
-		cp MasterFiles/AfuEfix64.efi "$p/EFI/"
-		cp "$v.rom" "$p/EFI/$v.rom"
-		rm "$v.rom"
-	elif [[ "$t" == "EC" ]]; then
-		cp MasterFiles/eFuitX64.efi "$p/EFI/"
-		cp "$v.bin" "$p/EFI/$v.bin"
-	fi
+	cp "MasterFiles/$tool" "$p/EFI/"
+	cp "$v.$ext" "$p/EFI/$v.$ext"
 
 	sed -i "s#%SWITCH%#$s#g" "$p/EFI/startup.nsh"
 	sed -i "s#%VERSION%#$v#g" "$p/EFI/startup.nsh"

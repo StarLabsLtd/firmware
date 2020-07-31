@@ -11,7 +11,7 @@ echo " \____/ \__\__,_|_|  \_____/\__,_|_.__/|___/"
 echo *********** BIOS & Firmware Update **********
 echo
 echo "This update contains the following changes:
-echo "Fan Curve"
+echo "New option to reverse Ctrl + Fn keys"
 
 for %a run (0 10)
 if exist fs%a:\eFuitX64.efi then

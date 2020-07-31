@@ -47,6 +47,7 @@ while IFS= read -r -p "Enter changes for release notes: " line; do
     array+=("$line")
 done
 
+rn=$(printf '* %s\\n' "${array[@]}")
 crn=$(printf '\\t\\t<li>%s</li>\\n' "${array[@]}")
 ern=$(printf 'echo "%s"\\n' "${array[@]}")
 
@@ -128,6 +129,12 @@ echo "Creating CAB Update"
 	gcab -cn "$p/$m.cab" "$p/CAB/"*
 echo "Done"
 echo
+
+echo "Updating README"
+
+sed -i "/$name/a $rn" README.md
+sed -i "/$name/a \#\#\#\# $t-$v" README.md
+
 
 echo "Upload to GitHub?"
 select git in "Yes" "No"

@@ -2,7 +2,7 @@
 
 # LabTop Mk III GUID
 # HWID
-# e868c4d1-8efa-58dd-ad82-768303e52f05
+# 013b60e5-1023-5bee-8ae5-14cae21377b7
 # BIOS
 # 8265d473-a6c2-42b4-897b-bc220faa2d32
 # EC
@@ -61,7 +61,7 @@ if [[ "$m" == "I2" ]]; then
 	s="/P /N"
 elif [[ "$m" == "L3" ]]; then
 	name="Star LabTop Mk III"
-	hwid="e868c4d1-8efa-58dd-ad82-768303e52f05"
+	hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
 	bios="8265d473-a6c2-42b4-897b-bc220faa2d32"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /B /N"

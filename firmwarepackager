@@ -147,7 +147,7 @@ echo
 echo "Updating README"
 
 sed -i "/$name/a $rn" README.md
-sed -i "/$name/a \#\#\#\# $t-$v" README.md
+sed -i "/$name/a \#\#\#\# $t: $v" README.md
 
 
 echo "Upload to GitHub?"

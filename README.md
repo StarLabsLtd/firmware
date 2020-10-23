@@ -4,9 +4,6 @@
 #### BIOS: 1.0.0
 * Initial Release
 
-#### BIOS: 1.0.0
-* Initial Release
-
 #### EC: 1.00
 * Initial Release
 

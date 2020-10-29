@@ -43,6 +43,12 @@
 * Removed redundant AMI PK Keys
 
 ## Star Lite Mk II
+#### BIOS: 1.3.0
+* Updated Microcode to 40
+* Updated PK
+* Enabled BLE
+* Updated Power Management for better battery retention whilst sleeping and suspended
+
 #### 1.2.0
 * Staged option to reverse Ctrl + Fn Keys
 * Updated Microcode

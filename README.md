@@ -2,7 +2,7 @@
 
 ## Star LabTop Mk IV
 #### BIOS: 1.1.0
-* Updated WRDS values for increased wireless performance
+* Updated WRDS values for increased WiFi performance
 
 #### BIOS: 1.0.0
 * Initial Release

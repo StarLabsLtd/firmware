@@ -11,12 +11,12 @@ echo " \____/ \__\__,_|_|  \_____/\__,_|_.__/|___/"
 echo *********** BIOS & Firmware Update **********
 echo
 echo "This update contains the following changes:"
-echo "Updated WRDS values for increased wireless performance"
+echo "Updated WRDS values for increased WiFi performance"
 
 for %a run (0 10)
 if exist fs%a:\AfuEfix64.efi then
   fs%a:
-   AfuEfix64.efi %bios% /P /B /N
+   AfuEfix64.efi %bios% /P /B /N /L
   reset
 endif
 endfor

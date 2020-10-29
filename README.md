@@ -1,6 +1,9 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 
 ## Star LabTop Mk IV
+#### BIOS: 1.1.0
+* Updated WRDS values for increased wireless performance
+
 #### BIOS: 1.0.0
 * Initial Release
 

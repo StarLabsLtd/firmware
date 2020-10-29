@@ -19,7 +19,7 @@ echo "Updated Power Management for better battery retention whilst sleeping and 
 for %a run (0 10)
 if exist fs%a:\AfuEfix64.efi then
   fs%a:
-   AfuEfix64.efi %bios% /P /N
+   AfuEfix64.efi %bios% /P /B /N
   reset
 endif
 endfor

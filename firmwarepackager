@@ -66,7 +66,7 @@ if [[ "$m" == "I2" ]]; then
 	hwid="b29597d2-f144-52f1-85c3-b40567f2e0bf"
 	bios="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
-	s="/P /N"
+	s="/P /B /N"
 elif [[ "$m" == "L3" ]]; then
 	name="Star LabTop Mk III"
 	hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
@@ -84,7 +84,7 @@ elif [[ "$m" == "I3" ]]; then
         hwid="23fe120a-f9e1-590d-9e6b-4a2a9274b293"
         bios="23fe120a-f9e1-590d-9e6b-4a2a9274b293"
         ec=""
-        s="/P /N"
+        s="/P /B /N"
 fi
 
 p=$(echo "$m/$t/$v")

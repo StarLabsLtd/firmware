@@ -26,7 +26,7 @@
 		<category>X-Device</category>
 	</categories>
 	<releases>
-		<release urgency="medium" version="1.1.0" date="2020-10-29">
+		<release urgency="medium" version="1.1.0" date="2020-10-30">
 			<checksum filename="1.1.0.cap" target="content"/>
 			<description>
 				<p>This stable release includes the following features:</p>

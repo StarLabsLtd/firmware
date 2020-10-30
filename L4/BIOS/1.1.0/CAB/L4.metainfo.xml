@@ -21,6 +21,7 @@
 	<developer_name>Star Labs</developer_name>
 	<custom>
 		<value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+                <value key="LVFS::VersionFormat">triplet</value>
 	</custom>
 	<categories>
 		<category>X-Device</category>

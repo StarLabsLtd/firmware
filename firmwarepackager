@@ -66,7 +66,7 @@ if [[ "$m" == "I2" ]]; then
 	hwid="b29597d2-f144-52f1-85c3-b40567f2e0bf"
 	bios="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
-	s="/P /B /N"
+	s="/P /N"
 elif [[ "$m" == "L3" ]]; then
 	name="Star LabTop Mk III"
 	hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"

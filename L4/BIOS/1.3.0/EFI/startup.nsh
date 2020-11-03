@@ -14,8 +14,7 @@ echo "********************* BIOS & Firmware Update **********************"
 echo "*******************************************************************"
 echo " "
 echo "This update contains the following changes:"
-echo "Improved WiFi configuration"
-echo "Improved audio jack detection"
+echo "Improved Wireless Performance"
 
 for %a run (0 10)
 if exist fs%a:\AfuEfix64.efi then

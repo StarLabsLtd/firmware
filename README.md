@@ -2,6 +2,9 @@
 
 ## Star LabTop Mk IV
 #### BIOS: 1.3.0
+* Improved Wireless Performance
+
+#### BIOS: 1.3.0
 * Improved WiFi configuration
 * Improved audio jack detection
 

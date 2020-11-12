@@ -2,8 +2,8 @@
 <!-- Copyright 2019 Star Labs Online Limited -->
 <component type="firmware">
 	<id>com.starlabs.L4.controller</id>
-	<name>Star LabTop Mk III</name>
-	<summary>Embedded Controller Firmware for Star LabTop Mk III</summary>
+	<name>Star LabTop Mk IV</name>
+	<summary>Embedded Controller Firmware for Star LabTop Mk IV</summary>
 	<description>
 		<p>
 			Updating the embedded controller for Star LabTop Mk IV makes your computer more reliable and can add new features.

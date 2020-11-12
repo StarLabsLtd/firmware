@@ -2,8 +2,8 @@
 <!-- Copyright 2019 Star Labs Online Limited -->
 <component type="firmware">
 	<id>com.starlabs.L4.controller</id>
-	<name>Star LabTop Mk III</name>
-	<summary>Embedded Controller Firmware for Star LabTop Mk III</summary>
+	<name>Star LabTop Mk IV</name>
+	<summary>Embedded Controller Firmware for Star LabTop Mk IV</summary>
 	<description>
 		<p>
 			Updating the embedded controller for Star LabTop Mk IV makes your computer more reliable and can add new features.
@@ -26,13 +26,13 @@
 	</custom>
 	 <categories><category>X-EmbeddedController</category></categories>
 	<releases>
-		<release urgency="medium" version="1.01" date="2020-11-11">
+		<release urgency="medium" version="1.01" date="2020-11-12">
 			<checksum filename="1.01.bin" target="content"/>
 			<description>
 				<p>This stable release includes the following updates:</p>
 				<ul>
-							<li>Improved fan curves 0 + 1</li>
-		<li>Enabled Fn + Prompt keys for BIOS</li>
+							<li>Updated fan curve</li>
+		<li>Updated Fn binding at post</li>
 
 				</ul>
 			</description>

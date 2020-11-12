@@ -5,6 +5,16 @@
 * Updated fan curve
 
 #### EC: 1.01
+* Updated fan curve
+* Updated Fn binding at post
+
+#### EC: 1.00
+* Initial Release
+
+#### EC: 1.02
+* Updated fan curve
+
+#### EC: 1.01
 * Improved fan curves 0 + 1
 * Enabled Fn + Prompt keys for BIOS
 

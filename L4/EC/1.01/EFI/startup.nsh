@@ -14,8 +14,8 @@ echo "********************* BIOS & Firmware Update **********************"
 echo "*******************************************************************"
 echo " "
 echo "This update contains the following changes:"
-echo "Improved fan curves 0 + 1"
-echo "Enabled Fn + Prompt keys for BIOS"
+echo "Updated fan curve"
+echo "Updated Fn binding at post"
 
 for %a run (0 10)
 if exist fs%a:\eFuitX64.efi then

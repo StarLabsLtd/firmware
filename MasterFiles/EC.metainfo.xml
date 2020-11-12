@@ -2,8 +2,8 @@
 <!-- Copyright 2019 Star Labs Online Limited -->
 <component type="firmware">
 	<id>com.starlabs.%MODEL%.controller</id>
-	<name>Star LabTop Mk III</name>
-	<summary>Embedded Controller Firmware for Star LabTop Mk III</summary>
+	<name>%NAME%</name>
+	<summary>Embedded Controller Firmware for %NAME%</summary>
 	<description>
 		<p>
 			Updating the embedded controller for %NAME% makes your computer more reliable and can add new features.

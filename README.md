@@ -11,13 +11,6 @@
 #### EC: 1.00
 * Initial Release
 
-#### EC: 1.02
-* Updated fan curve
-
-#### EC: 1.01
-* Improved fan curves 0 + 1
-* Enabled Fn + Prompt keys for BIOS
-
 #### BIOS: 1.4.0
 * Adjusted audio subsystem
 

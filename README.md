@@ -1,5 +1,9 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
+## Star Lite Mk III
+#### EC: 1.00
+* Initial Release
 
+ 
 ## Star LabTop Mk IV
 #### EC: 1.03
 * Updated fan curve
@@ -69,6 +73,9 @@
 * Removed redundant AMI PK Keys
 
 ## Star Lite Mk II
+#### EC: 1.00
+* Initial Release
+
 #### BIOS: 1.4.0
 * Updated PK
 * Enabled BLE

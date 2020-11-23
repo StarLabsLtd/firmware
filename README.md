@@ -1,5 +1,8 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ## Star Lite Mk III
+#### BIOS: 1.0.0
+* Initial Release
+
 #### EC: 1.00
 * Initial Release
 

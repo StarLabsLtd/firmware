@@ -8,6 +8,13 @@
 
  
 ## Star LabTop Mk IV
+#### BIOS: 1.6.0
+* Changed default brightness to 100
+* Updated Secure Boot Keys
+* Improved support for SATA SSD's
+* Improved charging speed
+* Improved Type-C detection
+
 #### EC: 1.03
 * Updated fan curve
 

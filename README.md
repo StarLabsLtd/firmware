@@ -11,6 +11,9 @@
 
  
 ## Star LabTop Mk IV
+#### BIOS: 1.8.0
+* Updated verb table for headphone detection
+
 #### BIOS: 1.6.0
 * Changed default brightness to 100
 * Updated Secure Boot Keys

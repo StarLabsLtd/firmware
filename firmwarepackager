@@ -1,38 +1,5 @@
 #!/bin/bash
 
-# LabTop Mk III GUID
-# HWID
-# 013b60e5-1023-5bee-8ae5-14cae21377b7
-# BIOS
-# 8265d473-a6c2-42b4-897b-bc220faa2d32
-# EC
-# 0aa07091-dc02-5e62-a0cd-9d3880721b64
-
-# Lite Mk II GUID
-# HWID
-# b29597d2-f144-52f1-85c3-b40567f2e0bf
-# BIOS
-# 797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0
-# EC
-# 0aa07091-dc02-5e62-a0cd-9d3880721b64
-
-# LabTop Mk IV
-# HWID
-# baf1d04e-fd16-5e6a-93cc-1c23d171f879
-# BIOS
-# 502bff68-b8db-4b01-86ef-ab65f6502a77
-# EC
-# 0aa07091-dc02-5e62-a0cd-9d3880721b64
-
-# Lite Mk III
-# HWID
-# 23fe120a-f9e1-590d-9e6b-4a2a9274b293
-# BIOS
-# 23fe120a-f9e1-590d-9e6b-4a2a9274b293
-# EC
-# 
-
-
 date=$(date '+%Y-%m-%d')
 echo "Which laptop are you creating an update for?"
 select m in "I2" "I3" "L3" "L4"
@@ -63,13 +30,13 @@ ern=$(printf 'echo "%s"\\n' "${array[@]}")
 
 if [[ "$m" == "I2" ]]; then
 	name="Star Lite Mk II"
-	hwid="b29597d2-f144-52f1-85c3-b40567f2e0bf"
+	hwid="80f1fd54-f581-571f-90e6-00bf8a67f627"
 	bios="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /N"
 elif [[ "$m" == "L3" ]]; then
 	name="Star LabTop Mk III"
-	hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
+	hwid="e00a0d81-3992-52b2-b569-4195a56065f1"
 	bios="8265d473-a6c2-42b4-897b-bc220faa2d32"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /B /N"
@@ -81,9 +48,9 @@ elif [[ "$m" == "L4" ]]; then
 	s="/P /B /N /L"
 elif [[ "$m" == "I3" ]]; then
         name="Star Lite Mk III"
-        hwid="23fe120a-f9e1-590d-9e6b-4a2a9274b293"
-        bios="23fe120a-f9e1-590d-9e6b-4a2a9274b293"
-        ec=""
+        hwid="d5521faa-c50b-5d64-971d-8fd400030c51"
+        bios="d9d7b13b-e4db-4f91-8bf6-8952a9caa82a"
+        ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
         s="/P /N"
 fi
 

@@ -4,6 +4,9 @@
 * Updated wireless configuration
 
 #### BIOS: 1.1.0
+* Updated wireless configuration
+
+#### BIOS: 1.1.0
 * Updated Wireless configuration
 
 #### BIOS: 1.0.0

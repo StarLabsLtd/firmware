@@ -14,7 +14,7 @@ echo "********************* BIOS & Firmware Update **********************"
 echo "*******************************************************************"
 echo " "
 echo "This update contains the following changes:"
-echo "Updated Wireless configuration"
+echo "Updated wireless configuration"
 
 for %a run (0 10)
 if exist fs%a:\AfuEfix64.efi then

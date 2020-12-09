@@ -23,6 +23,9 @@
 
  
 ## Star LabTop Mk IV
+#### BIOS: 2.1.0
+* Updated verb table to enable headphone jack detection
+
 #### BIOS: 2.0.0
 * Updated verb table for headphone jack detection
 

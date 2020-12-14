@@ -23,6 +23,9 @@
 
  
 ## Star LabTop Mk IV
+#### EC: 1.04
+* Function lock state remembered between reboots
+
 #### BIOS: 2.1.0
 * Updated verb table to enable headphone jack detection
 

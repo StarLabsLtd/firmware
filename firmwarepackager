@@ -1,21 +1,36 @@
 #!/bin/bash
 
+function splash() {
+clear
+cat << "EOF"
+
+  ___ _            _         _       
+ / __| |_ __ _ _ _| |   __ _| |__ ___
+ \__ |  _/ _` | '_| |__/ _` | '_ (_-<
+ |___/\__\__,_|_| |____\__,_|_.__/__/
+
+EOF
+echo "=========================================================================>
+echo "$1"
+echo "=========================================================================>
+}
+
 date=$(date '+%Y-%m-%d')
-echo "Which laptop are you creating an update for?"
-select m in "I2" "I3" "L3" "L4"
+
+splash "Which laptop are you creating an update for?"
+select MODEL in "I2" "I3" "L3" "L4"
 	do
 		break
 	done
 
-echo "Which type of update is it?"
-select t in "BIOS" "EC"
+splash "Which type of update is it?"
+select TYPE in "AMI" "Coreboot" "ITE"
 	do
 		break
 	done
-
-
-
+echo
 read -p "What is the version of the update? " v
+
 array=()
 while IFS= read -r -p "Enter changes for release notes: " line; do
     [[ $line ]] || break
@@ -27,26 +42,25 @@ crn=$(printf '\\t\\t<li>%s</li>\\n' "${array[@]}")
 ern=$(printf 'echo "%s"\\n' "${array[@]}")
 
 
-
-if [[ "$m" == "I2" ]]; then
+if [[ "$MODEL" == "I2" ]]; then
 	name="Star Lite Mk II"
 	hwid="80f1fd54-f581-571f-90e6-00bf8a67f627"
 	bios="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /N"
-elif [[ "$m" == "L3" ]]; then
+elif [[ "$MODEL" == "L3" ]]; then
 	name="Star LabTop Mk III"
 	hwid="e00a0d81-3992-52b2-b569-4195a56065f1"
 	bios="8265d473-a6c2-42b4-897b-bc220faa2d32"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /B /N"
-elif [[ "$m" == "L4" ]]; then
+elif [[ "$MODEL" == "L4" ]]; then
 	name="Star LabTop Mk IV"
 	hwid="baf1d04e-fd16-5e6a-93cc-1c23d171f879"
 	bios="502bff68-b8db-4b01-86ef-ab65f6502a77"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /B /N /L"
-elif [[ "$m" == "I3" ]]; then
+elif [[ "$MODEL" == "I3" ]]; then
         name="Star Lite Mk III"
         hwid="d5521faa-c50b-5d64-971d-8fd400030c51"
         bios="d9d7b13b-e4db-4f91-8bf6-8952a9caa82a"
@@ -54,76 +68,82 @@ elif [[ "$m" == "I3" ]]; then
         s="/P /N"
 fi
 
-p=$(echo "$m/$t/$v")
+PATH=$(echo "$MODEL/$TYPE/$VERSION")
+FILE=$(ls $VERSION.*)
 
-if [[ "$t" == "BIOS" ]]; then
-	tool="AfuEfix64.efi"
-	ext="rom"
-elif [[ "$t" == "EC" ]]; then
-	tool="eFuitX64.efi"
-	ext="bin"
+function backup() {
+  splash "Backing up original files"
+  mkdir -p "$PATH/Original/"
+  cp "$FILE" "$PATH/Original/"
+echo "Done"
+
+function metadata() {
+  sed -i "s#%MODEL%#$m#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%NAME%#$name#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%BIOS%#$bios#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%EC%#$ec#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%HWID%#$hwid#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%VERSION%#$v#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%DATE%#$date#g" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%RELEASE%#$crn#" "$PATH/CAB/$MODEL.metainfo.xml"
+}
+
+function efi() {
+  splash "Creating AMI EFI Shell Update"
+  mkdir -p "$PATH/EFI/"
+  cp "MasterFiles/$TYPE.nsh" "$PATH/EFI/startup.nsh"
+  if [[ "$TYPE" == "AMI" ]]; then
+    cp "MasterFiles/AfuEfix64.efi" "$PATH/EFI/"
+  elif [[ "$TYPE" == "EC" ]]; then
+    cp "MasterFiles/eFuitX64.efi" "$PATH/EFI/"
+  fi
+  cp "$FILE" "$PATH/EFI/$FILE"
+
+  sed -i "s#%SWITCH%#$s#g" "$PATH/EFI/startup.nsh"
+  sed -i "s#%VERSION%#$v#g" "$PATH/EFI/startup.nsh"
+  sed -i "s#%RELEASE%#$ern#" "$PATH/EFI/startup.nsh"
+  
+  echo "Creating .zip"
+  zip -rj "$PATH/$MODEL-$VERSION.zip" "$PATH/EFI/"* &>/dev/null
+}
+
+function cab() {
+  mkdir -p "$PATH/CAB/"
+  cp "MasterFiles/$TYPE.metainfo.xml" "$PATH/CAB/$MODEL.metainfo.xml"
+  if [[ "$TYPE" == "AMI" ]] || [[ "$TYPE" == "Coreboot" ]]; then
+    ./header.py --guid "$bios" --bin "$FILE" --cap "$PATH/CAB/$VERSION.cap"
+  elif [[ "$TYPE" == "EC" ]]; then
+    cp "$FILE" "$PATH/CAB/$FILE"
+  fi
+  metadata
+  echo "Creating .cab"
+  gcab -cn "$p/$m.cab" "$p/CAB/"*
+}
+
+backup
+if [[ "$TYPE" == "AMI" ]]; then
+  cab
+  efi
+elif [[ "$TYPE" == "Coreboot" ]]; then
+  cab
+elif [[ "$TYPE" == "EC" ]]; then
+  cab
+  efi
 fi
-
-echo "Backing up original files"
-	echo
-	mkdir -p "$p/Original/"
-	cp "$v.$ext" "$p/Original/"
-echo "Done"
-
-echo "Creating EFI Shell Update"
-	echo
-	mkdir -p "$p/EFI/"
-
-	cp "MasterFiles/$t.nsh" "$p/EFI/startup.nsh"
-	cp "MasterFiles/$tool" "$p/EFI/"
-	cp "$v.$ext" "$p/EFI/$v.$ext"
-	rm "$v.rom"
-	sed -i "s#%SWITCH%#$s#g" "$p/EFI/startup.nsh"
-	sed -i "s#%VERSION%#$v#g" "$p/EFI/startup.nsh"
-	sed -i "s#%RELEASE%#$ern#" "$p/EFI/startup.nsh"
-	echo "Creating .zip"
-	zip -rj "$p/$m-$v.zip" "$p/EFI/"* &>/dev/null
-
-echo "Done"
-echo
-
-echo "Creating CAB Update"
-	echo
-	mkdir -p "$p/CAB/"
-	cp "MasterFiles/$t.metainfo.xml" "$p/CAB/$m.metainfo.xml"
-	if [[ "$t" == "BIOS" ]]; then
-		./header.py --guid "$bios" --bin "$v.fd" --cap "$p/CAB/$v.cap"
-		rm "$v.fd"
-	elif [[ "$t" == "EC" ]]; then
-		cp "$v.bin" "$p/CAB/$v.bin"
-		rm "$v.bin"
-	fi
-	sed -i "s#%MODEL%#$m#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%NAME%#$name#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%BIOS%#$bios#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%EC%#$ec#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%HWID%#$hwid#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%VERSION%#$v#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%DATE%#$date#g" "$p/CAB/$m.metainfo.xml"
-	sed -i "s#%RELEASE%#$crn#" "$p/CAB/$m.metainfo.xml"
-	echo "Creating .cab"
-	gcab -cn "$p/$m.cab" "$p/CAB/"*
-echo "Done"
-echo
 
 echo "Updating README"
 
 sed -i "/$name/a $rn" README.md
-sed -i "/$name/a \#\#\#\# $t: $v" README.md
+sed -i "/$name/a \#\#\#\# $TYPE: $VERSION ($date)" README.md
 
 
 echo "Upload to GitHub?"
 select git in "Yes" "No"
-        do
-                break
-        done
+  do
+    break
+  done
 if [[ "$git" == 'Yes' ]]; then
-	git add *
-	git commit -m "Added $name $v"
-	git push
+  git add *
+  git commit -m "Added $name $v"
+  git push
 fi

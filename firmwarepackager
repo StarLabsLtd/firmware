@@ -10,9 +10,9 @@ cat << "EOF"
  |___/\__\__,_|_| |____\__,_|_.__/__/
 
 EOF
-echo "=========================================================================>
+echo "============================================================================"
 echo "$1"
-echo "=========================================================================>
+echo "============================================================================"
 }
 
 date=$(date '+%Y-%m-%d')
@@ -29,7 +29,7 @@ select TYPE in "AMI" "Coreboot" "ITE"
 		break
 	done
 echo
-read -p "What is the version of the update? " v
+read -r -p "What is the version of the update? " VERSION
 
 array=()
 while IFS= read -r -p "Enter changes for release notes: " line; do
@@ -67,57 +67,56 @@ elif [[ "$MODEL" == "I3" ]]; then
         ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
         s="/P /N"
 fi
-
-PATH=$(echo "$MODEL/$TYPE/$VERSION")
-FILE=$(ls $VERSION.*)
-
+TARGET=$(echo "$MODEL/$TYPE/$VERSION")
+FILE=$(ls "$VERSION".*)
+echo $FILE
 function backup() {
   splash "Backing up original files"
-  mkdir -p "$PATH/Original/"
-  cp "$FILE" "$PATH/Original/"
-echo "Done"
+  mkdir -p "$TARGET/Original/"
+  cp "$FILE" "$TARGET/Original/"
+  echo "Done"
+}
 
 function metadata() {
-  sed -i "s#%MODEL%#$m#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%NAME%#$name#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%BIOS%#$bios#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%EC%#$ec#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%HWID%#$hwid#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%VERSION%#$v#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%DATE%#$date#g" "$PATH/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%RELEASE%#$crn#" "$PATH/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%MODEL%#$MODEL#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%NAME%#$name#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%BIOS%#$bios#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%EC%#$ec#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%HWID%#$hwid#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%VERSION%#$VERSION#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%DATE%#$date#g" "$TARGET/CAB/$MODEL.metainfo.xml"
+  sed -i "s#%RELEASE%#$crn#" "$TARGET/CAB/$MODEL.metainfo.xml"
 }
 
 function efi() {
   splash "Creating AMI EFI Shell Update"
-  mkdir -p "$PATH/EFI/"
-  cp "MasterFiles/$TYPE.nsh" "$PATH/EFI/startup.nsh"
+  mkdir -p "$TARGET/EFI/"
+  cp "MasterFiles/$TYPE.nsh" "$TARGET/EFI/startup.nsh"
   if [[ "$TYPE" == "AMI" ]]; then
-    cp "MasterFiles/AfuEfix64.efi" "$PATH/EFI/"
-  elif [[ "$TYPE" == "EC" ]]; then
-    cp "MasterFiles/eFuitX64.efi" "$PATH/EFI/"
+    cp "MasterFiles/AfuEfix64.efi" "$TARGET/EFI/"
+  elif [[ "$TYPE" == "ITE" ]]; then
+    cp "MasterFiles/eFuitX64.efi" "$TARGET/EFI/"
   fi
-  cp "$FILE" "$PATH/EFI/$FILE"
+  cp "$FILE" "$TARGET/EFI/$FILE"
 
-  sed -i "s#%SWITCH%#$s#g" "$PATH/EFI/startup.nsh"
-  sed -i "s#%VERSION%#$v#g" "$PATH/EFI/startup.nsh"
-  sed -i "s#%RELEASE%#$ern#" "$PATH/EFI/startup.nsh"
-  
+  sed -i "s#%SWITCH%#$s#g" "$TARGET/EFI/startup.nsh"
+  sed -i "s#%VERSION%#$VERSION#g" "$TARGET/EFI/startup.nsh"
+  sed -i "s#%RELEASE%#$ern#" "$TARGET/EFI/startup.nsh" 
   echo "Creating .zip"
-  zip -rj "$PATH/$MODEL-$VERSION.zip" "$PATH/EFI/"* &>/dev/null
+  zip -rj "$TARGET/$MODEL-$VERSION.zip" "$TARGET/EFI/"* &>/dev/null
 }
 
 function cab() {
-  mkdir -p "$PATH/CAB/"
-  cp "MasterFiles/$TYPE.metainfo.xml" "$PATH/CAB/$MODEL.metainfo.xml"
+  mkdir -p "$TARGET/CAB/"
+  cp "MasterFiles/$TYPE.metainfo.xml" "$TARGET/CAB/$MODEL.metainfo.xml"
   if [[ "$TYPE" == "AMI" ]] || [[ "$TYPE" == "Coreboot" ]]; then
-    ./header.py --guid "$bios" --bin "$FILE" --cap "$PATH/CAB/$VERSION.cap"
-  elif [[ "$TYPE" == "EC" ]]; then
-    cp "$FILE" "$PATH/CAB/$FILE"
+    ./header.py --guid "$bios" --bin "$FILE" --cap "$TARGET/CAB/$VERSION.cap"
+  elif [[ "$TYPE" == "ITE" ]]; then
+    cp "$FILE" "$TARGET/CAB/$FILE"
   fi
   metadata
   echo "Creating .cab"
-  gcab -cn "$p/$m.cab" "$p/CAB/"*
+  gcab -cn "$TARGET/$MODEL.cab" "$TARGET/CAB/"*
 }
 
 backup
@@ -126,7 +125,7 @@ if [[ "$TYPE" == "AMI" ]]; then
   efi
 elif [[ "$TYPE" == "Coreboot" ]]; then
   cab
-elif [[ "$TYPE" == "EC" ]]; then
+elif [[ "$TYPE" == "ITE" ]]; then
   cab
   efi
 fi
@@ -144,6 +143,6 @@ select git in "Yes" "No"
   done
 if [[ "$git" == 'Yes' ]]; then
   git add *
-  git commit -m "Added $name $v"
+  git commit -m "Added $name $VERSION"
   git push
 fi

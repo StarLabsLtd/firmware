@@ -130,6 +130,7 @@ elif [[ "$TYPE" == "ITE" ]]; then
   efi
 fi
 
+rm $FILE
 echo "Updating README"
 
 sed -i "/$name/a $rn" README.md

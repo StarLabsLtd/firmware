@@ -26,6 +26,11 @@
 
  
 ## Star LabTop Mk IV
+#### AMI: 2.2.0 (2020-12-16)
+* Updated Microcode
+* Added option to disable BLE
+* Updated Verb Table
+
 #### EC: 1.04
 * Function lock state remembered between reboots
 

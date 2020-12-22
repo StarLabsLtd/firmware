@@ -1,5 +1,11 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ## Star Lite Mk III
+#### AMI: 1.2.0 (2020-12-22)
+* Updated Verb Table
+* Optimised Power Management
+* Removed PL1 Limitation
+* Updated Secure Boot Keys
+
 #### BIOS: 1.1.0
 * Updated wireless settings
 
@@ -11,6 +17,9 @@
 
  
 ## Star LabTop Mk IV
+#### Coreboot: 0.0.1 (2020-12-17)
+* Beta Release
+
 #### AMI: 2.2.0 (2020-12-16)
 * Updated Microcode
 * Added option to disable BLE

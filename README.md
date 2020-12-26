@@ -1,5 +1,8 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ## Star Lite Mk III
+#### ITE: 1.01 (2020-12-26)
+* Fixed keyboard backlight timeout
+
 #### AMI: 1.2.0 (2020-12-22)
 * Updated Verb Table
 * Optimised Power Management

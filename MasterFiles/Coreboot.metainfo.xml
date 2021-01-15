@@ -12,7 +12,7 @@
     <firmware type="flashed">%BIOS%</firmware>
   </provides>
   <requires>
-    <id compare="ge" version="1.5.0">org.freedesktop.fwupd</id>
+    <id compare="ge" version="1.5.6">org.freedesktop.fwupd</id>
     <client>switch-branch</client>
   </requires>
   <url type="homepage">https://starlabs.systems</url>

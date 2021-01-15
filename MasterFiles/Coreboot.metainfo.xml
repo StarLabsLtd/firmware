@@ -9,7 +9,7 @@
     <p>Updating the Coreboot Firmware for %NAME% makes your computer more reliable and can add new features.</p>
   </description>
   <provides>
-    <firmware type="flashed">%BIOS%</firmware>
+    <firmware type="flashed">%HWID%</firmware>
   </provides>
   <requires>
     <id compare="ge" version="1.5.6">org.freedesktop.fwupd</id>

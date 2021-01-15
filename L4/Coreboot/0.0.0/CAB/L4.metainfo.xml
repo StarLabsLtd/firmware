@@ -9,7 +9,7 @@
     <p>Updating the Coreboot Firmware for Star LabTop Mk IV makes your computer more reliable and can add new features.</p>
   </description>
   <provides>
-    <firmware type="flashed">502bff68-b8db-4b01-86ef-ab65f6502a77</firmware>
+    <firmware type="flashed">baf1d04e-fd16-5e6a-93cc-1c23d171f879</firmware>
   </provides>
   <requires>
     <id compare="ge" version="1.5.6">org.freedesktop.fwupd</id>

@@ -109,7 +109,7 @@ function efi() {
 function cab() {
   mkdir -p "$TARGET/CAB/"
   cp "MasterFiles/$TYPE.metainfo.xml" "$TARGET/CAB/$MODEL.metainfo.xml"
-  if [[ "$TYPE" == "AMI" ]] || [[ "$TYPE" == "Coreboot" ]]; then
+  if [[ "$TYPE" == "AMI" ]]; then
     ./header.py --guid "$bios" --bin "$FILE" --cap "$TARGET/CAB/$VERSION.cap"
   elif [[ "$TYPE" == "ITE" ]]; then
     cp "$FILE" "$TARGET/CAB/$FILE"

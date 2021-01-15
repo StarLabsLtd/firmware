@@ -28,7 +28,7 @@
   </categories>
   <releases>
     <release urgency="medium" version="0.0.0" date="2021-01-15">
-      <checksum filename="0.0.0.cap" target="content"/>
+      <checksum filename="0.0.0.rom" target="content"/>
       <description>
         <p>This stable release includes the following features:</p>
         <ul>

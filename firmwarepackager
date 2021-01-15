@@ -111,6 +111,8 @@ function cab() {
   cp "MasterFiles/$TYPE.metainfo.xml" "$TARGET/CAB/$MODEL.metainfo.xml"
   if [[ "$TYPE" == "AMI" ]]; then
     ./header.py --guid "$bios" --bin "$FILE" --cap "$TARGET/CAB/$VERSION.cap"
+  elif [[ "$TYPE" == "Coreboot" ]]; then
+    cp "$FILE" "$TARGET/CAB/$FILE"
   elif [[ "$TYPE" == "ITE" ]]; then
     cp "$FILE" "$TARGET/CAB/$FILE"
   fi

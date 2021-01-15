@@ -31,6 +31,12 @@
 #### Coreboot: 0.0.0 (2021-01-15)
 * Beta Release
 
+#### Coreboot: 0.0.0 (2021-01-15)
+* Beta Release
+
+#### Coreboot: 0.0.0 (2021-01-15)
+* Beta Release
+
 #### Coreboot: 0.0.1 (2020-12-17)
 * Beta Release
 

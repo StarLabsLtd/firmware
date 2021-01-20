@@ -25,6 +25,9 @@
 
  
 ## Star LabTop Mk IV
+#### Coreboot: 0.03.00 (2021-01-20)
+* Initial Release
+
 #### Coreboot: 0.0.0 (2021-01-15)
 * Beta Release
 

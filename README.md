@@ -29,6 +29,10 @@
 
  
 ## Star LabTop Mk IV
+#### AMI: 2.3.0 (2021-01-21)
+* Windows Compliant Codec Header
+* Updated HM Detection
+
 #### Coreboot: 0.03.00 (2021-01-20)
 * Initial Release
 

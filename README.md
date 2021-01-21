@@ -1,5 +1,9 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ## Star Lite Mk III
+#### AMI: 1.3.0 (2021-01-21)
+* Updated Verb Table
+* Update SATA Controller Configuration
+
 #### ITE: 1.02 (2021-01-06)
 * Improved compatibility with third-party chargers
 * Fixed keyboard backlight control

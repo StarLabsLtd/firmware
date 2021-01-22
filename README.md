@@ -69,14 +69,8 @@
 * Updated fan curve
 * Updated Fn binding at post
 
-#### EC: 1.00
-* Initial Release
-
 #### BIOS: 1.4.0
 * Adjusted audio subsystem
-
-#### BIOS: 1.3.0
-* Improved Wireless Performance
 
 #### BIOS: 1.3.0
 * Improved WiFi configuration

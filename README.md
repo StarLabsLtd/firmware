@@ -25,6 +25,10 @@
 
  
 ## Star LabTop Mk IV
+#### AMI: 2.3.0 (2021-01-22)
+* Added Windows Compliant Codec Header
+* Update Headset Mic Detection
+
 #### Coreboot: 0.03.00 (2021-01-20)
 * Initial Release
 

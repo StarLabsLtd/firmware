@@ -97,6 +97,12 @@
 
 
 ## Star LabTop Mk III
+#### Coreboot: 0.00.00 (2021-02-08)
+* Beta Release - Unstable
+
+#### Coreboot: 0.00.00 (2021-02-08)
+* Beta Release - Unstable
+
 #### 2.0.0
 * Enabled BLE
 

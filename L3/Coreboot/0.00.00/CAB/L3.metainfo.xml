@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 Star Labs Online Limited -->
+<component type="firmware">
+  <id>com.starlabs.L3.coreboot</id>
+  <name>Star LabTop Mk III</name>
+  <summary>Coreboot Firmware for Star LabTop Mk III</summary>
+  <branch>coreboot</branch>
+  <description>
+    <p>Updating the Coreboot Firmware for Star LabTop Mk III makes your computer more reliable and can add new features.</p>
+  </description>
+  <provides>
+    <firmware type="flashed">e00a0d81-3992-52b2-b569-4195a56065f1</firmware>
+  </provides>
+  <requires>
+    <id compare="ge" version="1.5.6">org.freedesktop.fwupd</id>
+    <client>switch-branch</client>
+  </requires>
+  <url type="homepage">https://starlabs.systems</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <developer_name>Star Labs</developer_name>
+  <custom>
+    <value key="LVFS::UpdateProtocol">org.flashrom</value>
+    <value key="LVFS::VersionFormat">triplet</value>
+  </custom>
+  <categories>
+    <category>X-Device</category>
+  </categories>
+  <releases>
+    <release urgency="medium" version="0.00.00" date="2021-02-08">
+      <checksum filename="0.00.00.rom" target="content"/>
+      <description>
+        <p>This stable release includes the following features:</p>
+        <ul>
+          		<li>Beta Release - Unstable</li>
+
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

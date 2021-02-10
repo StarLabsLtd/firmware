@@ -29,6 +29,9 @@
 
  
 ## Star LabTop Mk IV
+#### Coreboot: 0.06.00 (2021-02-10)
+* Updated APCI to support Windows 10
+
 #### Coreboot: 0.04.00 (2021-02-08)
 * Updated ACPI to support newer kernels
 

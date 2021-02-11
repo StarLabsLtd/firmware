@@ -100,6 +100,9 @@
 
 
 ## Star LabTop Mk III
+#### Coreboot: 0.01.00 (2021-02-11)
+* Updated GPIO's
+
 #### Coreboot: 0.00.00 (2021-02-08)
 * Beta Release - Unstable
 

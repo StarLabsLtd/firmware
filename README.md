@@ -32,6 +32,10 @@
 
  
 ## Star LabTop Mk IV
+#### Coreboot: 0.09.01 (2021-02-24)
+* Updated gfx init
+* Updated GPIO's
+
 #### Coreboot: 0.06.00 (2021-02-10)
 * Updated APCI to support Windows 10
 

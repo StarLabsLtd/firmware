@@ -32,6 +32,10 @@
 
  
 ## Star LabTop Mk IV
+#### Coreboot: 0.09.02 (2021-02-27)
+* Updated GPIOs
+* Updated ACPI
+
 #### Coreboot: 0.09.01 (2021-02-24)
 * Updated gfx init
 * Updated GPIO's

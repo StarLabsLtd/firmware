@@ -33,6 +33,11 @@
  
 ## Star LabTop Mk IV
 #### Coreboot: 1 (2021-02-28)
+* Rebase on upstream
+* Reverted to FSP
+* Updated BGRT Logo
+
+#### Coreboot: 1 (2021-02-28)
 * Rebased on upstream
 * New version format
 * New BRGT logo

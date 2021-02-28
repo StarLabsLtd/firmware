@@ -21,7 +21,7 @@
   <developer_name>Star Labs</developer_name>
   <custom>
     <value key="LVFS::UpdateProtocol">org.flashrom</value>
-    <value key="LVFS::VersionFormat">triplet</value>
+    <value key="LVFS::VersionFormat">number</value>
   </custom>
   <categories>
     <category>X-Device</category>

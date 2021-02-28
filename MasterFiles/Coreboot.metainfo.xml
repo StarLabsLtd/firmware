@@ -28,7 +28,7 @@
   </categories>
   <releases>
     <release urgency="medium" version="%VERSION%" date="%DATE%">
-      <checksum filename="%VERSION%.rom" target="content"/>
+      <checksum filename="0x%VERSION%.rom" target="content"/>
       <description>
         <p>This stable release includes the following features:</p>
         <ul>

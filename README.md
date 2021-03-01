@@ -96,6 +96,39 @@
 
 
 ## Star LabTop Mk III
+#### coreboot: 0 (2021-03-01)
+* Beta Release
+
+#### coreboot: 0 (2021-03-01)
+* hello
+
+#### coreboot: 0 (2021-03-01)
+* Test
+
+#### coreboot: 0 (2021-03-01)
+* hello
+
+#### coreboot: 0 (2021-03-01)
+* test
+
+#### coreboot: 0 (2021-03-01)
+* test
+
+#### coreboot: 0 (2021-03-01)
+* Test
+
+#### coreboot: 0 (2021-03-01)
+* Test
+
+#### coreboot: 0 (2021-03-01)
+* test
+
+#### coreboot: 0 (2021-03-01)
+* Test
+
+#### coreboot: 0 (2021-03-01)
+* Test
+
 #### Coreboot: 0.01.00 (2021-02-11)
 * Updated GPIO's
 

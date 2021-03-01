@@ -51,6 +51,7 @@ if [[ "$MODEL" == "I2" ]]; then
 elif [[ "$MODEL" == "L3" ]]; then
 	name="Star LabTop Mk III"
 	hwid="e00a0d81-3992-52b2-b569-4195a56065f1"
+	cbid="61329016-2c61-5873-8682-ab300694452e"
 	bios="8265d473-a6c2-42b4-897b-bc220faa2d32"
 	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 	s="/P /B /N"
@@ -117,6 +118,9 @@ function cab() {
     cp "$FILE" "$TARGET/CAB/$FILE"
   fi
   metadata
+  if [[ "$cbid" ]]; then
+    sed -i "/firmware type=/a     <firmware type=\"flashed\">$cbid</firmware>" "$TARGET/CAB/$MODEL.metainfo.xml"
+  fi
   echo "Creating .cab"
   gcab -cn "$TARGET/$MODEL.cab" "$TARGET/CAB/"*
 }

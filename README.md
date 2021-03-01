@@ -33,42 +33,13 @@
  
 ## Star LabTop Mk IV
 #### coreboot: 1 (2021-03-01)
-* Rebased on upstream
-* New BGRT logo
-
-#### Coreboot: 1 (2021-02-28)
 * Rebase on upstream
 * Reverted to FSP
 * Updated BGRT Logo
 
-#### Coreboot: 1 (2021-02-28)
-* Rebased on upstream
-* New version format
-* New BRGT logo
-
-#### Coreboot: 0.09.02 (2021-02-27)
-* Updated GPIOs
-* Updated ACPI
-
-#### Coreboot: 0.09.01 (2021-02-24)
-* Updated gfx init
-* Updated GPIO's
-
-#### Coreboot: 0.06.00 (2021-02-10)
-* Updated APCI to support Windows 10
-
-#### Coreboot: 0.04.00 (2021-02-08)
-* Updated ACPI to support newer kernels
-
 #### AMI: 2.3.0 (2021-01-22)
 * Added Windows Compliant Codec Header
 * Update Headset Mic Detection
-
-#### Coreboot: 0.03.00 (2021-01-20)
-* Initial Release
-
-#### Coreboot: 0.0.0 (2021-01-15)
-* Beta Release
 
 #### AMI: 2.2.0 (2020-12-16)
 * Updated Microcode

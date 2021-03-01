@@ -24,7 +24,7 @@ select MODEL in "I2" "I3" "L3" "L4"
 	done
 
 splash "Which type of update is it?"
-select TYPE in "AMI" "Coreboot" "ITE"
+select TYPE in "AMI" "coreboot" "ITE"
 	do
 		break
 	done
@@ -111,7 +111,7 @@ function cab() {
   cp "MasterFiles/$TYPE.metainfo.xml" "$TARGET/CAB/$MODEL.metainfo.xml"
   if [[ "$TYPE" == "AMI" ]]; then
     ./header.py --guid "$bios" --bin "$FILE" --cap "$TARGET/CAB/$VERSION.cap"
-  elif [[ "$TYPE" == "Coreboot" ]]; then
+  elif [[ "$TYPE" == "coreboot" ]]; then
     cp "$FILE" "$TARGET/CAB/$FILE"
   elif [[ "$TYPE" == "ITE" ]]; then
     cp "$FILE" "$TARGET/CAB/$FILE"
@@ -125,7 +125,7 @@ backup
 if [[ "$TYPE" == "AMI" ]]; then
   cab
   efi
-elif [[ "$TYPE" == "Coreboot" ]]; then
+elif [[ "$TYPE" == "coreboot" ]]; then
   cab
 elif [[ "$TYPE" == "ITE" ]]; then
   cab

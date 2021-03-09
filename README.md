@@ -37,6 +37,10 @@
 
  
 ## Star LabTop Mk IV
+#### coreboot: 2 (2021-03-09)
+* Rebase on upstream
+* Changed to ASL v2 syntax
+
 #### coreboot: 1 (2021-03-01)
 * Rebase on upstream
 * Reverted to FSP
@@ -101,6 +105,10 @@
 
 
 ## Star LabTop Mk III
+#### coreboot: 1 (2021-03-09)
+* Rebase on upstream
+* Changed to ASL v2 syntax
+
 #### coreboot: 0 (2021-03-01)
 * Beta Release
 

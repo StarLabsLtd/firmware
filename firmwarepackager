@@ -99,7 +99,7 @@ printf "<\041--  Copyright 2019 Star Labs Online Limited  --> \
 	\n\t\t<firmware type=\"flashed\">$SecondaryGuid</firmware> \
 	\n\t</provides> \
 	\n\t<requires> \
-	\n\t\t<id compare=\"ge\" version=\"1.5.6\">org.freedesktop.fwupd</id> \
+	\n\t\t<id compare=\"ge\" version=\"$ClientVersion\">org.freedesktop.fwupd</id> \
 	\n\t\t<hardware>$hwid</hardware> \
 	\n\t\t$Client \
 	\n\t</requires> \
@@ -174,6 +174,7 @@ do
 				exit 0
 			fi
 			# CAB: UEFI Capsule
+			ClientVersion="1.3.9"
 			UpdateProtocol="org.uefi.capsule"
 			VersionFormat="triplet"
 			PrimaryGuid=$uefi
@@ -183,6 +184,7 @@ do
 			gcab -c "$target/uefi-$ref.cab" "$version.cap" "$ref.metainfo.xml"
 			rm "$ref.metainfo.xml" "$version.cap" "$version.rom"
 			# CAB: flashrom
+			ClientVersion="1.5.6"
 			UpdateProtocol="org.flashrom"
 			VersionFormat="triplet"
 			Extension="bin"
@@ -199,7 +201,7 @@ do
 			break
 			;;
 		"coreboot")
-			Plugin="flashrom"
+			ClientVersion="1.5.6"
 			UpdateProtocol="org.flashrom"
 			VersionFormat="number"
 			Branch="<branch>$firmware</branch>"
@@ -215,6 +217,7 @@ do
 			;;
 		"ITE")
 			# CAB
+			ClientVersion="1.3.9"
 			UpdateProtocol="tw.com.ite.superio"
 			VersionFormat="pair"
 			Extension="bin"

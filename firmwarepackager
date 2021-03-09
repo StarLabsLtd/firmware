@@ -239,19 +239,21 @@ done
 
 
 
-# echo "Updating README"
+echo "Updating README"
 
-# sed -i "/$name/a $rn" README.md
-# sed -i "/$name/a \#\#\#\# $TYPE: $VERSION ($date)" README.md
+sed -i "/$model/a $rn" README.md
+sed -i "/$model/a \#\#\#\# $TYPE: $VERSION ($date)" README.md
 
 
-#echo "Upload to GitHub?"
-#select git in "Yes" "No"
-#  do
-#    break
-#  done
-# if [[ "$git" == 'Yes' ]]; then
-#   git add *
-#   git commit -m "Added $name $VERSION"
-#   git push
-# fi
+echo "Upload to GitHub?"
+select git in "Yes" "No"
+do
+	case $git in
+		"Yes")
+			git add *
+			git commit -m "Added $name $VERSION"
+			git push
+			break
+			;;
+	esac
+done

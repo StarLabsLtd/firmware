@@ -18,138 +18,242 @@ echo "==========================================================================
 date=$(date '+%Y-%m-%d')
 
 splash "Which laptop are you creating an update for?"
-select MODEL in "I2" "I3" "L3" "L4"
-	do
-		break
-	done
+PS3="Select the model: "
 
-splash "Which type of update is it?"
-select TYPE in "AMI" "coreboot" "ITE"
-	do
-		break
-	done
-echo
-read -r -p "What is the version of the update? " VERSION
+models=("Star Lite Mk II" "Star Lite Mk III" "Star LabTop Mk III" "Star LabTop Mk IV")
+select model in "${models[@]}"
+do
+	case $model in
+		"Star Lite Mk II")
+			ref="I2"
+			shell="/P /N"
+			hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
+			uefi="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
+			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
+			ami="0676539d-150f-5f07-89b9-fe0afd98c44e"
+			break
+			;;
+		"Star Lite Mk III")
+			ref="I3"
+			shell="/P /N"
+			hwid="d5521faa-c50b-5d64-971d-8fd400030c51"
+			uefi="d9d7b13b-e4db-4f91-8bf6-8952a9caa82a"
+			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
+			break
+			;;
+		"Star LabTop Mk III")
+			ref="L3"
+			shell="/P /N /B /L"
+			hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
+			uefi="8265d473-a6c2-42b4-897b-bc220faa2d32"
+			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
+			ami="a20caf4c-3ed8-531c-b59a-eb079ab5e65e"
+			coreboot="d33219e2-b84c-53a8-a624-27af9752dba6"
+			break
+			;;
+		"Star LabTop Mk IV")
+			ref="L4"
+			shell="/P /N /B /L"
+			hwid="baf1d04e-fd16-5e6a-93cc-1c23d171f879"
+			uefi="502bff68-b8db-4b01-86ef-ab65f6502a77"
+			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
+			ami="cc6437bf-0955-5c03-84a6-8b87c7a7c244"
+			coreboot="0ee5867c-93f0-5fb4-adf1-9d686ea1183a"
+			break
+			;;
+	esac
+done
+splash "What is the version number"
+PS3="Select the version: "
+version=$(ls | grep '.rom\|.bin' | sed 's/.rom//g' | sed 's/.bin//g' | uniq)
 
-array=()
+if [[ -e "$version.rom" ]] && [[ -e "$version.bin" ]]; then
+	:
+elif [[ -e "$version.rom" ]] && [[ $(du -k "$version.rom" | cut -f1) = 8*** ]]; then
+	# 8192KB SPI, no dedicated binary
+	cp $version.rom $version.bin
+fi
+
+releasenotes=()
 while IFS= read -r -p "Enter changes for release notes: " line; do
     [[ $line ]] || break
-    array+=("$line")
+    releasenotes+=("$line")
 done
 
-rn=$(printf '* %s\\n' "${array[@]}")
-crn=$(printf '\\t\\t<li>%s</li>\\n' "${array[@]}")
-ern=$(printf 'echo "%s"\\n' "${array[@]}")
-
-
-if [[ "$MODEL" == "I2" ]]; then
-	name="Star Lite Mk II"
-	hwid="80f1fd54-f581-571f-90e6-00bf8a67f627"
-	bios="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
-	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
-	s="/P /N"
-elif [[ "$MODEL" == "L3" ]]; then
-	name="Star LabTop Mk III"
-	hwid="e00a0d81-3992-52b2-b569-4195a56065f1"
-	cbid="61329016-2c61-5873-8682-ab300694452e"
-	bios="8265d473-a6c2-42b4-897b-bc220faa2d32"
-	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
-	s="/P /B /N"
-elif [[ "$MODEL" == "L4" ]]; then
-	name="Star LabTop Mk IV"
-	hwid="baf1d04e-fd16-5e6a-93cc-1c23d171f879"
-	bios="502bff68-b8db-4b01-86ef-ab65f6502a77"
-	ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
-	s="/P /B /N /L"
-elif [[ "$MODEL" == "I3" ]]; then
-        name="Star Lite Mk III"
-        hwid="d5521faa-c50b-5d64-971d-8fd400030c51"
-        bios="d9d7b13b-e4db-4f91-8bf6-8952a9caa82a"
-        ec="0aa07091-dc02-5e62-a0cd-9d3880721b64"
-        s="/P /N"
-fi
-TARGET=$(echo "$MODEL/$TYPE/$VERSION")
-FILE=$(ls "$VERSION".*)
-echo $FILE
-function backup() {
-  splash "Backing up original files"
-  mkdir -p "$TARGET/Original/"
-  cp "$FILE" "$TARGET/Original/"
-  echo "Done"
-}
+rn=$(printf '* %s\\n' "${releasenotes[@]}")
+crn=$(printf '\\t\\t\\t\\t\\t<li>%s</li>\\n' "${releasenotes[@]}")
+ern=$(printf 'echo "%s"\\n' "${releasenotes[@]}")
 
 function metadata() {
-  sed -i "s#%MODEL%#$MODEL#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%NAME%#$name#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%BIOS%#$bios#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%EC%#$ec#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%HWID%#$hwid#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%VERSION%#$VERSION#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%DATE%#$date#g" "$TARGET/CAB/$MODEL.metainfo.xml"
-  sed -i "s#%RELEASE%#$crn#" "$TARGET/CAB/$MODEL.metainfo.xml"
+printf "<\041--  Copyright 2019 Star Labs Online Limited  --> \
+	\n<component type=\"firmware\"> \
+	\n\t<id>com.starlabs.$ref.$firmware.$(echo $UpdateProtocol | rev | cut -d '.' -f1 | rev)</id> \
+	\n\t<name>$model</name> \
+	\n\t<summary>$firmware firmware for $model</summary> \
+	\n\t$Branch \
+	\n\t<description> \
+	\n\t\t<p>Updating the $firmware firmware for $model makes your computer more reliable and can add new features.</p> \
+	\n\t</description> \
+	\n\t<provides> \
+	\n\t\t<firmware type=\"flashed\">$PrimaryGuid</firmware> \
+	\n\t\t<firmware type=\"flashed\">$SecondaryGuid</firmware> \
+	\n\t</provides> \
+	\n\t<requires> \
+	\n\t\t<id compare=\"ge\" version=\"$ClientVersion\">org.freedesktop.fwupd</id> \
+	\n\t\t<hardware>$hwid</hardware> \
+	\n\t\t$Client \
+	\n\t</requires> \
+	\n\t<url type=\"homepage\">https://starlabs.systems</url> \
+	\n\t<metadata_license>CC0-1.0</metadata_license> \
+	\n\t<project_license>proprietary</project_license> \
+	\n\t<developer_name>Star Labs</developer_name> \
+	\n\t<custom> \
+	\n\t\t<value key=\"LVFS::UpdateProtocol\">$UpdateProtocol</value> \
+	\n\t\t<value key=\"LVFS::VersionFormat\">$VersionFormat</value> \
+	\n\t</custom> \
+	\n\t<categories> \
+	\n\t\t<category>X-Device</category> \
+	\n\t</categories> \
+	\n\t<releases> \
+	\n\t\t<release urgency=\"medium\" version=\"$Base$version\" date=\"$date\"> \
+	\n\t\t\t<checksum filename=\"$version.$Extension\" target=\"content\"/> \
+	\n\t\t\t<description> \
+	\n\t\t\t\t<p>This stable release includes the following features:</p> \
+	\n\t\t\t\t<ul> \
+	\n$crn \
+	\n\t\t\t\t</ul> \
+	\n\t\t\t</description> \
+	\n\t\t</release> \
+	\n\t</releases> \
+	\n</component>" | sed '/<firmware type="flashed"><\/firmware>/d' >> $ref.metainfo.xml
+}
+function nsh() {
+printf "echo -off \
+	\ncls
+	\nset payload $version.bin \
+	\n \
+	\necho \"*******************************************************************\" \
+	\necho \".d8888. d888888b  .d8b.  d8888b.   db       .d8b.  d8888b. .d8888. \" \
+	\necho \"88\'  YP \`~~88~~\' d8\' \`8b 88  \`8D   88      d8\' \`8b 88  \`8D 88\'  YP \" \
+	\necho \"\`8bo.      88    88ooo88 88oobY\'   88      88ooo88 88oooY\' \`8bo.   \" \
+	\necho \"  \`Y8b.    88    88~~~88 88\`8b     88      88~~~88 88~~~b.   \`Y8b. \" \
+	\necho \"db   8D    88    88   88 88 \`88.   88booo. 88   88 88   8D db   8D \" \
+	\necho \"\`8888Y\'    YP    YP   YP 88   YD   Y88888P YP   YP Y8888P\' \`8888Y\' \" \
+	\necho \"*******************************************************************\" \
+	\necho \"********************* BIOS & Firmware Update **********************\" \
+	\necho \"*******************************************************************\" \
+	\necho \" \" \
+	\necho \"This update is for the $model. Installing on any other laptop will cause it not to start.\" \
+	\necho \" \" \
+	\necho \"Press Enter to update firmware or press Q to quit.\" \
+	\npause \
+	\necho \"This update contains the following changes:\" \
+	\n$ern \
+	\nfor %%a run (0 10) \
+	\nif exist fs%%a:$tool.efi then \
+	\n  fs%%a: \
+	\n  $tool$selector %%payload%% $switch \
+	\n  reset \
+	\nendif \
+	\nendfor" >> startup.nsh
 }
 
-function efi() {
-  splash "Creating AMI EFI Shell Update"
-  mkdir -p "$TARGET/EFI/"
-  cp "MasterFiles/$TYPE.nsh" "$TARGET/EFI/startup.nsh"
-  if [[ "$TYPE" == "AMI" ]]; then
-    cp "MasterFiles/AfuEfix64.efi" "$TARGET/EFI/"
-  elif [[ "$TYPE" == "ITE" ]]; then
-    cp "MasterFiles/eFuitX64.efi" "$TARGET/EFI/"
-  fi
-  cp "$FILE" "$TARGET/EFI/$FILE"
+splash "Which type of update is it?"
+PS3="Select the firmware: "
+firmwares=("AMI" "coreboot" "ITE")
+select firmware in "${firmwares[@]}"
+do
+	target=$(echo "$model/$firmware/$version")
+	mkdir -p "$target"
+	cp $version.* "$target/"
 
-  sed -i "s#%SWITCH%#$s#g" "$TARGET/EFI/startup.nsh"
-  sed -i "s#%VERSION%#$VERSION#g" "$TARGET/EFI/startup.nsh"
-  sed -i "s#%RELEASE%#$ern#" "$TARGET/EFI/startup.nsh" 
-  echo "Creating .zip"
-  zip -rj "$TARGET/$MODEL-$VERSION.zip" "$TARGET/EFI/"* &>/dev/null
-}
+	case $firmware in
+		"AMI")
+			if [[ ! -e "$version.rom" ]] && [[ ! -e "$version.bin" ]]; then
+				echo "Required files not found. $version.rom $version.bin"
+				exit 0
+			fi
+			# CAB: UEFI Capsule
+			ClientVersion="1.3.9"
+			UpdateProtocol="org.uefi.capsule"
+			VersionFormat="triplet"
+			PrimaryGuid=$uefi
+			Extension="cap"
+			metadata
+			./header.py --guid "$uefi" --bin "$version.rom" --cap "$version.cap"
+			gcab -c "$target/uefi-$ref.cab" "$version.cap" "$ref.metainfo.xml"
+			rm "$ref.metainfo.xml" "$version.cap" "$version.rom"
+			# CAB: flashrom
+			ClientVersion="1.5.6"
+			UpdateProtocol="org.flashrom"
+			VersionFormat="triplet"
+			Extension="bin"
+			PrimaryGuid=$coreboot
+			metadata
+			gcab -c "$target/flashrom-$ref.cab" "$version.bin" "$ref.metainfo.xml"
+			rm "$ref.metainfo.xml"
+			# EFI Shell Update
+			tool=AfuEfix64
+			switch="%%payload%% $shell"
+			nsh
+			zip -rj "$target/efi-$ref.zip" "$version.bin" "startup.nsh" "binaries/$tool.efi"
+			rm startup.nsh "$version.bin"
+			break
+			;;
+		"coreboot")
+			ClientVersion="1.5.6"
+			UpdateProtocol="org.flashrom"
+			VersionFormat="number"
+			Branch="<branch>$firmware</branch>"
+			Client="<client>switch-branch</client>"
+			Base="0x"
+			PrimaryGuid="$coreboot"
+			SecondaryGuid="$ami"
+			Extension="rom"
+			metadata
+			gcab -c "$target/coreboot-$ref.cab" "$version.rom" "$ref.metainfo.xml"
+			rm "$ref.metainfo.xml" "$version.rom" "$version.bin"
+			break
+			;;
+		"ITE")
+			# CAB
+			ClientVersion="1.3.9"
+			UpdateProtocol="tw.com.ite.superio"
+			VersionFormat="pair"
+			Extension="bin"
+			PrimaryGuid=$superio
+			metadata
+			gcab -c "$target/ite-$ref.cab" "$version.bin" "$ref.metainfo.xml"
+			rm "$ref.metainfo.xml"
+			# EFI Shell Update
+			tool="eFuitX64"
+			selector=" /u"
+			switch="/faildelay"
+			nsh
+			zip -rj "$target/efi-$ref.zip" "$version.bin" "startup.nsh" "binaries/$tool.efi"
+			rm startup.nsh "$version.bin"
+			break
+			;;
+	esac
+done
 
-function cab() {
-  mkdir -p "$TARGET/CAB/"
-  cp "MasterFiles/$TYPE.metainfo.xml" "$TARGET/CAB/$MODEL.metainfo.xml"
-  if [[ "$TYPE" == "AMI" ]]; then
-    ./header.py --guid "$bios" --bin "$FILE" --cap "$TARGET/CAB/$VERSION.cap"
-  elif [[ "$TYPE" == "coreboot" ]]; then
-    cp "$FILE" "$TARGET/CAB/$FILE"
-  elif [[ "$TYPE" == "ITE" ]]; then
-    cp "$FILE" "$TARGET/CAB/$FILE"
-  fi
-  metadata
-  if [[ "$cbid" ]]; then
-    sed -i "/firmware type=/a     <firmware type=\"flashed\">$cbid</firmware>" "$TARGET/CAB/$MODEL.metainfo.xml"
-  fi
-  echo "Creating .cab"
-  gcab -cn "$TARGET/$MODEL.cab" "$TARGET/CAB/"*
-}
 
-backup
-if [[ "$TYPE" == "AMI" ]]; then
-  cab
-  efi
-elif [[ "$TYPE" == "coreboot" ]]; then
-  cab
-elif [[ "$TYPE" == "ITE" ]]; then
-  cab
-  efi
-fi
 
-rm $FILE
 echo "Updating README"
 
-sed -i "/$name/a $rn" README.md
-sed -i "/$name/a \#\#\#\# $TYPE: $VERSION ($date)" README.md
+sed -i "/$model/a $rn" README.md
+sed -i "/$model/a \#\#\#\# $TYPE: $VERSION ($date)" README.md
 
 
 echo "Upload to GitHub?"
 select git in "Yes" "No"
-  do
-    break
-  done
-if [[ "$git" == 'Yes' ]]; then
-  git add *
-  git commit -m "Added $name $VERSION"
-  git push
-fi
+do
+	case $git in
+		"Yes")
+			git add *
+			git commit -m "Added $name $VERSION"
+			git push
+			break
+			;;
+	esac
+done

@@ -100,13 +100,6 @@
 
 
 ## Star LabTop Mk III
-#### coreboot: 1 (2021-03-09)
-* Rebase on upstream
-* Changed to ASL v2 syntax
-
-#### coreboot: 0 (2021-03-01)
-* Beta Release
-
 #### 2.0.0
 * Enabled BLE
 

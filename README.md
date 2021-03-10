@@ -101,6 +101,9 @@
 
 ## Star LabTop Mk III
 #### :  (2021-03-10)
+* Added LOCKDIS method
+
+#### :  (2021-03-10)
 * Beta Release
 
 #### 2.0.0

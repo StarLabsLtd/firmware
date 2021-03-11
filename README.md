@@ -1,10 +1,5 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ## Star Lite Mk III
-#### :  (2021-03-11)
-* Updated DPTF
-* Updated Verb Table
-* Enabled BLE
-
 #### AMI: 1.4.0 (2021-02-23)
 * Updated DPTF
 
@@ -142,11 +137,6 @@
 * Removed redundant AMI PK Keys
 
 ## Star Lite Mk II
-#### :  (2021-03-11)
-* Updated DPTF
-* Updated Verb Table
-* Enabled BLE
-
 #### AMI: 1.5.0 (2021-03-03)
 * Updated DPTF
 * Updated Verb Table

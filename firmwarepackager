@@ -242,7 +242,7 @@ done
 echo "Updating README"
 
 sed -i "/$model/a $rn" README.md
-sed -i "/$model/a \#\#\#\# $TYPE: $VERSION ($date)" README.md
+sed -i "/$model/a \#\#\#\# $firmware: $version ($date)" README.md
 
 
 echo "Upload to GitHub?"

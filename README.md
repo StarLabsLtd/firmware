@@ -100,6 +100,13 @@
 
 
 ## Star LabTop Mk III
+#### coreboot: 3 (2021-03-24)
+* Updated libgfxinit configuration
+* Rebase on upstream
+* Adjusted memory handling
+* Updated VBT ID's
+* Removed unused ACPI
+
 #### :  (2021-03-10)
 * Added LOCKDIS method
 

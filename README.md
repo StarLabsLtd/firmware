@@ -107,6 +107,14 @@
 
 
 ## Star LabTop Mk III
+#### coreboot: 3 (2021-03-24)
+* Updated libgfxinit configuration
+* Rebase on upstream
+* Adjusted memory handling
+* Updated VBT ID's
+* Removed unused ACPI
+* Disabled S4
+
 #### 2.0.0
 * Enabled BLE
 

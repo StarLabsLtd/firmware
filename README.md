@@ -32,12 +32,6 @@
 
  
 ## Star LabTop Mk IV
-#### coreboot: 3 (2021-03-24)
-* Updated VBT ID's
-* Removed unused ACPI
-* Rebase on upstream
-* Updated FSP configuration
-
 #### coreboot: 2 (2021-03-09)
 * Rebase on upstream
 * Changed to ASL v2 syntax
@@ -106,19 +100,6 @@
 
 
 ## Star LabTop Mk III
-#### coreboot: 3 (2021-03-24)
-* Updated libgfxinit configuration
-* Rebase on upstream
-* Adjusted memory handling
-* Updated VBT ID's
-* Removed unused ACPI
-
-#### :  (2021-03-10)
-* Added LOCKDIS method
-
-#### :  (2021-03-10)
-* Beta Release
-
 #### 2.0.0
 * Enabled BLE
 

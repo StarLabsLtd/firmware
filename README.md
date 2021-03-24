@@ -32,6 +32,12 @@
 
  
 ## Star LabTop Mk IV
+#### coreboot: 3 (2021-03-24)
+* Updated VBT ID's
+* Removed unused ACPI
+* Rebase on upstream
+* Updated FSP configuration
+
 #### coreboot: 2 (2021-03-09)
 * Rebase on upstream
 * Changed to ASL v2 syntax

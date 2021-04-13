@@ -32,6 +32,14 @@
 
  
 ## Star LabTop Mk IV
+#### coreboot: 4 (2021-04-13)
+* Rebase on upstream
+* Changed Tianocore to upp_next
+* Configured CMOS to allow settings to be changed with coreboot-configurator application
+* Disabled VBR
+* Fixed bug where Fn Lock state lost on reboot
+* Enabled EVAC register in EC asl
+
 #### coreboot: 3 (2021-03-24)
 * Updated VBT ID's
 * Removed unused ACPI

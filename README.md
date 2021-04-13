@@ -34,7 +34,7 @@
 ## Star LabTop Mk IV
 #### coreboot: 4 (2021-04-13)
 * Rebase on upstream
-* Changed Tianocore to upp_next
+* Changed Tianocore to upp_next branch
 * Configured CMOS to allow settings to be changed with coreboot-configurator application
 * Disabled VBR
 * Fixed bug where Fn Lock state lost on reboot

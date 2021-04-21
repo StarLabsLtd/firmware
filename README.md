@@ -32,6 +32,9 @@
 
  
 ## Star LabTop Mk IV
+#### AMI: 2.4.0 (2021-04-21)
+* Fixed bug where Windows would output sound to both headphones and speakers
+
 #### coreboot: 4 (2021-04-13)
 * Rebase on upstream
 * Changed Tianocore to upp_next branch

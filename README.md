@@ -118,9 +118,6 @@
 
 
 ## Star LabTop Mk III
-#### coreboot: 5 (2021-04-19)
-* Updated GMA for display output
-
 #### coreboot: 4 (2021-04-13)
 * Rebase on upstream
 * Changed Tianocore to upp_next branch

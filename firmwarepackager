@@ -194,7 +194,7 @@ do
 			rm "$ref.metainfo.xml"
 			# EFI Shell Update
 			tool=AfuEfix64
-			switch="%%payload%% $shell"
+			switch="$shell"
 			nsh
 			zip -rj "$target/efi-$ref.zip" "$version.bin" "startup.nsh" "binaries/$tool.efi"
 			rm startup.nsh "$version.bin"

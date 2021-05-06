@@ -32,6 +32,13 @@
 
  
 ## Star LabTop Mk IV
+#### coreboot: 5 (2021-05-06)
+* Rebased on upstream
+* Added CMOS option to enable Intel ME
+* Fixed bug where ECOS wasnt stored on S3
+* Improved battery ACPI
+* Removed delay for charger connect/disconnect
+
 #### AMI: 2.4.0 (2021-04-21)
 * Fixed bug where Windows would output sound to both headphones and speakers
 

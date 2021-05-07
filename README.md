@@ -125,12 +125,13 @@
 
 
 ## Star LabTop Mk III
-#### coreboot: coreboot (2021-05-07)
+#### coreboot: 5 (2021-05-07)
 * Rebased on upstream
 * Added CMOS option to enable Intel ME
-* Fixed bug where ECOS wasnt stored on S3
+* Fixed bug where ECOS wasn't stored on S3
 * Fixed bug where S3 wouldn't resume
 * Improved battery ACPI
+* Removed delay for charger connect/disconnect
 
 #### coreboot: 4 (2021-04-13)
 * Rebase on upstream

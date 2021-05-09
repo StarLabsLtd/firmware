@@ -32,7 +32,7 @@
 
  
 ## Star LabTop Mk IV
-#### coreboot: 5 (2021-05-06)
+#### coreboot: 5 (2021-05-09)
 * Rebased on upstream
 * Added CMOS option to enable Intel ME
 * Fixed bug where ECOS wasnt stored on S3

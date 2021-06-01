@@ -125,6 +125,9 @@
 
 
 ## Star LabTop Mk III
+#### ITE: 1.03 (2021-06-01)
+* Modified charging frequency to reduce noise
+
 #### coreboot: 5 (2021-05-07)
 * Rebased on upstream
 * Added CMOS option to enable Intel ME

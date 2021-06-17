@@ -1,5 +1,11 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ## Star Lite Mk III
+#### AMI: 1.7.0 (2021-06-17)
+* Improved DPTF configuration
+* Enabled dito
+* Updated CSE
+* Enabled Sen1 + Sen2
+
 #### ITE: 1.03 (2021-06-01)
 * Modified charging frequency to reduce noise
 

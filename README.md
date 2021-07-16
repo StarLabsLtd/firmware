@@ -160,6 +160,24 @@
 
 
 ## Star LabTop Mk III
+#### coreboot: 6 (2021-07-16)
+* Rebase on upstream
+* New VBT's that prioritise performance over power consumption
+* New BGRT logo
+* Updated microcode
+* Updated FSP
+* Use open-source LIBGFXINIT (KBL and CML only)
+* Option to disable or enable Wireless
+* Option to disable or enable Webcam
+* Option to disable or enable Microphone
+* Option to disable or enable Hyper-Threading
+* Option to disable or enable Intel VT-d
+* Option to disable or enable Clock Gating
+* Option to adjust the Thermal Design Power (15W / 20W / 25W)
+* Q-Events for specific models
+* Fixed bug where Qubes wouldn't boot (Requires disabling Clock Gating)
+* Fixed bug where Function Lock state was lost
+
 #### ITE: 1.03 (2021-06-01)
 * Modified charging frequency to reduce noise
 

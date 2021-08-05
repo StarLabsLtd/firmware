@@ -160,13 +160,13 @@
 
 
 ## Star LabTop Mk III
-#### coreboot: 6 (2021-07-16)
+#### coreboot: 6 (2021-08-05)
 * Rebase on upstream
 * New VBT's that prioritise performance over power consumption
 * New BGRT logo
 * Updated microcode
 * Updated FSP
-* Use open-source LIBGFXINIT (KBL and CML only)
+* Use open-source LIBGFXINIT
 * Option to disable or enable Wireless
 * Option to disable or enable Webcam
 * Option to disable or enable Microphone

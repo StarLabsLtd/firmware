@@ -14,7 +14,7 @@
 * Updated CSE
 * Enabled Sen1 + Sen2
 
-#### ITE: 1.03 (2021-06-01)
+#### [ITE: 1.03 (2021-06-01)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20Lite%20Mk%20III/ITE/1.03/efi-I3.zip)
 * Modified charging frequency to reduce noise
 
 #### AMI: 1.4.0 (2021-02-23)
@@ -74,7 +74,7 @@
 * Improved battery ACPI
 * Removed delay for charger connect/disconnect
 
-#### AMI: 2.4.0 (2021-04-21)
+#### [AMI: 2.4.0 (2021-04-21)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20LabTop%20Mk%20IV/AMI/2.4.0/efi-L4.zip)
 * Fixed bug where Windows would output sound to both headphones and speakers
 
 #### coreboot: 4 (2021-04-13)
@@ -110,7 +110,7 @@
 * Added option to disable BLE
 * Updated Verb Table
 
-#### EC: 1.04
+#### [EC: 1.04](https://github.com/StarLabsLtd/firmware/raw/master/Star%20LabTop%20Mk%20IV/ITE/1.04/efi-L4.zip)
 * Function lock state remembered between reboots
 
 #### BIOS: 2.1.0

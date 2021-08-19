@@ -49,6 +49,11 @@
 
  
 ## Star LabTop Mk IV
+#### coreboot: 7 (2021-08-19)
+* Rebase on upstream
+* Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled
+* Fixed second ACPI backlight control
+
 #### coreboot: 6 (2021-08-05)
 * Rebase on upstream
 * New VBT's that prioritise performance over power consumption

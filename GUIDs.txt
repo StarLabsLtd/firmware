@@ -22,6 +22,12 @@
 		486b088c-dd0a-582b-bf3b-f745b9af66f7	6da40160-2553-5256-b78c-4d85349743f0
 		cc6437bf-0955-5c03-84a6-8b87c7a7c244	0ee5867c-93f0-5fb4-adf1-9d686ea1183a
 
+# StarBook Mk V
+/* hwid */	85aba599-addd-5985-a2e8-eddb41c61ba3	85aba599-addd-5985-a2e8-eddb41c61ba3
+/* uefi */	e27d9e98-cbb2-4975-a8f8-261de2adde05	N/A
+/* superio */	TBC					TBC
+/* flashrom */	
+
 # Star Lite Mk II
 /* hwid */	013b60e5-1023-5bee-8ae5-14cae21377b7
 /* uefi */	797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0

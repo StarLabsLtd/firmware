@@ -170,7 +170,7 @@ printf "echo -off \
 
 splash "Which type of update is it?"
 PS3="Select the firmware: "
-firmwares=("AMI" "coreboot" "ITE")
+firmwares=("AMI" "coreboot" "ITE" "ITE128")
 select firmware in "${firmwares[@]}"
 do
 	target=$(echo "$model/$firmware/$version")
@@ -244,6 +244,25 @@ do
 			rm startup.nsh "$version.bin"
 			break
 			;;
+		"ITE128")
+			# CAB
+			ClientVersion="1.7.0"
+			UpdateProtocol="tw.com.ite.superio"
+			VersionFormat="pair"
+			Extension="bin"
+			PrimaryGuid=$superio
+			metadata
+			gcab -c "$target/ite-$ref.cab" "$version.bin" "$ref.metainfo.xml"
+			rm "$ref.metainfo.xml"
+			# EFI Shell Update
+			tool="ifu"
+			selector=""
+			switch="128"
+			nsh
+			zip -rj "$target/efi-$ref.zip" "$version.bin" "startup.nsh" "binaries/$tool.efi"
+			rm startup.nsh "$version.bin"
+			break
+			;;
 	esac
 done
 
@@ -254,7 +273,7 @@ echo "Updating README"
 sed -i "/$model/a $rn" README.md
 sed -i "/$model/a \#\#\#\# $firmware: $version ($date)" README.md
 
-
+PS3="Upload to GitHub: "
 echo "Upload to GitHub?"
 select git in "Yes" "No"
 do

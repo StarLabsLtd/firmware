@@ -24,7 +24,7 @@
 
 # StarBook Mk V
 /* hwid */	85aba599-addd-5985-a2e8-eddb41c61ba3	85aba599-addd-5985-a2e8-eddb41c61ba3
-/* uefi */	e27d9e98-cbb2-4975-a8f8-261de2adde05	N/A
+/* uefi */	230c8b18-8d9b-53ec-838b-6cfc0383493a	N/A
 /* superio */	0aa07091-dc02-5e62-a0cd-9d3880721b64	0aa07091-dc02-5e62-a0cd-9d3880721b64
 /* flashrom */	230c8b18-8d9b-53ec-838b-6cfc0383493a	230c8b18-8d9b-53ec-838b-6cfc0383493a
 		7c13a5b2-22f8-5564-8b48-4bbf20da8ed6	7c13a5b2-22f8-5564-8b48-4bbf20da8ed6

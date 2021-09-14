@@ -49,6 +49,10 @@
 
  
 ## Star LabTop Mk IV
+#### ITE: 1.05 (2021-09-14)
+* Updated power configuration
+* Use battery power when charger doesnt supply enough
+
 #### coreboot: 7 (2021-08-19)
 * Rebase on upstream
 * Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled

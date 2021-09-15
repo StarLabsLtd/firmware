@@ -49,6 +49,9 @@
 
  
 ## Star LabTop Mk IV
+#### ITE: 1.06 (2021-09-15)
+* Add Q Event for Touchpad State which allows it to be saved on reboot
+
 #### ITE: 1.05 (2021-09-14)
 * Updated power configuration
 * Use battery power when charger doesnt supply enough

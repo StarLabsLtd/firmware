@@ -17,7 +17,7 @@ echo "==========================================================================
 
 date=$(date '+%Y-%m-%d')
 read -p "Override date?" overrideDate
-if overrideDate; do
+if -v overrideDate; then
 	date = $(echo overrideDate)
 fi
 

@@ -104,6 +104,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [2.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.4.0/efi-L4.zip) (2021-09-22)
+>     Fixed bug where Windows would output sound to both headphones and speakers
+
 #### coreboot: [4](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/4/efi-L4.zip) (2021-09-22)
 >     Rebase on upstream
 >     Changed Tianocore to upp_next branch

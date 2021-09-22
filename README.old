@@ -41,29 +41,11 @@
 #### [AMI: 2.4.0 (2021-04-21)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20LabTop%20Mk%20IV/AMI/2.4.0/efi-L4.zip)
 * Fixed bug where Windows would output sound to both headphones and speakers
 
-#### coreboot: 4 (2021-04-13)
-* Rebase on upstream
-* Changed Tianocore to upp_next branch
-* Configured CMOS to allow settings to be changed with coreboot-configurator application
-* Disabled VBR
-* Fixed bug where Fn Lock state lost on reboot
-* Enabled EVAC register in EC asl
 
-#### coreboot: 3 (2021-03-24)
-* Updated VBT ID's
-* Removed unused ACPI
-* Rebase on upstream
-* Updated FSP configuration
-* Disabled S4
 
-#### coreboot: 2 (2021-03-09)
-* Rebase on upstream
-* Changed to ASL v2 syntax
 
-#### coreboot: 1 (2021-03-01)
-* Rebase on upstream
-* Reverted to FSP
-* Updated BGRT Logo
+
+
 
 
 

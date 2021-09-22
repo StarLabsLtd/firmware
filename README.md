@@ -70,6 +70,9 @@
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### ITE: [1.04](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.04/efi-L4.zip) (2021-09-22)
+>     Remember Function Lock state between reboots
+
 #### ITE: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.03/efi-L4.zip) (2021-09-22)
 >     Updated fan curve
 

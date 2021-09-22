@@ -270,6 +270,14 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [4](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/4/efi-L3.zip) (2021-09-22)
+>     Rebase on upstream
+>     Changed Tianocore to upp_next branch
+>     Configured CMOS to allow settings to be changed with coreboot-configurator application
+>     Disabled VBR
+>     Fixed bug where Fn Lock state lost on reboot
+>     Enabled EVAC register in EC asl
+
 #### coreboot: [3](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/3/efi-L3.zip) (2021-09-22)
 >     Updated libgfxinit configuration
 >     Rebase on upstream

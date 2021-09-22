@@ -104,6 +104,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### ITE: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.02/efi-L4.zip) (2021-09-22)
+>     Updated fan curve
+>     
+
 #### ITE: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.01/efi-L4.zip) (2021-09-22)
 >     Updated fan curve
 >     Updated Fn binding at post

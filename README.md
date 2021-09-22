@@ -231,6 +231,9 @@
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
+#### ITE: [14.08](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/ITE/14.08/efi-I2.zip) (2021-09-22)
+>     Fixed power drain when suspended
+
 #### AMI: [1.5.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/AMI/1.5.0/efi-I2.zip) (2021-09-22)
 >     Updated DPTF
 >     Updated Verb Table

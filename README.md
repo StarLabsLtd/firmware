@@ -69,6 +69,9 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### ITE: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.03/efi-I3.zip) (2021-09-22)
+>     Modified charging frequency to reduce noise
+
 #### AMI: [1.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.4.0/efi-I3.zip) (2021-09-22)
 >     Updated DPTF
 

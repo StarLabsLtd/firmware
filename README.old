@@ -25,35 +25,7 @@
 #### [ITE: 1.03 (2021-06-01)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20Lite%20Mk%20III/ITE/1.03/efi-I3.zip)
 * Modified charging frequency to reduce noise
 
-#### AMI: 1.4.0 (2021-02-23)
-* Updated DPTF
 
-#### AMI: 1.3.0 (2021-01-22)
-* Updated Verb Table
-* Updated SSD initialisation
-
-#### ITE: 1.02 (2021-01-06)
-* Improved compatibility with third-party chargers
-* Fixed keyboard backlight control
-* Adjusted trackpad handler
-
-#### ITE: 1.01 (2020-12-26)
-* Fixed keyboard backlight timeout
-
-#### AMI: 1.2.0 (2020-12-22)
-* Updated Verb Table
-* Optimised Power Management
-* Removed PL1 Limitation
-* Updated Secure Boot Keys
-
-#### BIOS: 1.1.0
-* Updated wireless settings
-
-#### BIOS: 1.0.0
-* Initial Release
-
-#### EC: 1.00
-* Initial Release
 
  
 ## Star LabTop Mk IV

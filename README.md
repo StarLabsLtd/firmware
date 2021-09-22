@@ -104,6 +104,13 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/1.6.0/efi-L4.zip) (2021-09-22)
+>     Changed default brightness to 100
+>     Updated Secure Boot Keys
+>     Improved support for SATA SSD's
+>     Improved charging speed
+>     Improved Type-C detection
+
 #### ITE: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.03/efi-L4.zip) (2021-09-22)
 >     Updated fan curve
 

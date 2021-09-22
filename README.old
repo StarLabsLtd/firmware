@@ -93,34 +93,10 @@
 * Improved charging speed
 * Improved Type-C detection
 
-#### EC: 1.03
-* Updated fan curve
 
-#### EC: 1.02
-* Updated fan curve
 
-#### EC: 1.01
-* Updated fan curve
-* Updated Fn binding at post
 
-#### BIOS: 1.4.0
-* Adjusted audio subsystem
 
-#### BIOS: 1.3.0
-* Improved WiFi configuration
-* Improved audio jack detection
-
-#### BIOS: 1.2.0
-* Fixed bug where headphones not detected
-
-#### BIOS: 1.1.0
-* Updated WRDS values for increased WiFi performance
-
-#### BIOS: 1.0.0
-* Initial Release
-
-#### EC: 1.00
-* Initial Release
 
 
 ## Star LabTop Mk III

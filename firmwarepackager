@@ -16,6 +16,10 @@ echo "==========================================================================
 }
 
 date=$(date '+%Y-%m-%d')
+read -p "Override date?" overrideDate
+if overrideDate; do
+	date = $(echo overrideDate)
+fi
 
 splash "Which laptop are you creating an update for?"
 PS3="Select the model: "
@@ -300,7 +304,7 @@ do
 	case $git in
 		"Yes")
 			git add *
-			git commit -m "Added $name $VERSION"
+			git commit -m "Added $series $ver $version"
 			git push
 			echo "Done"
 			break

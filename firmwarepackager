@@ -103,7 +103,7 @@ done </tmp/release
 
 rm /tmp/release
 
-rn=$(printf '>%s\\n' "${releasenotes[@]}" | sed 's/ /&nbsp;/g')
+rn=$(printf '>%s\\n' "${releasenotes[@]}" | sed 's/ /\&nbsp;/g')
 crn=$(printf '\\t\\t\\t\\t\\t<li>%s</li>\\n' "${releasenotes[@]}")
 ern=$(printf 'echo "%s"\\n' "${releasenotes[@]}")
 

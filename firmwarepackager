@@ -284,7 +284,7 @@ done
 
 echo "Updating README"
 
-log=`echo "\*\*$series\*\*$ver"`
+log=`echo "\*\*$series\*\*\[$ver\]"`
 echo $log
 
 sed -i "/$log/a $rn" README.md

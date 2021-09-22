@@ -4,6 +4,36 @@
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
 #### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-22)
+>Initial  nbsp;release  nbsp;firmware  nbsp;for  nbsp;the  nbsp;StarBook  nbsp;Mk  nbsp;V
+>  nbsp;
+>coreboot:  nbsp;  nbsp;  nbsp;4.14
+>CSME:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;15.0.30.1776
+>Microcode:  nbsp;  nbsp;0x88
+>FSP:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;A.0.51.31
+>  nbsp;
+>Configurable  nbsp;options:
+>Hyper-Threading:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>Intel  nbsp;VT-d:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>Power  nbsp;Profile:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Power  nbsp;Saving  nbsp;/  nbsp;Balanced  nbsp;/  nbsp;Performance
+>ME  nbsp;State:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>Wireless:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>Microphone:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>Clock  nbsp;Gating:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>Keyboard  nbsp;Backlight  nbsp;Timeout:  nbsp;  nbsp;30  nbsp;seconds  nbsp;/  nbsp;1  nbsp;minute  nbsp;/  nbsp;3  nbsp;minutes  nbsp;/  nbsp;5  nbsp;minutes  nbsp;/  nbsp;Never
+>Fn  nbsp;Ctrl  nbsp;Swap:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;Enable  nbsp;/  nbsp;Disable
+>  nbsp;
+>Power  nbsp;Profiles  nbsp;are  nbsp;as  nbsp;below:
+>Performance:  nbsp;  nbsp;  nbsp;PL1:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;35W
+>  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;PL2:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;64W
+>  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;TurboBoost:  nbsp;  nbsp;Enabled
+>Balanced:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;PL1:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;15W
+>  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;PL2:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;35W
+>  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;TurboBoost:  nbsp;  nbsp;Enabled
+>Power  nbsp;Saving:  nbsp;  nbsp;PL1:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;15W
+>  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;PL2:  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;15W
+>  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;  nbsp;TurboBoost:  nbsp;  nbsp;Disabled
+
+#### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-22)
 >Initial&nbsp;release&nbsp;firmware&nbsp;for&nbsp;the&nbsp;StarBook&nbsp;Mk&nbsp;V
 >&nbsp;
 >coreboot:&nbsp;&nbsp;&nbsp;4.14

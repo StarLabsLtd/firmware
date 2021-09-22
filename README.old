@@ -65,33 +65,9 @@
 * Reverted to FSP
 * Updated BGRT Logo
 
-#### AMI: 2.3.0 (2021-01-22)
-* Added Windows Compliant Codec Header
-* Update Headset Mic Detection
 
-#### AMI: 2.2.0 (2020-12-16)
-* Updated Microcode
-* Added option to disable BLE
-* Updated Verb Table
 
-#### [EC: 1.04](https://github.com/StarLabsLtd/firmware/raw/master/Star%20LabTop%20Mk%20IV/ITE/1.04/efi-L4.zip)
-* Function lock state remembered between reboots
 
-#### BIOS: 2.1.0
-* Updated verb table to enable headphone jack detection
-
-#### BIOS: 2.0.0
-* Updated verb table for headphone jack detection
-
-#### BIOS: 1.8.0
-* Updated verb table for headphone detection
-
-#### BIOS: 1.6.0
-* Changed default brightness to 100
-* Updated Secure Boot Keys
-* Improved support for SATA SSD's
-* Improved charging speed
-* Improved Type-C detection
 
 
 

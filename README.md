@@ -104,6 +104,11 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/1/efi-L4.zip) (2021-09-22)
+>     Rebase on upstream
+>     Reverted to FSP
+>     Updated BGRT Logo
+
 #### AMI: [2.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.3.0/efi-L4.zip) (2021-09-22)
 >     Added Windows Compliant Codec Header
 >     Update Headset Mic Detection

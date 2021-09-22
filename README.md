@@ -104,6 +104,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [1.8.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/1.8.0/efi-L4.zip) (2021-09-22)
+>     Updated verb table for headphone detection
+
 #### AMI: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/1.6.0/efi-L4.zip) (2021-09-22)
 >     Changed default brightness to 100
 >     Updated Secure Boot Keys

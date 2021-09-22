@@ -69,6 +69,9 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### AMI: [1.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.4.0/efi-I3.zip) (2021-09-22)
+>     Updated DPTF
+
 #### AMI: [1.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.3.0/efi-I3.zip) (2021-09-22)
 >     Updated Verb Table
 >     Updated SSD initialisation

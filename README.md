@@ -104,6 +104,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### ITE: [1.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.05/efi-L4.zip) (2021-09-22)
+>     Updated power configuration
+>     Use battery power when charger doesnt supply enough
+
 #### coreboot: [6](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/6/efi-L4.zip) (2021-09-22)
 >     Rebase on upstream
 >     New VBT's that prioritise performance over power consumption

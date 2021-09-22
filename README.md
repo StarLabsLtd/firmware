@@ -104,6 +104,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [2.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.3.0/efi-L4.zip) (2021-09-22)
+>     Added Windows Compliant Codec Header
+>     Update Headset Mic Detection
+
 #### AMI: [2.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.2.0/efi-L4.zip) (2021-09-22)
 >     Updated Microcode
 >     Added option to disable BLE

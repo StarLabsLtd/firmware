@@ -69,6 +69,15 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### AMI: [2.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/2.1.0/efi-I3.zip) (2021-09-22)
+>     Updated SGX allocations
+>     Updated Microcode
+>     Improved Charger configuration
+>     Updated SGX configuration
+>     Improved DPTF configuration
+>     Enabled dito
+>     Updated CSE
+
 #### ITE: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.03/efi-I3.zip) (2021-09-22)
 >     Modified charging frequency to reduce noise
 
@@ -224,15 +233,6 @@
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
-#### AMI: [2.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/2.1.0/efi-L3.zip) (2021-09-22)
->     Updated SGX allocations
->     Updated Microcode
->     Improved Charger configuration
->     Updated SGX configuration
->     Improved DPTF configuration
->     Enabled dito
->     Updated CSE
-
 ---
 # [© Star Labs®](https://starlabs.systems) / All Rights Reserved.
 Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)

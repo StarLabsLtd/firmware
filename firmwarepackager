@@ -277,7 +277,8 @@ done
 echo "Updating README"
 
 sed -i "/$model/a $rn" README.md
-sed -i "/$model/a \#\#\#\# $firmware: $version ($date)" README.md
+url=`echo $model | sed 's/ /%20/g'`
+sed -i "/$model/a \#\#\#\# $firmware: [$version](https://github.com/StarLabsLtd/firmware/raw/master/$url/ITE/$version/efi-$ref.zip) ($date)" README.md
 
 echo "Upload to GitHub?"
 select git in "Yes" "No"

@@ -1,6 +1,14 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
+## StarBook Mk V
+#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook%20Mk%20V/ITE/1.00/efi-B5.zip) (2021-09-22)
+* Initial Release
+
+#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/$StarBook%20Mk%20V/ITE/1.00/efi-B5.zip) (2021-09-22)
+* Initial Release
+
+
 ## Star Lite Mk III
-#### [AMI: 2.1.0 (2021-07-06)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20Lite%20Mk%20III/AMI/2.1.0/efi-I3.zip)
+#### [AMI: 2.1.0](2021-07-06)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20Lite%20Mk%20III/AMI/2.1.0/efi-I3.zip)
 * Updated SGX allocations
 
 #### AMI: 2.0.0 (2021-06-18)

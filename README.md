@@ -69,6 +69,9 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### AMI: [1.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.1.0/efi-I3.zip) (2021-09-22)
+>     Updated wireless configuration
+
 #### ITE: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.00/efi-I3.zip) (2021-09-22)
 >     Initial release firmware for the StarLite Mk III
 

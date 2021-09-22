@@ -104,6 +104,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### ITE: [1.06](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.06/efi-L4.zip) (2021-09-22)
+>     Add Q Event for Touchpad State which allows it to be saved on reboot
+
 #### ITE: [1.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.05/efi-L4.zip) (2021-09-22)
 >     Updated power configuration
 >     Use battery power when charger doesnt supply enough

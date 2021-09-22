@@ -270,6 +270,14 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [5](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/5/efi-L3.zip) (2021-09-22)
+>     Rebased on upstream
+>     Added CMOS option to enable Intel ME
+>     Fixed bug where ECOS wasn't stored on S3
+>     Fixed bug where S3 wouldn't resume
+>     Improved battery ACPI
+>     Removed delay for charger connect/disconnect
+
 #### coreboot: [4](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/4/efi-L3.zip) (2021-09-22)
 >     Rebase on upstream
 >     Changed Tianocore to upp_next branch

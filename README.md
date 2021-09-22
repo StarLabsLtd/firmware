@@ -104,6 +104,13 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [3](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/3/efi-L4.zip) (2021-09-22)
+>     Updated VBT ID's
+>     Removed unused ACPI
+>     Rebase on upstream
+>     Updated FSP configuration
+>     Disabled S4
+
 #### coreboot: [2](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/2/efi-L4.zip) (2021-09-22)
 >     Rebase on upstream
 >     Changed to ASL v2 syntax

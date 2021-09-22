@@ -288,7 +288,7 @@ log=`echo "\*\*$series\*\*\[$ver\]"`
 echo $log
 
 sed -i "/$log/a $rn" README.md
-sed -i "/$log/a \#\#\#\# $firmware: [$version](https://github.com/StarLabsLtd/firmware/raw/master/$series/$ver/ITE/$version/efi-$ref.zip) ($date)" README.md
+sed -i "/$log/a \#\#\#\# $firmware: [$version](https://github.com/StarLabsLtd/firmware/raw/master/$series/$ver/$firmware/$version/efi-$ref.zip) ($date)" README.md
 
 echo "Upload to GitHub?"
 select git in "Yes" "No"

@@ -104,6 +104,11 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [2.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.2.0/efi-L4.zip) (2021-09-22)
+>     Updated Microcode
+>     Added option to disable BLE
+>     Updated Verb Table
+
 #### ITE: [1.04](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.04/efi-L4.zip) (2021-09-22)
 >     Function lock state remembered between reboots
 

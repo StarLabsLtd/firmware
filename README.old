@@ -78,53 +78,11 @@
 * Removed redundant modules
 * Removed redundant AMI PK Keys
 
-## Star Lite Mk II
-#### AMI: 1.5.0 (2021-03-03)
-* Updated DPTF
-* Updated Verb Table
-* Enabled BLE
 
-#### EC: 1.00
-* Initial Release
 
-#### BIOS: 1.4.0
-* Updated PK
-* Enabled BLE
-* Updated Power Management for better battery retention whilst sleeping and suspended
-* Updated ROM layout
 
-#### BIOS: 1.3.0
-* Updated Microcode to 40
-* Updated PK
-* Enabled BLE
-* Updated Power Management for better battery retention whilst sleeping and suspended
 
-#### 1.2.0
-* Staged option to reverse Ctrl + Fn Keys
-* Updated Microcode
 
-#### 1.1.0
-* Fixed pop sound from speakers
-* Improved processor power management
-
-#### 1.0.8
-* Improvement to speakers
-
-#### 1.0.7
-* Improvements to trackpad accuracy
-* Improvements to power management
-
-#### 1.0.5
-* Fixed issue that prevent boot order being changed from OS
-
-#### 1.0.4
-* Adjusting timing of power button
-* Added BIOS option to set Keyboard Backlight Timeout
-* Added BIOS option to set VRAM Aperture
-* Fixed issue with Fn Lock state not being remembering between reboots
-* Added option to disable wireless
-* Added option to disable webcam
-* Added power-save mode
 
 # [© Star Labs® / All Rights Reserved.](https://starlabs.systems)
 Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)

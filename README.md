@@ -270,6 +270,23 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### AMI: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/1.6.0/efi-L3.zip) (2021-09-22)
+>     Updated Microcode to D6
+>     Updated CSME to 11.8.79.3772
+>     Added System PK
+>     Fixed adjustable keyboard backlight
+>     Improved ACPI support
+>     Improved SSD configuration
+>     New option to reverse Ctrl + Fn keys
+>     Added support for PXE Boot
+>     Added performance mode selector
+>     Added option to disable Hyper-threading
+>     Changed default CSM support to Disabled
+>     Changed default Intel ME state to Disabled
+>     Added new temperature thresholds
+>     Removed redundant modules
+>     Removed redundant AMI PK Keys
+
 ---
 # [© Star Labs®](https://starlabs.systems) / All Rights Reserved.
 Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)

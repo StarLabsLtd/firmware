@@ -231,6 +231,23 @@
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
+#### AMI: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/AMI/1.2.0/efi-I2.zip) (2021-09-22)
+>     Staged option to reverse Ctrl + Fn Keys
+>     Updated Microcod
+>     Fixed pop sound from speakers
+>     Improvements to speakers
+>     Improvements processor power management
+>     Improvements to trackpad accuracy
+>     Improvements to power management
+>     Fixed issue that prevent boot order being changed from OS
+>     Adjusting timing of power button
+>     Added BIOS option to set Keyboard Backlight Timeout
+>     Added BIOS option to set VRAM Aperture
+>     Fixed issue with Fn Lock state not being remembering between reboots
+>     Added option to disable wireless
+>     Added option to disable webcam
+>     Added power-save mode
+
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
 ---

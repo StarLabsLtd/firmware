@@ -270,6 +270,10 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### AMI: [2.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/2.0.0/efi-L3.zip) (2021-09-22)
+>     Enabled BLE
+>     
+
 #### AMI: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/1.6.0/efi-L3.zip) (2021-09-22)
 >     Updated Microcode to D6
 >     Updated CSME to 11.8.79.3772

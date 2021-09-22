@@ -104,6 +104,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [1.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/1.3.0/efi-L4.zip) (2021-09-22)
+>     Improved WiFi configuration
+>     Improved audio jack detection
+
 #### AMI: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/1.2.0/efi-L4.zip) (2021-09-22)
 >     Fixed bug where headphones not detected
 

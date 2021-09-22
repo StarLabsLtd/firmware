@@ -270,6 +270,14 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [3](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/3/efi-L3.zip) (2021-09-22)
+>     Updated libgfxinit configuration
+>     Rebase on upstream
+>     Adjusted memory handling
+>     Updated VBT ID's
+>     Removed unused ACPI
+>     Disabled S4
+
 #### AMI: [2.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/2.0.0/efi-L3.zip) (2021-09-22)
 >     Enabled BLE
 >     

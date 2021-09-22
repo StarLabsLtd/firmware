@@ -1,32 +1,4 @@
 # Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
-## StarBook Mk V
-#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook%20Mk%20V/ITE/1.00/efi-B5.zip) (2021-09-22)
-* Initial Release
-
-#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/$StarBook%20Mk%20V/ITE/1.00/efi-B5.zip) (2021-09-22)
-* Initial Release
-
-
-## Star Lite Mk III
-#### [AMI: 2.1.0](2021-07-06)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20Lite%20Mk%20III/AMI/2.1.0/efi-I3.zip)
-* Updated SGX allocations
-
-#### AMI: 2.0.0 (2021-06-18)
-* Updated Microcode
-* Improved Charger configuration
-* Updated SGX configuration
-
-#### AMI: 1.7.0 (2021-06-17)
-* Improved DPTF configuration
-* Enabled dito
-* Updated CSE
-* Enabled Sen1 + Sen2
-
-#### [ITE: 1.03 (2021-06-01)](https://github.com/StarLabsLtd/firmware/raw/master/Star%20Lite%20Mk%20III/ITE/1.03/efi-I3.zip)
-* Modified charging frequency to reduce noise
-
-
-
  
 ## Star LabTop Mk IV
 #### ITE: 1.06 (2021-09-15)

@@ -69,6 +69,11 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### ITE: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.02/efi-I3.zip) (2021-09-22)
+>     Improved compatibility with third-party chargers
+>     Fixed keyboard backlight control
+>     Adjusted trackpad handler
+
 #### ITE: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.01/efi-I3.zip) (2021-09-22)
 >     Fixed keyboard backlight timeout
 

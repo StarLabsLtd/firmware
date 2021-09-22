@@ -104,6 +104,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### ITE: [1.04](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.04/efi-L4.zip) (2021-09-22)
+>     Function lock state remembered between reboots
+
 #### AMI: [2.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.1.0/efi-L4.zip) (2021-09-22)
 >     Updated verb table to enable headphone jack detection
 

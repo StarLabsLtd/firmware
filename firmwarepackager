@@ -94,10 +94,14 @@ elif [[ -e "$version.rom" ]] && [[ $(du -k "$version.rom" | cut -f1) = 8*** ]]; 
 fi
 
 releasenotes=()
-while IFS= read -r -p "Enter changes for release notes: " line; do
-    [[ $line ]] || break
+echo "Enter changes for release notes: "
+nano /tmp/release
+
+while IFS= read -r line; do
     releasenotes+=("$line")
-done
+done </tmp/release
+
+rm /tmp/release
 
 rn=$(printf '* %s\\n' "${releasenotes[@]}")
 crn=$(printf '\\t\\t\\t\\t\\t<li>%s</li>\\n' "${releasenotes[@]}")

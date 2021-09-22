@@ -104,6 +104,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [2.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.1.0/efi-L4.zip) (2021-09-22)
+>     Updated verb table to enable headphone jack detection
+
 #### AMI: [2.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.0.0/efi-L4.zip) (2021-09-22)
 >     Updated verb table for headphone detection
 

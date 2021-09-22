@@ -231,6 +231,11 @@
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
+#### AMI: [1.5.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/AMI/1.5.0/efi-I2.zip) (2021-09-22)
+>     Updated DPTF
+>     Updated Verb Table
+>     Enabled BLE
+
 #### AMI: [1.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/AMI/1.4.0/efi-I2.zip) (2021-09-22)
 >     Updated PK
 >     Enabled BLE

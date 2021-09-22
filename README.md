@@ -231,6 +231,12 @@
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
+#### AMI: [1.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/AMI/1.3.0/efi-I2.zip) (2021-09-22)
+>     Updated Microcode to 40
+>     Updated PK
+>     Enabled BLE
+>     Updated Power Management for better battery retention whilst sleeping and suspended
+
 #### AMI: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/AMI/1.2.0/efi-I2.zip) (2021-09-22)
 >     Staged option to reverse Ctrl + Fn Keys
 >     Updated Microcod

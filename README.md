@@ -69,6 +69,9 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### ITE: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.01/efi-I3.zip) (2021-09-22)
+>     Fixed keyboard backlight timeout
+
 #### AMI: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.2.0/efi-I3.zip) (2021-09-22)
 >     Updated Verb Table
 >     Optimised Power Management

@@ -69,6 +69,12 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### AMI: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.2.0/efi-I3.zip) (2021-09-22)
+>     Updated Verb Table
+>     Optimised Power Management
+>     Removed PL1 Limitation
+>     Updated Secure Boot Keys
+
 #### AMI: [1.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.1.0/efi-I3.zip) (2021-09-22)
 >     Updated wireless configuration
 

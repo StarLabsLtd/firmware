@@ -104,6 +104,13 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [5](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/5/efi-L4.zip) (2021-09-22)
+>     Rebased on upstream
+>     Added CMOS option to enable Intel ME
+>     Fixed bug where ECOS wasnt stored on S3
+>     Improved battery ACPI
+>     Removed delay for charger connect/disconnect
+
 #### AMI: [2.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.4.0/efi-L4.zip) (2021-09-22)
 >     Fixed bug where Windows would output sound to both headphones and speakers
 

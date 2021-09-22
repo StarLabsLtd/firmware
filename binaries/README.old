@@ -1,0 +1,90 @@
+# Star Labs Firmware ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
+ 
+
+
+## Star LabTop Mk III
+#### coreboot: 6 (2021-08-05)
+* Rebase on upstream
+* New VBT's that prioritise performance over power consumption
+* New BGRT logo
+* Updated microcode
+* Updated FSP
+* Use open-source LIBGFXINIT
+* Option to disable or enable Wireless
+* Option to disable or enable Webcam
+* Option to disable or enable Microphone
+* Option to disable or enable Hyper-Threading
+* Option to disable or enable Intel VT-d
+* Option to disable or enable Clock Gating
+* Option to adjust the Thermal Design Power (15W / 20W / 25W)
+* Q-Events for specific models
+* Fixed bug where Qubes wouldn't boot (Requires disabling Clock Gating)
+* Fixed bug where Function Lock state was lost
+
+#### ITE: 1.03 (2021-06-01)
+* Modified charging frequency to reduce noise
+
+#### coreboot: 5 (2021-05-07)
+* Rebased on upstream
+* Added CMOS option to enable Intel ME
+* Fixed bug where ECOS wasn't stored on S3
+* Fixed bug where S3 wouldn't resume
+* Improved battery ACPI
+* Removed delay for charger connect/disconnect
+
+#### coreboot: 4 (2021-04-13)
+* Rebase on upstream
+* Changed Tianocore to upp_next branch
+* Configured CMOS to allow settings to be changed with coreboot-configurator application
+* Disabled VBR
+* Fixed bug where Fn Lock state lost on reboot
+* Enabled EVAC register in EC asl
+
+#### coreboot: 3 (2021-03-24)
+* Updated libgfxinit configuration
+* Rebase on upstream
+* Adjusted memory handling
+* Updated VBT ID's
+* Removed unused ACPI
+* Disabled S4
+
+#### 2.0.0
+* Enabled BLE
+
+#### 1.6.0
+* Updated Microcode to D6
+* Updated CSME to 11.8.79.3772
+* Added System PK
+* Fixed adjustable keyboard backlight
+
+#### 1.3.0
+* Improved ACPI support
+* Improved SSD configuration
+* New option to reverse Ctrl + Fn keys
+
+#### 1.2.0
+* Added support for PXE Boot
+
+#### 1.1.0
+* Added performance mode selector
+* Added option to disable Hyper-threading
+* Changed default CSM support to Disabled
+* Changed default Intel ME state to Disabled
+
+#### 1.0.9
+* Added new temperature thresholds
+
+#### 1.0.8
+* Removed redundant modules
+* Removed redundant AMI PK Keys
+
+
+
+
+
+
+
+# [© Star Labs® / All Rights Reserved.](https://starlabs.systems)
+Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)
+
+View our full range of Linux laptops at: [https://starlabs.systems](https://starlabs.systems)

@@ -1,9 +1,0 @@
-(fwupdmgr:205524): GLib-DEBUG: 11:59:23.408: setenv()/putenv() are not thread-safe and should not be used after threads are created
-Devices with the latest available firmware version:
- • LabTop
-(fwupdmgr:205524): FuMain-DEBUG: 11:59:23.422: current version is 5: 4=older, 1=older, 4=older, 3=older, 2=older, 1=older, 3=older, 2=older
- • Star Drive PCIe SSD
-(fwupdmgr:205524): FuMain-DEBUG: 11:59:23.426: current version is ECFM12.3: ECFM12.3=same, ECFM12.1=older, ECFM12.3=same, ECFM12.1=older
- • SuperIO IT8987
-(fwupdmgr:205524): FuMain-DEBUG: 11:59:23.429: current version is 01.04: 1.04=same, 1.04=same
-(fwupdmgr:205524): FuMain-DEBUG: 11:59:23.429: skipping reboot check

@@ -70,6 +70,10 @@
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### ITE: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.01/efi-L4.zip) (2021-09-22)
+>     Updated fan curve
+>     Updated Fn binding at post
+
 #### ITE: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.00/efi-L4.zip) (2021-09-22)
 >     Initial release firmware for the StarLabTop Mk IV
 

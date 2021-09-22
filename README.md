@@ -104,6 +104,14 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [4](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/4/efi-L4.zip) (2021-09-22)
+>     Rebase on upstream
+>     Changed Tianocore to upp_next branch
+>     Configured CMOS to allow settings to be changed with coreboot-configurator application
+>     Disabled VBR
+>     Fixed bug where Fn Lock state lost on reboot
+>     Enabled EVAC register in EC asl
+
 #### coreboot: [3](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/3/efi-L4.zip) (2021-09-22)
 >     Updated VBT ID's
 >     Removed unused ACPI

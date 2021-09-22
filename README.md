@@ -1,15 +1,15 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
-
+---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
-
+---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
 #### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-22)
-* Initial release firmware for the StarBook Mk V
-*  
-* AMI:        5.29
-* CSME:       15.0.30.1776
-* Microcode:  0x88
-* FSP:        A.0.51.31
+> * Initial release firmware for the StarBook Mk V
+> *  
+> * AMI:        5.29
+> * CSME:       15.0.30.1776
+> * Microcode:  0x88
+> * FSP:        A.0.51.31
 *  
 * Configurable options:
 * Hyper-Threading:             Enable / Disable
@@ -33,15 +33,15 @@
 *                PL2:         15W
 *                TurboBoost:  Disabled
 
-
+---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
-
+---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
-
+---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
-
+---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
-
+---
 # [© Star Labs®](https://starlabs.systems) / All Rights Reserved.
 Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)
 

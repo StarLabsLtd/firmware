@@ -113,6 +113,13 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7/efi-L4.zip) (2021-09-23)
+>     Rebase on upstream
+>     Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled
+>     Fixed second ACPI backlight control
+>     Support to control fan and max charge level (Requires EC support)
+>     Updated verb table to improve microphone input and speakers
+
 #### ITE: [1.06](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.06/efi-L4.zip) (2021-09-22)
 >     Add Q Event for Touchpad State which allows it to be saved on reboot
 

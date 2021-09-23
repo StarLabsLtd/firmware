@@ -217,7 +217,11 @@ do
 			# CAB: flashrom
 			ClientVersion="1.7.0"
 			UpdateProtocol="org.flashrom"
-			VersionFormat="triplet"
+			if [[ "$ref" == "B5" ]]; then
+				VersionFormat="number"
+			else
+				VersionFormat="triplet"
+                        fi
 			Extension="bin"
 			PrimaryGuid="$coreboot"
 			metadata

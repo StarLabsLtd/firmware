@@ -280,6 +280,9 @@
 #### ITE: [3.12](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/ITE/3.12/efi-L3.zip) (2021-09-23)
 >     New option to reverse Ctrl + Fn keys
 
+#### ITE: [3.12](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/ITE/3.12/efi-L3.zip) (2021-09-23)
+>     New option to reverse Ctrl + Fn keys
+
 #### coreboot: [6](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/6/efi-L3.zip) (2021-09-22)
 >     Rebase on upstream
 >     New VBT's that prioritise performance over power consumption

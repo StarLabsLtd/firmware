@@ -231,6 +231,11 @@
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
+#### ITE: [14.07](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/ITE/14.07/efi-I2.zip) (2021-09-23)
+>     Updated power configuration
+>     Updated suspend configuration
+>     
+
 #### ITE: [14.06](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/ITE/14.06/efi-I2.zip) (2021-09-23)
 >     Initial release firmware for the StarLite Mk II
 

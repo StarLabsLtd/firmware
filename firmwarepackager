@@ -77,7 +77,7 @@ do
 			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 			superio2="049060b5-5010-5ca0-8002-07923951d15e"
 			ami="7c13a5b2-22f8-5564-8b48-4bbf20da8ed6"
-			coreboot"7c13a5b2-22f8-5564-8b48-4bbf20da8ed6"
+			coreboot="7c13a5b2-22f8-5564-8b48-4bbf20da8ed6"
 			break
 			;;
 	esac

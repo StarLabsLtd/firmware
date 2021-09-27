@@ -3,7 +3,7 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
-#### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-23)
+#### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-27)
 >     Initial release firmware for the StarBook Mk V
 >     
 >     AMI:				5.29
@@ -32,37 +32,6 @@
 >     Power Saving:			PL1:		15W
 >     				PL2:		15W
 >     				TurboBoost:	Disabled
-
-#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7/efi-B5.zip) (2021-09-22)
->     Initial release firmware for the StarBook Mk V
->      
->     coreboot:			4.14
->     CSME:				15.0.30.1776
->     Microcode:			0x88
->     FSP:				A.0.51.31
->      
->     Configurable options:
->     Hyper-Threading:		Enable / Disable
->     Intel VT-d:			Enable / Disable
->     Power Profile:			Power Saving / Balanced / Performance
->     ME State:			Enable / Disable
->     Wireless:			Enable / Disable
->     Microphone:			Enable / Disable
->     Clock Gating:			Enable / Disable
->     Keyboard Backlight Timeout:	30 seconds / 1 minute / 3 minutes / 5 minutes / Never
->     Fn Ctrl Swap:			Enable / Disable
->      
->     Power Profiles are as below:
->     Performance:			PL1:         35W
->     				PL2:         64W
->     				TurboBoost:  Enabled
->     Balanced:			PL1:         15W
->     				PL2:         35W
->     				TurboBoost:  Enabled
->     Power Saving:			PL1:         15W
->     				PL2:         15W
->     				TurboBoost:  Disabled
->     
 
 #### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.00/efi-B5.zip) (2021-09-22)
 >     Initial release firmware for the StarBook Mk V
@@ -212,7 +181,6 @@
 
 #### ITE: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.02/efi-L4.zip) (2021-09-22)
 >     Updated fan curve
->     
 
 #### ITE: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.01/efi-L4.zip) (2021-09-22)
 >     Updated fan curve
@@ -230,11 +198,9 @@
 
 #### ITE: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.00/efi-L4.zip) (2021-09-22)
 >     Initial release firmware for the StarLabTop Mk IV
->     
 
 #### AMI: [1.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/1.1.0/efi-L4.zip) (2021-09-22)
 >     Initial release firmware for the StarLabTop Mk IV
->     
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
@@ -334,7 +300,6 @@
 
 #### AMI: [2.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/2.0.0/efi-L3.zip) (2021-09-22)
 >     Enabled BLE
->     
 
 #### AMI: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/AMI/1.6.0/efi-L3.zip) (2021-09-22)
 >     Updated Microcode to D6

@@ -31,7 +31,7 @@ do
 		"StarLite MkII")
 			ref="I2"
 			shell="/P /N"
-			hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
+			hwid=""
 			uefi="797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0"
 			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 			superio2="f90a3e8e-af9b-5023-8804-a7faf809e0b1"

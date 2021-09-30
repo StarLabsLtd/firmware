@@ -115,6 +115,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### AMI: [2.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.6.0/efi-L4.zip) (2021-09-30)
+>     Add setup item to change maximum charge level
+
 #### ITE: [1.07](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.07/efi-L4.zip) (2021-09-29)
 >     Add support to set the maximum charge level of the battery
 >     

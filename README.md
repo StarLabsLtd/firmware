@@ -115,6 +115,13 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7/efi-L4.zip) (2021-10-01)
+>     Rebase on upstream
+>     Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled
+>     Fixed second ACPI backlight control
+>     Support to control fan and max charge level (Requires EC support)
+>     Updated verb table to improve microphone input and speakers
+
 #### AMI: [2.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.6.0/efi-L4.zip) (2021-09-30)
 >     Add setup item to change maximum charge level
 
@@ -125,13 +132,6 @@
 #### AMI: [2.5.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/AMI/2.5.0/efi-L4.zip) (2021-09-28)
 >     Updated version information
 >     Updated verb table EQ
-
-#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7/efi-L4.zip) (2021-09-23)
->     Rebase on upstream
->     Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled
->     Fixed second ACPI backlight control
->     Support to control fan and max charge level (Requires EC support)
->     Updated verb table to improve microphone input and speakers
 
 #### ITE: [1.06](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/ITE/1.06/efi-L4.zip) (2021-09-22)
 >     Add Q Event for Touchpad State which allows it to be saved on reboot

@@ -295,6 +295,13 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/7/efi-L3.zip) (2021-10-07)
+>     Rebase on upstream
+>     Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled
+>     Fixed second ACPI backlight control
+>     Support to control fan and max charge level (Requires EC support)
+>     Updated verb table to improve microphone input and speakers
+
 #### ITE: [3.12](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/ITE/3.12/efi-L3.zip) (2021-09-23)
 >     New option to reverse Ctrl + Fn keys
 

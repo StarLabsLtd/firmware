@@ -3,10 +3,7 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
-#### ITE128: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.01/efi-B5.zip) (2021-09-28)
->     Added support to select maximum charge percentage
-
-#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7/efi-B5.zip) (2021-09-27)
+#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7/efi-B5.zip) (2021-10-08)
 >     Initial release firmware for the StarBook Mk V
 >      
 >     coreboot:			4.14
@@ -35,6 +32,13 @@
 >     Power Saving:			PL1:         15W
 >     				PL2:         15W
 >     				TurboBoost:  Disabled
+
+#### ITE128: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.01/efi-B5.zip) (2021-10-08)
+>     Added support to select maximum charge percentage
+>     	
+
+#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.00/efi-B5.zip) (2021-10-08)
+>     Initial release firmware for the StarBook Mk V
 
 #### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-27)
 >     Initial release firmware for the StarBook Mk V
@@ -65,9 +69,6 @@
 >     Power Saving:			PL1:		15W
 >     				PL2:		15W
 >     				TurboBoost:	Disabled
-
-#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.00/efi-B5.zip) (2021-09-22)
->     Initial release firmware for the StarBook Mk V
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)

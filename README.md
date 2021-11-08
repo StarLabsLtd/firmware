@@ -3,6 +3,12 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### AMI: [2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/2/efi-B5.zip) (2021-11-08)
+>     Updated Verb Table
+>     New option to set the maximum battery charge level
+>     Fixed ACPI error
+>     Remember Fn Lock state between reboot
+
 #### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7/efi-B5.zip) (2021-10-08)
 >     Initial release firmware for the StarBook Mk V
 >      

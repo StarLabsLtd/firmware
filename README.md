@@ -3,6 +3,9 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.2/efi-B5.zip) (2021-11-29)
+>     Remove _BCL from ACPIGen
+
 #### coreboot: [7.1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.1/efi-B5.zip) (2021-11-26)
 >     Add option to disable or enable the Thunderbolt functionality. Other port
 >     functions, including USB 3.1 and Power Delivery are not changed.

@@ -3,6 +3,9 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.4](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.4/efi-B5.zip) (2021-11-30)
+>     Adjusted DDT to stop flickering issue on certain kernels
+
 #### coreboot: [7.3](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.3/efi-B5.zip) (2021-11-29)
 >     Update HDMI to Pin-pair #2
 

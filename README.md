@@ -3,6 +3,9 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### ITE128: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.02/efi-B5.zip) (2021-12-10)
+>     Update Normal and Quiet fan curves to delay start until 65 degree's. Performance mode is unchanged.
+
 #### coreboot: [7.4](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.4/efi-B5.zip) (2021-11-30)
 >     Adjusted DDT to stop flickering issue on certain kernels
 

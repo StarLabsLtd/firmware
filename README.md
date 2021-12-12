@@ -138,6 +138,14 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8/efi-L4.zip) (2021-12-12)
+>     Rebase on coreboot 4.15
+>     Fixed issue where EC settings weren't changed
+>     Fixed ACPI bug _BCL not hooked up
+>     Store serial number in CMOS
+>     Updated GPIOs
+>     Updated hardware EQ
+
 #### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7/efi-L4.zip) (2021-10-07)
 >     Rebase on upstream
 >     Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled

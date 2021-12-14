@@ -3,6 +3,12 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.5](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.5/efi-B5.zip) (2021-12-14)
+>     Rebase on coreboot 4.15
+>     Fix issue where S4 is not used
+>     Store serial number in CMOS
+>     Disable TBT RP when CMOS setting is disabled
+
 #### ITE128: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.02/efi-B5.zip) (2021-12-10)
 >     Update Normal and Quiet fan curves to delay start until 65 degree's. Performance mode is unchanged.
 

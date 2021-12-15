@@ -3,6 +3,9 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.6](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.6/efi-B5.zip) (2021-12-15)
+>     Adjust trackpad interupt to avoid IRQ storm
+
 #### coreboot: [7.5](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.5/efi-B5.zip) (2021-12-14)
 >     Rebase on coreboot 4.15
 >     Fix issue where S4 is not used

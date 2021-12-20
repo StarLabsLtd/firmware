@@ -3,6 +3,10 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.7/efi-B5.zip) (2021-12-20)
+>     Add enum for power profile
+>     Tidy GPIO's to reduce IRQ and save power
+
 #### coreboot: [7.6](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.6/efi-B5.zip) (2021-12-15)
 >     Adjust trackpad interupt to avoid IRQ storm
 

@@ -238,10 +238,10 @@ do
 		"coreboot")
 			ClientVersion="1.7.0"
 			UpdateProtocol="org.flashrom"
-			VersionFormat="number"
+			VersionFormat="plain"
 			Branch="<branch>$firmware</branch>"
 			Client="<client>switch-branch</client>"
-			Base="0x"
+			Base=""
 			PrimaryGuid="$coreboot"
 			SecondaryGuid="$ami"
 			Extension="rom"

@@ -16,34 +16,8 @@
 #### ITE128: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.03/efi-B5.zip) (2021-12-22)
 >     Fixed issue where keyboard backlight wouldn't turn off when entering S3 or turning off
 
-#### coreboot: [7.7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.7/efi-B5.zip) (2021-12-20)
->     Add enum for power profile
->     Tidy GPIO's to reduce IRQ and save power
-
-#### coreboot: [7.6](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.6/efi-B5.zip) (2021-12-15)
->     Adjust trackpad interupt to avoid IRQ storm
-
-#### coreboot: [7.5](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.5/efi-B5.zip) (2021-12-14)
->     Rebase on coreboot 4.15
->     Fix issue where S4 is not used
->     Store serial number in CMOS
->     Disable TBT RP when CMOS setting is disabled
-
 #### ITE128: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.02/efi-B5.zip) (2021-12-10)
 >     Update Normal and Quiet fan curves to delay start until 65 degree's. Performance mode is unchanged.
-
-#### coreboot: [7.4](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.4/efi-B5.zip) (2021-11-30)
->     Adjusted DDT to stop flickering issue on certain kernels
-
-#### coreboot: [7.3](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.3/efi-B5.zip) (2021-11-29)
->     Update HDMI to Pin-pair #2
-
-#### coreboot: [7.2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.2/efi-B5.zip) (2021-11-29)
->     Remove _BCL from ACPIGen
-
-#### coreboot: [7.1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.1/efi-B5.zip) (2021-11-26)
->     Add option to disable or enable the Thunderbolt functionality. Other port
->     functions, including USB 3.1 and Power Delivery are not changed.
 
 #### AMI: [2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/2/efi-B5.zip) (2021-11-08)
 >     Updated Verb Table
@@ -167,6 +141,15 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7.8](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.8/efi-L4.zip) (2021-12-22)
+>     Rebase on upstream (4.15)
+>     Remove _BCL from acpigen
+>     Enable I2C4
+>     Fix EC settings not being applied
+>     Update verb table
+>     Enable PTT
+>     Disconnect unused GPIOs
+
 #### coreboot: [8](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8/efi-L4.zip) (2021-12-12)
 >     Rebase on coreboot 4.15
 >     Fixed issue where EC settings weren't changed

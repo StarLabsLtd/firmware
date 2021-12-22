@@ -110,6 +110,9 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### AMI: [64.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/64.0.0/efi-I3.zip) (2021-12-22)
+>     Release version 64 which allows for IWFI rollback.
+
 #### AMI: [2.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/2.1.0/efi-I3.zip) (2021-09-22)
 >     Updated SGX allocations
 >     Updated Microcode

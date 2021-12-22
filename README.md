@@ -3,6 +3,16 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.8](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.8/efi-B5.zip) (2021-12-22)
+>     Remove _BCL from acpigen
+>     Adjust KBL configuration
+>     Tidy up GPIOs
+>     Update Verb Table
+>     Enable building with TPM support
+>     Apply EC settings when suspending
+>     Enable I2C4
+>     Update VBT
+
 #### ITE128: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.03/efi-B5.zip) (2021-12-22)
 >     Fixed issue where keyboard backlight wouldn't turn off when entering S3 or turning off
 

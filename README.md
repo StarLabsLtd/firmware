@@ -3,6 +3,9 @@
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### ITE128: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.03/efi-B5.zip) (2021-12-22)
+>     Fixed issue where keyboard backlight wouldn't turn off when entering S3 or turning off
+
 #### coreboot: [7.7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.7/efi-B5.zip) (2021-12-20)
 >     Add enum for power profile
 >     Tidy GPIO's to reduce IRQ and save power

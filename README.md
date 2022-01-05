@@ -141,6 +141,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7.9](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.9/efi-L4.zip) (2022-01-05)
+>     Fixed EC GPE
+
 #### coreboot: [7.8](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.8/efi-L4.zip) (2021-12-22)
 >     Rebase on upstream (4.15)
 >     Remove _BCL from acpigen

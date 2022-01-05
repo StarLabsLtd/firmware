@@ -141,6 +141,9 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7.10](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.10/efi-L4.zip) (2022-01-05)
+>     Fix SMI IRQ
+
 #### coreboot: [7.9](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.9/efi-L4.zip) (2022-01-05)
 >     Fixed EC GPE
 

@@ -34,7 +34,7 @@
 		f7be8205-691f-5172-93c4-b66bf46bbfdb	54c96fef-31e7-5011-a3ff-ea8e855d9acd
 
 # Star Lite Mk II
-/* hwid */	013b60e5-1023-5bee-8ae5-14cae21377b7
+/* hwid */	013b60e5-1023-5bee-8ae5-14cae21377b7	d5521faa-c50b-5d64-971d-8fd400030c51
 /* uefi */	797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0
 /* superio */	0aa07091-dc02-5e62-a0cd-9d3880721b64
 /* flashrom */	230c8b18-8d9b-53ec-838b-6cfc0383493a

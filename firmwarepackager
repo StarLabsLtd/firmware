@@ -45,6 +45,8 @@ do
 			uefi="d9d7b13b-e4db-4f91-8bf6-8952a9caa82a"
 			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 			superio2="b0e3a8ac-24ce-55e3-8aad-2261f1f4fa08"
+			ami="ec375a72-9ed9-5a21-b1da-5e7f00dcada1"
+			coreboot="3d2f164a-8818-58fd-a082-6c60a67e21a6"
 			break
 			;;
 		"StarLabTop MkIII")

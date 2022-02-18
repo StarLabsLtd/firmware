@@ -99,6 +99,15 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### AMI: [2.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/2.1.0/efi-I3.zip) (2022-02-18)
+>     Updated SGX allocations
+>     Updated Microcode
+>     Improved Charger configuration
+>     Updated SGX configuration
+>     Improved DPTF configuration
+>     Enabled dito
+>     Updated CSE
+
 #### AMI: [64.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/64.0.0/efi-I3.zip) (2021-12-22)
 >     Release version 64 which allows for IWFI rollback.
 

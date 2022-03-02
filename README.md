@@ -155,6 +155,11 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7.92](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.92/efi-L4.zip) (2022-03-02)
+>     Rebase on coreboot 4.16
+>     Fixed issue where battery would report to high of a capacity
+>     Decreased power consumption
+
 #### coreboot: [7.10](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.10/efi-L4.zip) (2022-01-05)
 >     Fix SMI IRQ
 

@@ -238,7 +238,7 @@ do
 			break
 			;;
 		"coreboot")
-			ClientVersion="1.7.0"
+			ClientVersion="1.7.6"
 			UpdateProtocol="org.flashrom"
 			VersionFormat="plain"
 			Branch="<branch>$firmware</branch>"

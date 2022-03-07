@@ -180,6 +180,12 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7.95](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.95/efi-L4.zip) (2022-03-07)
+>     Use Mutex for communication between BIOS and EC
+>     Save EC preferences when rebooting
+>     Disable legacy timer by default
+>     Optimise suspend functions
+
 #### coreboot: [7.92](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.92/efi-L4.zip) (2022-03-02)
 >     Rebase on coreboot 4.16
 >     Fixed issue where battery would report to high of a capacity

@@ -166,6 +166,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.96/efi-L4.zip) (2022-03-14)
+>     Store EC values when entering S3, S4 and S5
+>     Dont update CMOS values at runtime
+
 #### coreboot: [7.95](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.95/efi-L4.zip) (2022-03-07)
 >     Use Mutex for communication between BIOS and EC
 >     Save EC preferences when rebooting

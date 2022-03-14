@@ -389,6 +389,17 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/7.96/efi-L3.zip) (2022-03-14)
+>     Store EC values when entering S3, S4 and S5
+>     Dont update CMOS values at runtime
+>     Use Mutex for communication between BIOS and EC
+>     Save EC preferences when rebooting
+>     Disable legacy timer by default
+>     Optimise suspend functions
+>     Disconnect unused GPIO's
+>     Add comments for GPIOs
+>     Remove display from devicetree
+
 #### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/7/efi-L3.zip) (2021-10-07)
 >     Rebase on upstream
 >     Fixed bug on upgrading to 6 when wireless, webcam and microphone could be disabled

@@ -114,6 +114,7 @@
 >     Beta release of coreboot for the Lite Mk III
 >     Installing a beta update will not void your warranty, but we are unable to cover any costs incurred, directly or indirectly, as a result of this beta update
 >     Uses 7 fewer blobs than AMI
+>     Reduced power consumption
 >     Configurable TDP up to 20W
 >     Based on coreboot 4.16
 

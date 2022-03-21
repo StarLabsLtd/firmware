@@ -240,7 +240,7 @@ do
 		"coreboot")
 			ClientVersion="1.7.6"
 			UpdateProtocol="org.flashrom"
-			VersionFormat="plain"
+			VersionFormat="pair"
 			Branch="<branch>$firmware</branch>"
 			Client="<client>switch-branch</client>"
 			Base=""

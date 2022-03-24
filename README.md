@@ -1,6 +1,13 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
+#### coreboot: [4.16](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/4.16/efi-I4.zip) (2022-03-24)
+>     Initial release of coreboot for the Lite Mk IV
+>     Uses 7 fewer blobs than AMI
+>     Reduced power consumption
+>     Configurable TDP up to 20W
+>     Based on coreboot 4.16
+
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
 #### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.96/efi-B5.zip) (2022-03-14)

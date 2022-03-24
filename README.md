@@ -110,9 +110,8 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
-#### coreboot: [4.16](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/4.16/efi-I3.zip) (2022-03-14)
->     Beta release of coreboot for the Lite Mk III
->     Installing a beta update will not void your warranty, but we are unable to cover any costs incurred, directly or indirectly, as a result of this beta update
+#### coreboot: [4.16](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/4.16/efi-I3.zip) (2022-03-24)
+>     Initial release of coreboot for the Lite Mk III
 >     Uses 7 fewer blobs than AMI
 >     Reduced power consumption
 >     Configurable TDP up to 20W

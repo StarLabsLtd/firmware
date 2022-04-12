@@ -1,7 +1,7 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
-#### AMI: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/AMI/1.0.0/efi-I4.zip) (2022-03-31)
+#### AMI: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/AMI/1.0.0/efi-I4.zip) (2022-04-12)
 >     Initial release of AMI Aptio V for the Lite Mk IV
 >     Based on AMI 5.29
 >     Microcode 0x1b

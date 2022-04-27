@@ -408,6 +408,10 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [7.98](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/7.98/efi-L3.zip) (2022-04-27)
+>     Fixed issue with sound not working
+>     Rebase on upstream
+
 #### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/7.96/efi-L3.zip) (2022-03-14)
 >     Store EC values when entering S3, S4 and S5
 >     Dont update CMOS values at runtime

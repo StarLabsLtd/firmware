@@ -499,6 +499,8 @@
 >     Removed redundant AMI PK Keys
 
 ---
+coreboot source code can be found [here](https://github.com/coreboot/coreboot).
+---
 # [© Star Labs®](https://starlabs.systems) / All Rights Reserved.
 Any issues or questions, please contact us at [support@starlabs.systems](mailto:supportstarlabs.systems)
 

@@ -1,0 +1,32 @@
+
+===============================================================================
+Intel (R) Flash Image Tool. Version: 4.0.26.1337
+Copyright (c) 2013 - 2020, Intel Corporation. All rights reserved.
+5/18/2022 - 5:01:09 pm
+===============================================================================
+
+Using vsccommn.bin with timestamp 19:06:41 03/20/2020 GMT
+
+Command Line: /home/sean/Documents/stitch/fit 
+
+Log file written to fit.log
+
+Loading /home/sean/Documents/firmware/StarLite/MkIII/AMI/2.1.0/2.1.0.bin
+
+Decomposed SKU Value: "Intel(R) Gemini Lake - GLK".
+
+Decomposed PCH Strap Length: 0x17
+
+Writing map file /home/sean/Documents/firmware/StarLite/MkIII/AMI/2.1.0/2.1.0/2.1.map
+Isolated memory range setting "Imr09" is disabled in the CSE FW image.
+Isolated memory range setting "Imr11" is disabled in the CSE FW image.
+Isolated memory range setting "Imr14" is disabled in the CSE FW image.
+Isolated memory range setting "Imr15" is disabled in the CSE FW image.
+Isolated memory range setting "Imr18" is disabled in the CSE FW image.
+Isolated memory range setting "Imr19" is disabled in the CSE FW image.
+Isolated memory range setting "Imr09" is disabled in the CSE FW image.
+Isolated memory range setting "Imr11" is disabled in the CSE FW image.
+Isolated memory range setting "Imr14" is disabled in the CSE FW image.
+Isolated memory range setting "Imr15" is disabled in the CSE FW image.
+Isolated memory range setting "Imr18" is disabled in the CSE FW image.
+Isolated memory range setting "Imr19" is disabled in the CSE FW image.

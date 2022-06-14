@@ -1,6 +1,20 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
+#### coreboot: [4.17](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/4.17/efi-I4.zip) (2022-06-14)
+>     Rebased on coreboot 4.17
+>     Enabled Enhanced C-States
+>     Fixed bug with USB ports
+>     Disabled SATA Port 1
+>     Initialise all Heci interfaces
+>     Simplified GPIO configuration
+>     Enabled SATA Power Optimisations
+>     Adjust TCC Offset depending on Power Profile
+>     Disabled UFS Device
+>     Configure LPC IO Registers
+>     Configure BIOS Control register on device 31
+>     Open MMIO window for the Nuvoton EC to allow updates
+
 #### Nuvoton: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/Nuvoton/1.01/efi-i4.zip) (2022-06-01)
 >     Modified charging frequency to increase compatibility with PD chargers
 

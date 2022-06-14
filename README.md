@@ -37,6 +37,12 @@
 
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [7.99](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.99/efi-B5.zip) (2022-06-14)
+>     Rebased on coreboot 4.17
+>     Disable unused USB 3.0 port 2
+>     Adjust TCC Offset depending on Power Profile
+>     
+
 #### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.96/efi-B5.zip) (2022-03-14)
 >     Store EC values when entering S3, S4 and S5
 >     Dont update CMOS values at runtime

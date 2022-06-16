@@ -150,6 +150,11 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### ITE: [1.14](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.14/efi-I3.zip) (2022-06-16)
+>     Bind F10 function key to Q events Q60 and Q61. Event is alternated based on
+>     the value of 0x14, 0x11 will send Q60 and 0x22 will send Q61. This corresonds
+>     to CB:64465 to pull GPIO_177 to low and disable the trackpad.
+
 #### coreboot: [4.16](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/4.16/efi-I3.zip) (2022-05-30)
 >     Regenerate 4.16 release with:
 >     * Fix for right USB port not working

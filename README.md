@@ -459,6 +459,12 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [8.00](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.00/efi-L3.zip) (2022-06-16)
+>     Rebased on coreboot 4.17
+>     Built using edk2 202205
+>     Fixed issue with sound not working
+>     Adjust TCC Offset depending on Power Profile
+
 #### coreboot: [7.98](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/7.98/efi-L3.zip) (2022-04-27)
 >     Fixed issue with sound not working
 >     Rebase on upstream

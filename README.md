@@ -37,10 +37,11 @@
 
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
-#### coreboot: [7.99](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.99/efi-B5.zip) (2022-06-14)
+#### coreboot: [8.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.00/efi-B5.zip) (2022-06-16)
 >     Rebased on coreboot 4.17
+>     Built using edk2 202205
 >     Disable unused USB 3.0 port 2
->     Adjust TCC Offset depending on Power Profile
+>     Adjust TCC Offset depending on Power Profi
 >     
 
 #### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.96/efi-B5.zip) (2022-03-14)

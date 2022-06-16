@@ -229,6 +229,13 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.00](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.00/efi-L4.zip) (2022-06-16)
+>     Rebased on coreboot 4.17
+>     Built using edk2 202205
+>     Support adjusting the maximum charge level
+>     Fixed Webcam disable option
+>     Adjust TCC Offset depending on Power Profi
+
 #### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/7.96/efi-L4.zip) (2022-03-14)
 >     Store EC values when entering S3, S4 and S5
 >     Dont update CMOS values at runtime

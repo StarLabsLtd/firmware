@@ -1,8 +1,9 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
-#### coreboot: [4.17](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/4.17/efi-I4.zip) (2022-06-14)
+#### coreboot: [4.17](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/4.17/efi-I4.zip) (2022-06-17)
 >     Rebased on coreboot 4.17
+>     Built using edk2 202205
 >     Enabled Enhanced C-States
 >     Fixed bug with USB ports
 >     Disabled SATA Port 1

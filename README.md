@@ -38,6 +38,13 @@
 
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.02/efi-B5.zip) (2022-07-04)
+>     Disabled edk2 serial debug support for faster boot times
+>     Configured PCIe Base Address in edk2 to avoid auto-config
+>     Increase setup resolution to full screen
+>     Adjusted spacing for boot prompt
+>     
+
 #### coreboot: [8.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.00/efi-B5.zip) (2022-06-16)
 >     Rebased on coreboot 4.17
 >     Built using edk2 202205

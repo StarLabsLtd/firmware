@@ -237,6 +237,12 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.02/efi-L4.zip) (2022-07-04)
+>     Disabled edk2 serial debug support for faster boot times
+>     Configured PCIe Base Address in edk2 to avoid auto-config
+>     Increase setup resolution to full screen
+>     Adjusted spacing for boot prompt
+
 #### coreboot: [8.00](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.00/efi-L4.zip) (2022-06-16)
 >     Rebased on coreboot 4.17
 >     Built using edk2 202205

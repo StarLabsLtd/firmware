@@ -159,6 +159,25 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/8.02/efi-I3.zip) (2022-07-12)
+>     Disabled edk2 serial debug support for faster boot times
+>     Configured PCIe Base Address in edk2 to avoid auto-config
+>     Increase setup resolution to full screen
+>     Adjusted spacing for boot prompt
+>     Rebased on coreboot 4.17
+>     Built using edk2 202205
+>     Enabled Enhanced C-States
+>     Fixed bug with USB ports
+>     Disabled SATA Port 1
+>     Initialise all Heci interfaces
+>     Simplified GPIO configuration
+>     Enabled SATA Power Optimisations
+>     Adjust TCC Offset depending on Power Profile
+>     Disabled UFS Device
+>     Configure LPC IO Registers
+>     Configure BIOS Control register on device 31
+>     Known issues: Suspend will not resume
+
 #### ITE: [1.14](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.14/efi-I3.zip) (2022-06-16)
 >     Bind F10 function key to Q events Q60 and Q61. Event is alternated based on
 >     the value of 0x14, 0x11 will send Q60 and 0x22 will send Q61. This corresonds

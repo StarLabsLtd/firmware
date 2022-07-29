@@ -1,6 +1,11 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
+#### Nuvoton: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/Nuvoton/1.02/efi-i4.zip) (2022-07-29)
+>     Lower charging current to reduce temperature when charging
+>     Added option to use fast charging at Offset (0x18)
+>     Added Insert key shortcut that is bound to Fn + Del
+
 #### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.02/efi-I4.zip) (2022-07-12)
 >     Disabled edk2 serial debug support for faster boot times
 >     Configured PCIe Base Address in edk2 to avoid auto-config

@@ -521,6 +521,13 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.05/efi-L3.zip) (2022-08-01)
+>     Reduced timeout for initialising SD Card Reader
+>     Dynamically created CMOS entries so only relavant options are shown
+>     Enabled Measured Boot
+>     Removed unused CryptoLib from edk2
+>     Fixed relocation address logic check
+
 #### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.02/efi-L3.zip) (2022-07-04)
 >     Disabled edk2 serial debug support for faster boot times
 >     Configured PCIe Base Address in edk2 to avoid auto-config

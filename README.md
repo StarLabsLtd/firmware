@@ -1,6 +1,19 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
+#### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.05/efi-I4.zip) (2022-08-01)
+>     Reduced timeout for initialising SD Card Reader
+>     Dynamically created CMOS entries so only relavant options are shown
+>     Enabled Measured Boot
+>     Removed unused CryptoLib from edk2
+>     Fixed relocation address logic check
+>     Fixed bug where USB devices weren't recognised in edk2
+>     Fixed overlapping BAR from device 1
+>     Add PDRC to allow the use of MMCONFIG
+>     Update ACPI map
+>     Enable verification of the bootblock
+>     Compressed Stage1b for faster boot times
+
 #### Nuvoton: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/Nuvoton/1.03/efi-i4.zip) (2022-07-29)
 >     Lower charging current to reduce temperature when charging
 >     Added option to use fast charging at Offset (0x18)

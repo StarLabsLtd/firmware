@@ -190,6 +190,19 @@
 
 ---
 ## **StarLite**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIII)
+#### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/8.05/efi-I3.zip) (2022-08-01)
+>     Reduced timeout for initialising SD Card Reader
+>     Dynamically created CMOS entries so only relavant options are shown
+>     Enabled Measured Boot
+>     Removed unused CryptoLib from edk2
+>     Fixed relocation address logic check
+>     Fixed bug where USB devices weren't recognised in edk2
+>     Fixed overlapping BAR from device 1
+>     Add PDRC to allow the use of MMCONFIG
+>     Update ACPI map
+>     Enable verification of the bootblock
+>     Compressed Stage1b for faster boot times
+
 #### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/8.02/efi-I3.zip) (2022-07-12)
 >     Disabled edk2 serial debug support for faster boot times
 >     Configured PCIe Base Address in edk2 to avoid auto-config
@@ -287,13 +300,6 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
-#### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.05/efi-L4.zip) (2022-08-01)
->     Reduced timeout for initialising SD Card Reader
->     Dynamically created CMOS entries so only relavant options are shown
->     Enabled Measured Boot
->     Removed unused CryptoLib from edk2
->     Fixed relocation address logic check
-
 #### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.02/efi-L4.zip) (2022-07-04)
 >     Disabled edk2 serial debug support for faster boot times
 >     Configured PCIe Base Address in edk2 to avoid auto-config

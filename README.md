@@ -64,7 +64,7 @@
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
 #### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.05/efi-B5.zip) (2022-08-01)
 >     Reduced timeout for initialising SD Card Reader
->     Dynamically created CMOS entries so only relavant options are shown
+>     Dynamically created CMOS entries so only relevant options are shown
 >     Enabled Measured Boot
 >     Removed unused CryptoLib from edk2
 >     Fixed relocation address logic check
@@ -224,7 +224,7 @@
 
 #### ITE: [1.14](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/ITE/1.14/efi-I3.zip) (2022-06-16)
 >     Bind F10 function key to Q events Q60 and Q61. Event is alternated based on
->     the value of 0x14, 0x11 will send Q60 and 0x22 will send Q61. This corresonds
+>     the value of 0x14, 0x11 will send Q60 and 0x22 will send Q61. This corresponds
 >     to CB:64465 to pull GPIO_177 to low and disable the trackpad.
 
 #### coreboot: [4.16](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/4.16/efi-I3.zip) (2022-05-30)
@@ -300,6 +300,12 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.05/efi-L4.zip) (2022-08-08)
+>     Reduced timeout for initialising SD Card Reader
+>     Dynamically created CMOS entries so only relevant options are shown
+>     Removed unused CryptoLib from edk2
+>     Fixed relocation address logic check
+
 #### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.02/efi-L4.zip) (2022-07-04)
 >     Disabled edk2 serial debug support for faster boot times
 >     Configured PCIe Base Address in edk2 to avoid auto-config

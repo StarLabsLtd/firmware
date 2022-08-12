@@ -61,7 +61,8 @@ do
 		"StarLabTop MkIII")
 			ref="L3"
 			shell="/P /N /B /L"
-			hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"
+			hwid="013b60e5-1023-5bee-8ae5-14cae21377b7"	# AMI HWID
+			hwid2="8f8ca82b-30e1-5907-bc9d-4257a49898d4"	# coreboot HWID
 			uefi="8265d473-a6c2-42b4-897b-bc220faa2d32"
 			superio="0aa07091-dc02-5e62-a0cd-9d3880721b64"
 			superio2="f90a3e8e-af9b-5023-8804-a7faf809e0b1"
@@ -126,7 +127,7 @@ function metadata() {
 printf "<\041--  Copyright 2019 Star Labs Online Limited  --> \
 	\n<component type=\"firmware\"> \
 	\n\t<id>com.starlabs.$ref.$firmware.$(echo $UpdateProtocol | rev | cut -d '.' -f1 | rev)</id> \
-	\n\t<name>$model</name> \
+	\n\t<name>$model $firmware</name> \
 	\n\t<summary>$firmware firmware for $model</summary> \
 	\n\t$Branch \
 	\n\t<description> \
@@ -139,6 +140,7 @@ printf "<\041--  Copyright 2019 Star Labs Online Limited  --> \
 	\n\t<requires> \
 	\n\t\t<id compare=\"ge\" version=\"$ClientVersion\">org.freedesktop.fwupd</id> \
 	\n\t\t<hardware>$hwid</hardware> \
+	\n\t\t<hardware>$hwid2</hardware> \
 	\n\t\t$Client \
 	\n\t</requires> \
 	\n\t<url type=\"homepage\">https://starlabs.systems</url> \

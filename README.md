@@ -549,6 +549,10 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [8.06](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.06/efi-L3.zip) (2022-08-12)
+>     Add coreboot GUID to allow direct updates
+>     Fix issue with speakers not outputting sound
+
 #### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.05/efi-L3.zip) (2022-08-08)
 >     Reduced timeout for initialising SD Card Reader
 >     Dyamically created CMOS entries so only relevant options are shown

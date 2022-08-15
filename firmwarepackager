@@ -140,7 +140,6 @@ printf "<\041--  Copyright 2019 Star Labs Online Limited  --> \
 	\n\t<requires> \
 	\n\t\t<id compare=\"ge\" version=\"$ClientVersion\">org.freedesktop.fwupd</id> \
 	\n\t\t<hardware>$hwid</hardware> \
-#	\n\t\t<hardware>$hwid2</hardware> \
 	\n\t\t$Client \
 	\n\t</requires> \
 	\n\t<url type=\"homepage\">https://starlabs.systems</url> \

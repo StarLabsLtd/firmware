@@ -311,6 +311,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.07](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.07/efi-L4.zip) (2022-08-15)
+>     Rebased edk2 on upstream edk2
+>     Disabled debug output to decrease boot time
+
 #### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.05/efi-L4.zip) (2022-08-08)
 >     Reduced timeout for initialising SD Card Reader
 >     Dynamically created CMOS entries so only relevant options are shown

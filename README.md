@@ -1,6 +1,10 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
+#### coreboot: [8.07](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.07/efi-I4.zip) (2022-08-15)
+>     Rebased edk2 on upstream edk2
+>     Disabled debug output to decrease boot time
+
 #### Nuvoton: [1.04](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/Nuvoton/1.04/efi-i4.zip) (2022-08-09)
 >     Fixed issue that prevented S5 entry (powering off)
 

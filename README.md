@@ -69,6 +69,10 @@
 
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [8.07](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.07/efi-B5.zip) (2022-08-15)
+>     Rebased edk2 on upstream edk2
+>     Disabled debug output to decrease boot time
+
 #### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.05/efi-B5.zip) (2022-08-01)
 >     Reduced timeout for initialising SD Card Reader
 >     Dynamically created CMOS entries so only relevant options are shown

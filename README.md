@@ -506,6 +506,9 @@
 
 ---
 ## **StarLite**[MkII](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkII)
+#### ITE: [14.10](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/ITE/14.10/efi-I2.zip) (2022-08-23)
+>     Updated power refresh to report current drain every 60 seconds
+
 #### ITE: [14.09](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkII/ITE/14.09/efi-I2.zip) (2022-07-29)
 >     Updated power management
 >     Preparation for coreboot support

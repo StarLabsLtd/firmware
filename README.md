@@ -311,6 +311,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.08](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.08/efi-L4.zip) (2022-08-23)
+>     Update the Max Charge offset so the value is stored correctly
+>     when saved.
+
 #### coreboot: [8.07](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.07/efi-L4.zip) (2022-08-15)
 >     Rebased edk2 on upstream edk2
 >     Disabled debug output to decrease boot time

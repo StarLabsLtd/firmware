@@ -311,6 +311,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.09](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.09/efi-L4.zip) (2022-08-30)
+>     Modify the PS2 initialisation sequence to solve a problem where
+>     keys are emitted intermittantly.
+
 #### coreboot: [8.08](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.08/efi-L4.zip) (2022-08-23)
 >     Update the Max Charge offset so the value is stored correctly
 >     when saved.

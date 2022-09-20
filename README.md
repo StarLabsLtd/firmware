@@ -6,11 +6,6 @@
 >     Reset USB ports on error
 >     Reset USB Ports before initialisation
 
-#### coreboot: [8.13](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.13/efi-I4.zip) (2022-09-20)
->     Communicate with IPC over Trusted Sideband
->     Reset USB ports on error
->     Reset USB Ports before initialisation
-
 #### coreboot: [8.12](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.12/efi-I4.zip) (2022-09-16)
 >     Remove unused SD Card interrupt
 >     Reset the XHCI controller when entering S5 (Fixes shutdown issue)

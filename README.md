@@ -600,6 +600,10 @@
 
 ---
 ## **StarLabTop**[MkIII](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIII)
+#### coreboot: [8.15](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.15/efi-L3.zip) (2022-10-04)
+>     Improved handling of USB devices in edk2
+>     Improved resource allocated
+
 #### coreboot: [8.09](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIII/coreboot/8.09/efi-L3.zip) (2022-08-30)
 >     Adjust the Bluetooth interface to correctly enable the Bluetooth
 >     interface for the Intel 8265.

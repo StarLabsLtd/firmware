@@ -335,6 +335,10 @@
 
 ---
 ## **StarLabTop**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLabTop/MkIV)
+#### coreboot: [8.15](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.15/efi-L4.zip) (2022-10-04)
+>     Improved handling of USB devices in edk2
+>     Improved resource allocated
+
 #### coreboot: [8.09](https://github.com/StarLabsLtd/firmware/raw/master/StarLabTop/MkIV/coreboot/8.09/efi-L4.zip) (2022-08-30)
 >     Modify the PS2 initialisation sequence to solve a problem where
 >     keys are emitted intermittantly.

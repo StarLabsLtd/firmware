@@ -1,6 +1,10 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)
+#### coreboot: [8.15](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.15/efi-I4.zip) (2022-10-04)
+>     Improved handling of USB devices in edk2
+>     Improved resource allocated
+
 #### coreboot: [8.14](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.14/efi-I4.zip) (2022-09-20)
 >     Communicate with IPC over Trusted Sideband
 >     Reset USB ports on error

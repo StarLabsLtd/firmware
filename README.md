@@ -85,6 +85,14 @@
 
 ---
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
+#### coreboot: [8.15](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.15/efi-B5.zip) (2022-10-04)
+>     Improved handling of USB devices in edk2
+>     Switched to open-source libgfxinit
+>     Improved resource allocated
+>     Disabled XDCI
+>     Prefetch memory above 4G
+>     Enabled PMC muxing for reduced power consumption
+
 #### coreboot: [8.07](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.07/efi-B5.zip) (2022-08-15)
 >     Rebased edk2 on upstream edk2
 >     Disabled debug output to decrease boot time

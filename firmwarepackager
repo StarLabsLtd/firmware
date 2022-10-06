@@ -24,7 +24,7 @@ fi
 splash "Which laptop are you creating an update for?"
 PS3="Select the model: "
 
-models=("StarLite MkII" "StarLite MkIII" "StarLite MkIV" "StarLabTop MkIII" "StarLabTop MkIV" "StarBook MkV")
+models=("StarLite MkII" "StarLite MkIII" "StarLite MkIV" "StarLabTop MkIII" "StarLabTop MkIV" "StarBook MkV" "StarBook MkVI")
 select model in "${models[@]}"
 do
 	case $model in
@@ -92,6 +92,18 @@ do
 			coreboot="54c96fef-31e7-5011-a3ff-ea8e855d9acd"
 			break
 			;;
+		"StarBook MkVI")
+			ref="B6"
+			shell="/P /N /B /L"
+			hwid=""
+			uefi=""
+			superio=""
+			superio2=""
+			ami=""
+			coreboot=""
+			break
+			;;
+
 	esac
 done
 

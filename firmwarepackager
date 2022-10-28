@@ -16,15 +16,11 @@ echo "==========================================================================
 }
 
 date=$(date '+%Y-%m-%d')
-read -p "Override date?" overrideDate
-if -v overrideDate; then
-	date = $(echo overrideDate)
-fi
 
 splash "Which laptop are you creating an update for?"
 PS3="Select the model: "
 
-models=("StarLite MkII" "StarLite MkIII" "StarLite MkIV" "StarLabTop MkIII" "StarLabTop MkIV" "StarBook MkV" "StarBook MkVI")
+models=("StarLite MkII" "StarLite MkIII" "StarLite MkIV" "StarLabTop MkIII" "StarLabTop MkIV" "StarBook MkV" "StarBook MkVI" "StarBook MkVI AMD" "Byte MkI")
 select model in "${models[@]}"
 do
 	case $model in
@@ -93,17 +89,38 @@ do
 			break
 			;;
 		"StarBook MkVI")
-			ref="B6"
+			ref="B6-I"
 			shell="/P /N /B /L"
-			hwid=""
-			uefi=""
-			superio=""
+			hwid="5c917039-d938-5c9a-b22a-9c392b1534f3"
+			uefi="02e64049-abcc-44a5-af9a-fafc390dd844"
+			superio="d83a4cd0-fce6-58a8-93c7-bcee89b41dcf"
+			superio2=""
+			ami="1292e166-a66f-5e11-b2bb-53265a8f53d9"
+			coreboot="8c994a92-7ef8-5d68-80b5-99ead7cf4686"
+			break
+			;;
+		"StarBook MkVI AMD")
+			ref="B6-A"
+			shell="/P /B /N /R /K /X /L"
+			hwid="b39593ad-7522-52a5-a4ab-1b2ca2153956"
+			uefi="5a29ddbb-11dd-476d-a641-a45c1db63d5c"
+			superio="d83a4cd0-fce6-58a8-93c7-bcee89b41dcf"
 			superio2=""
 			ami=""
 			coreboot=""
 			break
 			;;
-
+		"Byte MkI")
+			ref="Y1"
+			shell="/P /B /N /R /K /X /L"
+			hwid="79a64046-5643-59c4-91d0-e68b33db5829"
+			uefi="c24f6311-d2de-49e6-aba0-b8e971b1a425"
+			superio="d83a4cd0-fce6-58a8-93c7-bcee89b41dcf"
+			superio2=""
+			ami=""
+			coreboot=""
+			break
+			;;
 	esac
 done
 

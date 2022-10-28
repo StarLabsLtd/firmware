@@ -1,8 +1,8 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarBook**[MkVI](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkVI)
-#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI/ITE128/1.00/efi-B6.zip) (2022-10-06)
->     Initial release firmware for the StarBook Mk VI
+#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI/ITE128/1.00/efi-B6-I.zip) (2022-10-28)
+>     Initial release EC firmware for the StarBook Mk VI
 
 
 ## **StarLite**[MkIV](https://github.com/StarLabsLtd/firmware/tree/master/StarLite/MkIV)

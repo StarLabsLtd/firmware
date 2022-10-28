@@ -1,6 +1,11 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarBook**[MkVI-AMD](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkVI-AMD)
+#### ITE128: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ITE128/1.02/efi-B6-A.zip) (2022-10-28)
+>     Modified the F10 scan code for better compatibility
+>     Modified the F12 scan code for better compatibility
+>     Initialised the Keyboard Backlight from the EC to avoid problems when switching branch
+
 #### ITE128: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ITE128/1.01/efi-B6-A.zip) (2022-10-28)
 >     Fix the backlight helper to remember the last state
 >     Modified the scan code of the sysreq key

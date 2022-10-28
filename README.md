@@ -1,6 +1,10 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarBook**[MkVI](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkVI)
+#### AMI: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI/AMI/1.0.0/efi-B6-I.zip) (2022-10-28)
+>     Initial release of AMI Aptio V for the StarBook Mk IV
+>     Based on AMI 5.29
+
 #### ITE128: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI/ITE128/1.01/efi-B6-I.zip) (2022-10-28)
 >     Enabled hybrid power; when using a charger that doesn't supply enough power,
 >     the battery will also power the laptop. This will only happen if the battery

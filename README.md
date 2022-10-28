@@ -1,8 +1,16 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
+## **StarBook**[MkVI-AMD](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkVI-AMD)
+#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ITE128/1.00/efi-B6-A.zip) (2022-10-28)
+>     Initial release EC firmware for the StarBook Mk VI
+
+#### AMI: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/AMI/1.0.0/efi-B6-A.zip) (2022-10-28)
+>     Initial release of AMI Aptio V for the StarBook Mk VI
+>     Based on AMI 5.29
+
 ## **StarBook**[MkVI-Intel](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkVI-Intel)
 #### AMI: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/AMI/1.0.0/efi-B6-I.zip) (2022-10-28)
->     Initial release of AMI Aptio V for the StarBook Mk IV
+>     Initial release of AMI Aptio V for the StarBook Mk VI
 >     Based on AMI 5.29
 
 #### ITE128: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ITE128/1.01/efi-B6-I.zip) (2022-10-28)

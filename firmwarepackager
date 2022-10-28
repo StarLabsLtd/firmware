@@ -20,7 +20,7 @@ date=$(date '+%Y-%m-%d')
 splash "Which laptop are you creating an update for?"
 PS3="Select the model: "
 
-models=("StarLite MkII" "StarLite MkIII" "StarLite MkIV" "StarLabTop MkIII" "StarLabTop MkIV" "StarBook MkV" "StarBook MkVI" "StarBook MkVI AMD" "Byte MkI")
+models=("StarLite MkII" "StarLite MkIII" "StarLite MkIV" "StarLabTop MkIII" "StarLabTop MkIV" "StarBook MkV" "StarBook MkVI-Intel" "StarBook MkVI-AMD" "Byte MkI-AMD")
 select model in "${models[@]}"
 do
 	case $model in
@@ -88,7 +88,7 @@ do
 			coreboot="54c96fef-31e7-5011-a3ff-ea8e855d9acd"
 			break
 			;;
-		"StarBook MkVI")
+		"StarBook MkVI-Intel")
 			ref="B6-I"
 			shell="/P /N /B /L"
 			hwid="5c917039-d938-5c9a-b22a-9c392b1534f3"
@@ -99,7 +99,7 @@ do
 			coreboot="8c994a92-7ef8-5d68-80b5-99ead7cf4686"
 			break
 			;;
-		"StarBook MkVI AMD")
+		"StarBook MkVI-AMD")
 			ref="B6-A"
 			shell="/P /B /N /R /K /X /L"
 			hwid="b39593ad-7522-52a5-a4ab-1b2ca2153956"

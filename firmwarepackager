@@ -106,7 +106,7 @@ do
 			uefi="5a29ddbb-11dd-476d-a641-a45c1db63d5c"
 			superio="d83a4cd0-fce6-58a8-93c7-bcee89b41dcf"
 			superio2=""
-			ami=""
+			ami="4c7c8bc5-475c-5384-b602-78c9d4771b5d"
 			coreboot=""
 			break
 			;;

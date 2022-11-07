@@ -1,6 +1,10 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 ---
 ## **StarBook**[MkVI-AMD](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkVI-AMD)
+#### AMI: [1.0.1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/AMI/1.0.1/efi-B6-A.zip) (2022-11-07)
+>     Modified boot flow
+>     Adjusted PSP configuraton to not lock out SPI access registers
+
 #### ITE128: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ITE128/1.03/efi-B6-A.zip) (2022-11-07)
 >     Increased over-charge protection for USB PD 3.1 chargers
 >     Implemented over-charge protection for limited charge cycles

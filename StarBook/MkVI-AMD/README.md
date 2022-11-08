@@ -31,3 +31,7 @@
 >     Initial release of AMI Aptio V for the StarBook Mk VI
 >     Based on AMI 5.29
 
+
+#### ite: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.00/efi-B6-A.zip) 2022-11-08
+>     Initial release EC firmware for the StarBook Mk VI
+

@@ -13,3 +13,8 @@
 >     the battery will also power the laptop. This will only happen if the battery
 >     is charged to 150r more.
 
+
+#### ami-flashrom: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami-flashrom/1.0.0/1.0.0.bin) 2022-11-08
+>     Initial release of AMI Aptio V for the StarBook Mk VI
+>     Based on AMI 5.29
+

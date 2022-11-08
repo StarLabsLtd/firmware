@@ -56,3 +56,8 @@
 >     Increased over-charge protection for USB PD 3.1 chargers
 >     Implemented over-charge protection for limited charge cycles
 
+
+#### ami: [1.0.2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.0.2/efi-B6-A.zip) 2022-11-08
+>     Disabled ASPM due to limited support in certain distributions
+>     Updated S3 flow
+

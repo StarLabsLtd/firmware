@@ -12,10 +12,10 @@ metadata += 	\t<description>\n
 metadata += 		\t\t<p>Updating the $(target) firmware makes your computer more reliable and can add new features.</p>\n
 metadata += 	\t</description>\n
 metadata += 	\t<provides>\n
-ifneq ($(meta_guid_1),'')
+ifneq ($(meta_guid_1),)
 metadata += 		\t\t<firmware type=\"flashed\">$(meta_guid_1)</firmware>\n
 endif
-ifneq ($(meta_guid_2),'')
+ifneq ($(meta_guid_2),)
 metadata += 		\t\t<firmware type=\"flashed\">$(meta_guid_2)</firmware>\n
 endif
 metadata += 	\t</provides>\n

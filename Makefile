@@ -22,7 +22,7 @@ ifeq ($(target),coreboot)
 	make -C ../coreboot distclean
 	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
 	make -C ../coreboot
-	cp ../coreboot/coreboot.rom $@
+	cp ../coreboot/build/coreboot.rom $@
 else ifeq ($(target),ami)
 	./binaries/header.py --guid $(uefi) --bin $(version).rom --cap $@
 	rm $(version).rom
@@ -74,47 +74,43 @@ readme_release_notes = $(shell while IFS= read -r line; do \
 link = https://github.com/StarLabsLtd/firmware/raw/master/$(OUTPUT_DIR)
 
 # Master recipes to be called
-ami-flashrom:					$(version).$(file_type) \
-						$(OUTPUT_DIR) \
+ami-flashrom:					$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
-	printf "\n\#\#\#\# $(target): [$(version)]($(link)/$(version).$(file_type)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf "\n#### $(target): [$(version)]($(link)/$(version).$(file_type)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)"
 	git push
 
-ami:						$(version).$(file_type) \
-						$(OUTPUT_DIR) \
+ami:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab \
 						$(OUTPUT_DIR)/efi-$(sku).zip
-	printf "\n\#\#\#\# $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)"
 	git push
 
-coreboot: 					$(version).$(file_type) \
-						$(OUTPUT_DIR) \
+coreboot: 					$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
-	printf "\n\#\#\#\# $(target): [$(version)]($(link)/$(target)-$(sku).cab) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf "\n#### $(target): [$(version)]($(link)/$(target)-$(sku).cab) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)"
 	git push
 
-ite:						$(version).$(file_type) \
-						$(OUTPUT_DIR) \
+ite:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab \
 						$(OUTPUT_DIR)/efi-$(sku).zip
-	printf "\n\#\#\#\# $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)"
@@ -125,14 +121,14 @@ clean:
 
 help:
 	printf "Star Labs Firmware\n\n"
-	printf "Usage:\n"
-	printf "\nTarget:\n"
+	printf "Usage\n"
+	printf "\ntarget:\n"
 	printf "%-25s %s\n"	"ami"			"Create an AMI UEFI Capsule cabinet"
 	printf "%-25s %s\n"	"ami-flashrom"		"Create an AMI flashrom cabinet"
 	printf "%-25s %s\n"	"coreboot"		"Create an coreboot flashrom cabinet"
 	printf "%-25s %s\n"	"ite"			"Create an ITE superio cabinet"
 
-	printf "\nModel:\n"
+	printf "\nmodel:\n"
 	printf "%-25s %s\n"	"lite_apl"		"StarLite Mk II"
 	printf "%-25s %s\n"	"lite_glk"		"StarLite Mk III"
 	printf "%-25s %s\n"	"lite_glkr"		"StarLite Mk IV"
@@ -143,7 +139,7 @@ help:
 	printf "%-25s %s\n"	"starbook_cezanne"	"StarBook Mk VI - AMD"
 	printf "%-25s %s\n"	"byte_cezane"		"Byte Mk I"
 
-	printf "\nVersion:\n"
+	printf "\nversion:\n"
 	printf "%-25s %s\n"	"pair"			"1.00"
 	printf "%-25s %s\n"	"triplet"		"1.0.0"
 

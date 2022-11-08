@@ -7,3 +7,9 @@
 #### ite: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.00/efi-B6-I.zip) 2022-11-08
 >     Initial release EC firmware for the StarBook Mk V
 
+
+#### ite: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.01/efi-B6-I.zip) 2022-11-08
+>     Enabled hybrid power; when using a charger that doesnt supply enough power,
+>     the battery will also power the laptop. This will only happen if the battery
+>     is charged to 150r more.
+

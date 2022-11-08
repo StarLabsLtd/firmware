@@ -2,43 +2,152 @@
 
 export SHELL := env bash
 
-all: startup.nsh
+include make/Makefile.targets
+include make/Makefile.models
+include make/Makefile.nsh_script
+include make/Makefile.metadata
 
-version=1.0.0
+.SILENT: help $(BUILD_DIR)/startup.nsh $(BUILD_DIR)/$(sku).metadata.xml
 
-startup-script = cls\n
-startup-script += set payload $(version).bin\n
-startup-script += \n
-startup-script += echo \"*******************************************************************\"\n
-startup-script += echo \".d8888. d888888b  .d8b.  d8888b.   db       .d8b.  d8888b. .d8888. \"\n
-startup-script += echo \"88\'  YP \`~~88~~\' d8\' \`8b 88  \`8D   88      d8\' \`8b 88  \`8D 88\'  YP \"\n
-startup-script += echo \"\`8bo.      88    88ooo88 88oobY\'   88      88ooo88 88oooY\' \`8bo.   \"\n
-startup-script += echo \"  \`Y8b.    88    88~~~88 88\`8b     88      88~~~88 88~~~b.   \`Y8b. \"\n
-startup-script += echo \"db   8D    88    88   88 88 \`88.   88booo. 88   88 88   8D db   8D \"\n
-startup-script += echo \"\`8888Y\'    YP    YP   YP 88   YD   Y88888P YP   YP Y8888P\' \`8888Y\' \"\n
-startup-script += echo \"*******************************************************************\"\n
-startup-script += echo \"********************* BIOS & Firmware Update **********************\"\n
-startup-script += echo \"*******************************************************************\"\n
-startup-script += echo \" \"\n
-startup-script += echo \"This update is for the $$model. Installing on any other laptop will cause it not to start.\"\n
-startup-script += echo \" \"\n
-startup-script += echo \"Press Enter to update firmware or press Q to quit.\"\n
-startup-script += pause\n
-startup-script += echo \"This update contains the following changes:\"\n
-startup-script += $$ern\n
-startup-script += for %%a run (0 10)\n
-startup-script += \tif exist fs%%a:$tool.efi then\n
-startup-script += \t\tfs%%a:\n
-startup-script += \t\t$$tool$$selector %%payload%% $$switch\n
-startup-script += \t\treset\n
-startup-script += \tendif\n
-startup-script += endfor\n
+all: help
 
 
-startup.nsh:
-	printf "$(startup-script)" > $@
+date = $(shell date '+%Y-%m-%d')
+
+OUTPUT_DIR = $(subst $() $(),/,$(name))/$(target)/$(version)
+
+$(version).$(file_type):
+ifeq ($(target),coreboot)
+	sed -i 's/CONFIG_LOCAL_VERSION=.*/CONFIG_LOCAL_VERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
+	make -C ../coreboot distclean
+	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
+	make -C ../coreboot
+	cp ../coreboot/coreboot.rom $@
+else ifeq ($(target),ami)
+	./binaries/header.py --guid $(uefi) --bin $(version).rom --cap $@
+	rm $(version).rom
+else
+	exit 0
+endif
+
+$(OUTPUT_DIR):
+	mkdir -p $@
+
+# Just the binary
+$(OUTPUT_DIR)/$(version).$(file_type):		$(version).$(file_type)
+	mv $< $@
+
+# Standard CAB
+$(OUTPUT_DIR)/$(sku).$(target).metainfo.xml:	$(OUTPUT_DIR)
+	printf '$(metadata)' > $@
+
+$(OUTPUT_DIR)/$(target)-$(sku).cab:		$(OUTPUT_DIR)/$(sku).$(target).metainfo.xml \
+						$(OUTPUT_DIR)/$(version).$(file_type)
+	gcab -cn $@ $^
+
+# EFI Shell
+$(OUTPUT_DIR)/startup.nsh:			$(OUTPUT_DIR)
+	printf '$(nsh_script)' > $@
+
+$(OUTPUT_DIR)/efi-$(sku).zip:			$(OUTPUT_DIR)/startup.nsh \
+						$(OUTPUT_DIR)/$(version).$(file_type) \
+						binaries/$(nsh_tool).efi
+	zip -rj $@ $^
 
 
-# clean:
+# Release notes
+$(OUTPUT_DIR)/release_notes.md:			$(OUTPUT_DIR)
+	nano $(OUTPUT_DIR)/release_notes.md
 
-# .phony:
+meta_release_notes = $(shell while IFS= read -r line; do \
+		printf '\\t\\t\\t\\t\\t<li>%s</li>\\n' "$$line"; \
+		done <$(OUTPUT_DIR)/release_notes.md)
+
+nsh_release_notes = $(shell while IFS= read -r line; do \
+		printf 'echo "%s"\\n' "$$line"; \
+		done <$(OUTPUT_DIR)/release_notes.md)
+
+readme_release_notes = $(shell while IFS= read -r line; do \
+		printf '>     %s\\n' "$$line"; \
+		done <$(OUTPUT_DIR)/release_notes.md)
+
+link = https://github.com/StarLabsLtd/firmware/raw/master/$(OUTPUT_DIR)
+
+# Master recipes to be called
+ami-flashrom:					$(version).$(file_type) \
+						$(OUTPUT_DIR) \
+						$(OUTPUT_DIR)/release_notes.md \
+						$(OUTPUT_DIR)/$(version).$(file_type) \
+						$(OUTPUT_DIR)/$(target)-$(sku).cab
+	printf "\n\#\#\#\# $(target): [$(version)]($(link)/$(version).$(file_type)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
+	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
+	git commit -m "Added $(name) $(target) $(version)"
+	git push
+
+ami:						$(version).$(file_type) \
+						$(OUTPUT_DIR) \
+						$(OUTPUT_DIR)/release_notes.md \
+						$(OUTPUT_DIR)/$(version).$(file_type) \
+						$(OUTPUT_DIR)/$(target)-$(sku).cab \
+						$(OUTPUT_DIR)/efi-$(sku).zip
+	printf "\n\#\#\#\# $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
+	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
+	git commit -m "Added $(name) $(target) $(version)"
+	git push
+
+coreboot: 					$(version).$(file_type) \
+						$(OUTPUT_DIR) \
+						$(OUTPUT_DIR)/release_notes.md \
+						$(OUTPUT_DIR)/$(version).$(file_type) \
+						$(OUTPUT_DIR)/$(target)-$(sku).cab
+	printf "\n\#\#\#\# $(target): [$(version)]($(link)/$(target)-$(sku).cab) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
+	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
+	git commit -m "Added $(name) $(target) $(version)"
+	git push
+
+ite:						$(version).$(file_type) \
+						$(OUTPUT_DIR) \
+						$(OUTPUT_DIR)/release_notes.md \
+						$(OUTPUT_DIR)/$(version).$(file_type) \
+						$(OUTPUT_DIR)/$(target)-$(sku).cab \
+						$(OUTPUT_DIR)/efi-$(sku).zip
+	printf "\n\#\#\#\# $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
+	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
+	git commit -m "Added $(name) $(target) $(version)"
+	git push
+
+clean:
+	rm -rf build
+
+help:
+	printf "Star Labs Firmware\n\n"
+	printf "Usage:\n"
+	printf "\nTarget:\n"
+	printf "%-25s %s\n"	"ami"			"Create an AMI UEFI Capsule cabinet"
+	printf "%-25s %s\n"	"ami-flashrom"		"Create an AMI flashrom cabinet"
+	printf "%-25s %s\n"	"coreboot"		"Create an coreboot flashrom cabinet"
+	printf "%-25s %s\n"	"ite"			"Create an ITE superio cabinet"
+
+	printf "\nModel:\n"
+	printf "%-25s %s\n"	"lite_apl"		"StarLite Mk II"
+	printf "%-25s %s\n"	"lite_glk"		"StarLite Mk III"
+	printf "%-25s %s\n"	"lite_glkr"		"StarLite Mk IV"
+	printf "%-25s %s\n"	"labtop_kbl"		"StarLabTop Mk III"
+	printf "%-25s %s\n" 	"labtop_cml"		"StarLabTop Mk IV"
+	printf "%-25s %s\n"	"starbook_tgl"		"StarBook Mk V"
+	printf "%-25s %s\n"	"starbook_adl"		"StarBook Mk VI - Intel"
+	printf "%-25s %s\n"	"starbook_cezanne"	"StarBook Mk VI - AMD"
+	printf "%-25s %s\n"	"byte_cezane"		"Byte Mk I"
+
+	printf "\nVersion:\n"
+	printf "%-25s %s\n"	"pair"			"1.00"
+	printf "%-25s %s\n"	"triplet"		"1.0.0"
+
+	printf "\nExample usage:\n"
+	printf "make coreboot target=coreboot model=starbook_adl version=8.18\n\n"
+
+.phony: help ite coreboot ami ami-flashrom release-notes

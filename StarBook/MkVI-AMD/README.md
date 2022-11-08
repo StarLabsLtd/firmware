@@ -35,3 +35,8 @@
 #### ite: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.00/efi-B6-A.zip) 2022-11-08
 >     Initial release EC firmware for the StarBook Mk VI
 
+
+#### ami: [1.0.1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.0.1/efi-B6-A.zip) 2022-11-08
+>     Modified boot flow
+>     Adjusted PSP configuraton to not lock out SPI access registers
+

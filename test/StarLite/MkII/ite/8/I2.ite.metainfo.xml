@@ -1,0 +1,40 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.I2.ite</id>
+ 	<name>StarLite MkII ite firmware</name>
+ 	<summary>ite firmware for StarLite MkII</summary>
+ 	<description>
+ 		<p>Updating the ite firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">0aa07091-dc02-5e62-a0cd-9d3880721b64</firmware>
+ 		<firmware type="flashed">f90a3e8e-af9b-5023-8804-a7faf809e0b1</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.0">org.freedesktop.fwupd</id>
+ 		<hardware>80f1fd54-f581-571f-90e6-00bf8a67f627</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">tw.com.ite.superio</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-Device</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="8" date="2022-11-08">
+ 			<checksum filename="8.bin" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>This is a change</li>
+					<li>And another</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

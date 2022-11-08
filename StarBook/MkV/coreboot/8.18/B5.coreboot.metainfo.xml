@@ -1,0 +1,53 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B5.coreboot</id>
+ 	<name>StarBook MkV coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">54c96fef-31e7-5011-a3ff-ea8e855d9acd</firmware>
+ 		<firmware type="flashed">612d0af2-6b4b-5d1a-bd63-433022fdaefe</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>85aba599-addd-5985-a2e8-eddb41c61ba3</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-Device</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="8.18" date="2022-11-08">
+ 			<checksum filename="8.18.rom" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 4.18</li>
+					<li>Rebased on edk2 master</li>
+					<li>Reserved the centuary byte</li>
+					<li>Enabled mirror flag to automatically update the EC</li>
+					<li>Improve edk2s compatibility with non-compliant USB drives by:</li>
+					<li>Adjust the MaxPacketLength for USB 1.0 devices from 8 to anything less that 64</li>
+					<li>Adjust the MaxPacketLength for USB 2.0 devices from 32 or 64 to anything less than 512</li>
+					<li>Adjust the MaxPacketLength for USB 3.0 devices from 512 to anything less than 1024</li>
+					<li>Stall after requesting descriptor</li>
+					<li>Reset the port after a status change</li>
+					<li>Handle incorrect PSIV indices</li>
+					<li>Dont check for invalid PSIV</li>
+					<li></li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

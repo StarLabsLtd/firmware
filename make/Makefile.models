@@ -1,0 +1,138 @@
+## SPDX-License-Identifier: GPL-2.0-only
+
+# Afu options
+afu_small_core	= /P /N
+afu_big_core	= /P /N /B /L
+afu_amd		= /P /B /N /R /K /X /L
+
+# Defaults for newer models
+ite_tool	= ifu
+ite_switch	= 128
+
+ami_switch	= $(afu_big_core)
+
+
+
+ifeq ($(model),lite_apl)
+name		= StarLite MkII
+sku		= I2
+# GUIDs
+hwid		= 80f1fd54-f581-571f-90e6-00bf8a67f627
+uefi		= 797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0
+superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
+superio2	= f90a3e8e-af9b-5023-8804-a7faf809e0b1
+ami		= 0676539d-150f-5f07-89b9-fe0afd98c44e
+# ITE opts
+ite_tool	= eFuitX64
+ite_selector	= /u
+ite_switch	= /faildelay
+# AMI opts
+ami_switch	= $(afu_small_core)
+
+else ifeq ($(model),lite_glk)
+name		= StarLite MkIII
+sku		= I3
+# GUIDs
+hwid		= d5521faa-c50b-5d64-971d-8fd400030c51
+uefi		= d9d7b13b-e4db-4f91-8bf6-8952a9caa82a
+superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
+superio2	= b0e3a8ac-24ce-55e3-8aad-2261f1f4fa08
+ami		= ec375a72-9ed9-5a21-b1da-5e7f00dcada1
+coreboot	= 3d2f164a-8818-58fd-a082-6c60a67e21a6
+
+# ITE opts
+ite-tool	= eFuitX64
+ite-selector	= /u
+ite-switch	= /faildelay
+
+# AMI opts
+ami_switch	= $(afu_small_core)
+
+else ifeq ($($model), lite_gkr)
+name		= StarLite MkIV
+sku		= I4
+
+hwid		= 0fc25c8c-ffa8-54ad-a216-d13cfe75bee4
+uefi		= b1ff7b4d-8b6a-4f50-a047-cddfdb75fa28
+ami		= 32edd806-13a0-5b0f-a8e9-656a0e147369
+coreboot	= 5dc1dd5b-761e-5146-8ac2-1fdd8445f2ff
+
+ami_switch	= $(afu_small_core)
+
+else ifeq ($(model),labtop_kbl)
+name		= LabTop Mk III
+sku		= L3
+
+hwid		= 013b60e5-1023-5bee-8ae5-14cae21377b7
+hwid2		= 8f8ca82b-30e1-5907-bc9d-4257a49898d4
+uefi		= 8265d473-a6c2-42b4-897b-bc220faa2d32
+superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
+superio2	= f90a3e8e-af9b-5023-8804-a7faf809e0b1
+ami		= a20caf4c-3ed8-531c-b59a-eb079ab5e65e
+coreboot	= d33219e2-b84c-53a8-a624-27af9752dba6
+
+ite-tool	= eFuitX64
+ite-selector	= /u
+ite-switch	= /faildelay
+
+else ifeq ($(model),labtop_cml)
+name		= LabTop MkIV
+sku		= L4
+# GUIDs
+hwid		= baf1d04e-fd16-5e6a-93cc-1c23d171f879
+uefi		= 502bff68-b8db-4b01-86ef-ab65f6502a77
+superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
+superio2	= 1e8bc0cc-eee2-5e30-ab4f-1ff923118f01
+ami		= cc6437bf-0955-5c03-84a6-8b87c7a7c244
+coreboot	= 0ee5867c-93f0-5fb4-adf1-9d686ea1183a
+
+ite-tool	= eFuitX64
+ite-selector	= /u
+ite-switch	= /faildelay
+
+else ifeq ($(model),starbook_tgl)
+name		= StarBook MkV
+sku		= B5
+
+hwid		= 85aba599-addd-5985-a2e8-eddb41c61ba3
+uefi		= e27d9e98-cbb2-4975-a8f8-261de2adde05
+superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
+superio2	= 049060b5-5010-5ca0-8002-07923951d15e
+ami		= 612d0af2-6b4b-5d1a-bd63-433022fdaefe
+coreboot	= 54c96fef-31e7-5011-a3ff-ea8e855d9acd
+
+else ifeq ($(model),starbook_adl)
+name		= StarBook MkVI-Intel
+sku		= B6-I
+# GUIDs
+hwid		= 5c917039-d938-5c9a-b22a-9c392b1534f3
+uefi		= 02e64049-abcc-44a5-af9a-fafc390dd844
+superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
+ami		= 1292e166-a66f-5e11-b2bb-53265a8f53d9
+coreboot	= 8c994a92-7ef8-5d68-80b5-99ead7cf4686
+
+else ifeq ($(model),starbook_cezanne)
+name		= StarBook MkVI-AMD
+sku		= B6-A
+# GUIDs
+hwid		= b39593ad-7522-52a5-a4ab-1b2ca2153956
+uefi		= 5a29ddbb-11dd-476d-a641-a45c1db63d5c
+superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
+ami		= 4c7c8bc5-475c-5384-b602-78c9d4771b5d
+coreboot	= ""
+
+ami-switch	= $(afu_amd)
+
+else ifeq ($(model),byte_cezanne)
+name		= Byte MkI
+sku		= Y1
+# GUIDs
+
+hwid		= 79a64046-5643-59c4-91d0-e68b33db5829
+uefi		= c24f6311-d2de-49e6-aba0-b8e971b1a425
+superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
+ami		= ""
+coreboot	= ""
+
+ami-switch	= $(afu_amd)
+endif

@@ -1,0 +1,51 @@
+## SPDX-License-Identifier: GPL-2.0-only
+
+metadata += <\041-- Copyright 2022 Star Labs Online Limited -->\n
+metadata += <component type=\"firmware\">\n
+metadata += 	\t<id>com.starlabs.$(sku).$(target)</id>\n
+metadata += 	\t<name>$(name) $(target) firmware</name>\n
+metadata += 	\t<summary>$(target) firmware for $(name)</summary>\n
+ifeq ($(meta_branch),true)
+metadata += 	\t<branch>coreboot</branch>\n
+endif
+metadata += 	\t<description>\n
+metadata += 		\t\t<p>Updating the $(target) firmware makes your computer more reliable and can add new features.</p>\n
+metadata += 	\t</description>\n
+metadata += 	\t<provides>\n
+ifneq ($(meta_guid_1),'')
+metadata += 		\t\t<firmware type=\"flashed\">$(meta_guid_1)</firmware>\n
+endif
+ifneq ($(meta_guid_2),'')
+metadata += 		\t\t<firmware type=\"flashed\">$(meta_guid_2)</firmware>\n
+endif
+metadata += 	\t</provides>\n
+metadata += 	\t<requires>\n
+metadata += 		\t\t<id compare=\"ge\" version=\"$(meta_version)\">org.freedesktop.fwupd</id>\n
+metadata += 		\t\t<hardware>$(hwid)</hardware>\n
+ifeq ($(meta_branch),true)
+metadata += 		\t\t<client>switch-branch</client>\n
+endif
+metadata += 	\t</requires>\n
+metadata += 	\t<url type=\"homepage\">https://starlabs.systems</url>\n
+metadata += 	\t<metadata_license>CC0-1.0</metadata_license>\n
+metadata += 	\t<project_license>proprietary</project_license>\n
+metadata += 	\t<developer_name>Star Labs</developer_name>\n
+metadata += 	\t<custom>\n
+metadata += 		\t\t<value key=\"LVFS::UpdateProtocol\">$(meta_protocol)</value>\n
+metadata += 		\t\t<value key=\"LVFS::VersionFormat\">$(meta_format)</value>\n
+metadata += 	\t</custom>\n
+metadata += 	\t<categories>\n
+metadata += 		\t\t<category>X-Device</category>\n
+metadata += 	\t</categories>\n
+metadata += 	\t<releases>\n
+metadata += 		\t\t<release urgency=\"medium\" version=\"$(version)\" date=\"$(date)\">\n
+metadata += 			\t\t\t<checksum filename=\"$(version).$(file_type)\" target=\"content\"/>\n
+metadata += 			\t\t\t<description>\n
+metadata += 				\t\t\t\t<p>This stable release includes the following features:</p>\n
+metadata += 				\t\t\t\t<ul>\n
+metadata += 					$(meta_release_notes)
+metadata += 				\t\t\t\t</ul>\n
+metadata += 			\t\t\t</description>\n
+metadata += 		\t\t</release>\n
+metadata += 	\t</releases>\n
+metadata += </component>\n

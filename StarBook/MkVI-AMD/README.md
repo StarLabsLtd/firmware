@@ -51,3 +51,8 @@
 >     Modified the F12 scan code for better compatibility
 >     Initialised the Keyboard Backlight from the EC to avoid problems when switching branc
 
+
+#### ite: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.03/efi-B6-A.zip) 2022-11-08
+>     Increased over-charge protection for USB PD 3.1 chargers
+>     Implemented over-charge protection for limited charge cycles
+

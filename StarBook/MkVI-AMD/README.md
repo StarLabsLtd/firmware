@@ -40,3 +40,8 @@
 >     Modified boot flow
 >     Adjusted PSP configuraton to not lock out SPI access registers
 
+
+#### ite: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.01/efi-B6-A.zip) 2022-11-08
+>     Fix the backlight helper to remember the last state
+>     Modified the scan code of the sysreq key
+

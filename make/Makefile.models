@@ -60,7 +60,7 @@ coreboot	= 5dc1dd5b-761e-5146-8ac2-1fdd8445f2ff
 ami_switch	= $(afu_small_core)
 
 else ifeq ($(model),labtop_kbl)
-name		= LabTop Mk III
+name		= LabTop MkIII
 sku		= L3
 
 hwid		= 013b60e5-1023-5bee-8ae5-14cae21377b7

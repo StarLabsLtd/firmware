@@ -18,3 +18,8 @@
 >     Initial release of AMI Aptio V for the StarBook Mk VI
 >     Based on AMI 5.29
 
+
+#### coreboot: [8.18](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.18/coreboot-B6-I.cab) 2022-11-11
+>     Initial release firmware for the StarBook Mk VI
+>     Based on coreboot 4.18
+

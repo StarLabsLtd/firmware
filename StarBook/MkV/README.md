@@ -152,3 +152,7 @@
 >     Dont check for invalid PSIV
 >     
 
+
+#### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.19/coreboot-B5.cab) 2022-11-25
+>     Fixed an issue with Thunderbolt hubs not initialising USB devices
+

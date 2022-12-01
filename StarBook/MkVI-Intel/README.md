@@ -23,3 +23,9 @@
 >     Initial release firmware for the StarBook Mk VI
 >     Based on coreboot 4.18
 
+
+#### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.19/coreboot-B6-I.cab) 2022-12-01
+>     Rebased on coreboot 4.18
+>     Rebased on edk2 master
+>     Modified USB flow
+

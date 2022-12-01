@@ -143,3 +143,9 @@
 >     Handle incorrect PSIV indices
 >     Dont check for invalid PSIV
 
+
+#### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/8.19/coreboot-L3.cab) 2022-12-01
+>     Rebased on coreboot 4.18
+>     Rebased on edk2 master
+>     Modified USB flow
+

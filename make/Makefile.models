@@ -48,7 +48,7 @@ ite-switch	= /faildelay
 # AMI opts
 ami_switch	= $(afu_small_core)
 
-else ifeq ($($model), lite_gkr)
+else ifeq ($(model),lite_glkr)
 name		= StarLite MkIV
 sku		= I4
 

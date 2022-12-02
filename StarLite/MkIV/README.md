@@ -105,3 +105,9 @@
 >     Initial release of AMI Aptio V for the Lite Mk IV
 >     Based on AMI 5.29
 >     Microcode 0x1b
+
+#### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.19/coreboot-I4.cab) 2022-12-02
+>     Rebased on coreboot 4.18
+>     Rebased on edk2 master
+>     Modified USB flow
+

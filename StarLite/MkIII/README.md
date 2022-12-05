@@ -106,3 +106,9 @@
 
 #### AMI: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/AMI/1.0.0/efi-I3.zip) (2021-09-22)
 >     Initial release firmware for the StarLite Mk III
+
+#### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/8.19/coreboot-I3.cab) 2022-12-05
+>     Rebased on coreboot 4.18
+>     Rebased on edk2 master
+>     Modified USB flow
+

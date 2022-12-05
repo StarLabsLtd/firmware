@@ -1,0 +1,43 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.I3.coreboot</id>
+ 	<name>StarLite MkIII coreboot firmware</name>
+ 	<summary>coreboot firmware for StarLite MkIII</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">3d2f164a-8818-58fd-a082-6c60a67e21a6</firmware>
+ 		<firmware type="flashed">ec375a72-9ed9-5a21-b1da-5e7f00dcada1</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>d5521faa-c50b-5d64-971d-8fd400030c51</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-Device</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="8.19" date="2022-12-05">
+ 			<checksum filename="8.19.rom" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 4.18</li>
+					<li>Rebased on edk2 master</li>
+					<li>Modified USB flow</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

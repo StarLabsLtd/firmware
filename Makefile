@@ -18,7 +18,7 @@ OUTPUT_DIR = $(subst $() $(),/,$(name))/$(target)/$(version)
 
 $(version).$(file_type):
 ifeq ($(target),coreboot)
-	sed -i 's/CONFIG_LOCAL_VERSION=.*/CONFIG_LOCAL_VERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
+	sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
 	make -C ../coreboot distclean
 	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
 	make -C ../coreboot

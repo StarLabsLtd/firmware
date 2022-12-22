@@ -156,3 +156,11 @@
 #### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.19/coreboot-B5.cab) 2022-11-25
 >     Fixed an issue with Thunderbolt hubs not initialising USB devices
 
+
+#### coreboot: [8.20](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.20/coreboot-B5.cab) 2022-12-22
+>     Rebased on edk2 master
+>     Rebased on coreboot master
+>     Reserve the centuary byte
+>     Always enumerate uart2
+>     Check USB port is compatible before checking PSIV
+

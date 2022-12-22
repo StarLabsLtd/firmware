@@ -35,7 +35,7 @@ metadata += 		\t\t<value key=\"LVFS::UpdateProtocol\">$(meta_protocol)</value>\n
 metadata += 		\t\t<value key=\"LVFS::VersionFormat\">$(meta_format)</value>\n
 metadata += 	\t</custom>\n
 metadata += 	\t<categories>\n
-metadata += 		\t\t<category>X-Device</category>\n
+metadata += 		\t\t<category>$(meta_type)</category>\n
 metadata += 	\t</categories>\n
 metadata += 	\t<releases>\n
 metadata += 		\t\t<release urgency=\"medium\" version=\"$(version)\" date=\"$(date)\">\n

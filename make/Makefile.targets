@@ -3,6 +3,7 @@
 ifeq ($(target),ite)
 meta_version		= 1.7.0
 meta_protocol		= tw.com.ite.superio
+meta_type		= X-EmbeddedController
 meta_format		= pair
 meta_branch		= false
 meta_guid_1		= $(superio1)
@@ -16,6 +17,7 @@ nsh_switch		= $(ite_switch)
 else ifeq ($(target),coreboot)
 meta_version		= 1.7.7
 meta_protocol		= org.flashrom
+meta_type		= X-System
 meta_format		= pair
 meta_branch		= true
 meta_guid_1		= $(coreboot)
@@ -25,6 +27,7 @@ file_type		= rom
 else ifeq ($(target),ami)
 meta_version		= 1.3.9
 meta_protocol		= org.uefi.capsule
+meta_type		= X-System
 meta_format		= triplet
 meta_branch		= false
 meta_guid_1		= $(uefi)
@@ -36,6 +39,7 @@ nsh_switch		= $(ami_switch)
 else ifeq ($(target),ami-flashrom)
 meta_version		= 1.7.7
 meta_protocol		= org.flashrom
+meta_type		= X-System
 meta_format		= triplet
 meta_branch		= false
 meta_guid_1		= $(coreboot)

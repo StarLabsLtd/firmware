@@ -223,3 +223,11 @@
 >     Rebased on edk2 master
 >     Modified USB flow
 
+
+#### coreboot: [8.20](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/8.20/coreboot-L4.cab) 2022-12-22
+>     Rebased on edk2 master
+>     Rebased on coreboot master
+>     Reserve the centuary byte
+>     Always enumerate uart2
+>     Check USB port is compatible before checking PSIV
+

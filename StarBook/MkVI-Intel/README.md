@@ -37,3 +37,8 @@
 >     Always enumerate uart2
 >     Check USB port is compatible before checking PSIV
 
+
+#### coreboot: [8.21](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.21/coreboot-B6-I.cab) 2023-01-06
+>     Disable pin widget 0x17 as its not used
+>     Enable pin widget 0x18 for combo jack microphone detection
+

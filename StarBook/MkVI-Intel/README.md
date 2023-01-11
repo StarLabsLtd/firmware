@@ -42,3 +42,8 @@
 >     Disable pin widget 0x17 as its not used
 >     Enable pin widget 0x18 for combo jack microphone detection
 
+
+#### ami: [1.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami/1.1.0/efi-B6-I.zip) 2023-01-11
+>     Updated default configuration
+>     Enabled mirror flag to update EC along with BIOS
+

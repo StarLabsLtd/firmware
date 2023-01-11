@@ -47,3 +47,8 @@
 >     Updated default configuration
 >     Enabled mirror flag to update EC along with BIOS
 
+
+#### ami-flashrom: [1.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami-flashrom/1.1.0/1.1.0.bin) 2023-01-11
+>     Updated default configuration
+>     Enabled mirror flag to update EC along with BIOS
+

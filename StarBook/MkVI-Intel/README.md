@@ -52,3 +52,8 @@
 >     Updated default configuration
 >     Enabled mirror flag to update EC along with BIOS
 
+
+#### ami: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami/1.2.0/efi-B6-I.zip) 2023-01-13
+>     Updated default configuration
+>     Enabled mirror flag to update EC along with BIOS
+

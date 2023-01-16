@@ -33,3 +33,8 @@
 >     Disabled ASPM due to limited support in certain distributions
 >     Updated S3 flow
 
+
+#### ami: [1.0.3](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.0.3/efi-B6-A.zip) 2023-01-16
+>     Update the ACPI for the PS2 controller to fix an issue when the
+>     keyboard would not respond with certain kernels
+

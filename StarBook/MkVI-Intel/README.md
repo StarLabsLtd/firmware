@@ -62,3 +62,9 @@
 >     Updated default configuration
 >     Enabled mirror flag to update EC along with BIOS
 
+
+#### coreboot: [8.22](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.22/coreboot-B6-I.cab) 2023-01-16
+>     Modified FSP configuration to ensure that virtual wires are configured which
+>     fixes SSDs not being initialised all of the time
+>     Fix the wrong sleep state being recorded
+

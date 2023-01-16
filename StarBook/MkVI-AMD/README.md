@@ -38,3 +38,8 @@
 >     Update the ACPI for the PS2 controller to fix an issue when the
 >     keyboard would not respond with certain kernels
 
+
+#### ami: [1.0.4](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.0.4/efi-B6-A.zip) 2023-01-16
+>     Modify the threshold for turtle mode from 25 percent battery to 8 percent battery
+>     
+

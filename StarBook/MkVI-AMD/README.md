@@ -43,3 +43,8 @@
 >     Modify the threshold for turtle mode from 25 percent battery to 8 percent battery
 >     
 
+
+#### ami: [1.1.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.1.0/efi-B6-A.zip) 2023-01-19
+>     Modified version number format
+>     Updated ACPI for better compatibility with newer kernels
+

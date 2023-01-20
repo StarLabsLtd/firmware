@@ -68,3 +68,10 @@
 >     fixes SSDs not being initialised all of the time
 >     Fix the wrong sleep state being recorded
 
+
+#### coreboot: [8.23](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.23/coreboot-B6-I.cab) 2023-01-20
+>     Enforce Gen 4 SSD support
+>     Fix the disable wireless CMOS option
+>     Clear PMCON register on power state change
+>     Rebase on coreboot 4.19
+

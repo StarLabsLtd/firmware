@@ -75,3 +75,10 @@
 >     Clear PMCON register on power state change
 >     Rebase on coreboot 4.19
 
+
+#### coreboot: [8.24](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.24/coreboot-B6-I.cab) 2023-01-24
+>     Modify HPD GPIO to fix issue with USB-C DisplayPort
+>     Let coreboot configure the vGPIOs rather than FSP
+>     Fix the disable wireless CMOS option
+>     Fix issue with USB-C port when used with hubs
+

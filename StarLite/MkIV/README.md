@@ -119,3 +119,10 @@
 >     Always enumerate uart2
 >     Check USB port is compatible before checking PSIV
 
+
+#### coreboot: [8.24](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.24/coreboot-I4.cab) 2023-01-24
+>     Rebased on coreboot 4.19
+>     Switch to libgfxinit to fix issue with screen flickering on newer kernels
+>     Minor USB adjustments
+>     Fixed power registers
+

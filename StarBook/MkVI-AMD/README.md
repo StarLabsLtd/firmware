@@ -48,3 +48,8 @@
 >     Modified version number format
 >     Updated ACPI for better compatibility with newer kernels
 
+
+#### ami: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.2.0/efi-B6-A.zip) 2023-02-08
+>     Add Realtek PXE driver
+>     Update the fan curve
+

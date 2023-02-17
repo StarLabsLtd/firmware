@@ -125,3 +125,9 @@
 >     Remove soundwire workaround
 >     Dont show SD card reader as a bootable device when there is no SD card
 
+
+#### coreboot: [8.29](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.29/coreboot-B6-I.cab) 2023-02-17
+>     Add a cmos option to enable Hot Plug for the SSD. This slows
+>     down coreboot enough for third-party drives to be detected.
+>     
+

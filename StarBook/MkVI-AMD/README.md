@@ -53,3 +53,8 @@
 >     Add Realtek PXE driver
 >     Update the fan curve
 
+
+#### ami: [1.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.3.0/efi-B6-A.zip) 2023-02-20
+>     Enable S2idle support
+>     Add the option to configure UMA size
+

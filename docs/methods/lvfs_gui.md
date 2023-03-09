@@ -1,37 +1,7 @@
-## LVFS
-
-This guide will show you how to install updates from the [LVFS](https://fwupd.org/) (Linux Vendor Firmware Service), a secure web service allowing you to download and install updates securely.
-
-##### Please note: If you are using 'Full Disk' Encryption, please only update the EC (Embedded Controller) via a **Live USB**.
-
-## Installation
-
-Open a terminal window and enter the below commands:
-
-###### Ubuntu, Linux Mint, elementary OS, Zorin OS and other Ubuntu derivatives
-
-``` bash
-sudo add-apt-repository ppa:starlabs/main
-sudo add-apt-repository universe
-sudo apt update
-sudo apt install fwupd libflashrom1
-```
-
-###### Manjaro 21
-
-``` bash
-sudo pacman -Syu flashrom-starlabs
-```
-
-###### Debian 11, MX Linux
-
-Please use our pre-built packages, which you can find [here](https://github.com/StarLabsLtd/packages)
-
-###### Fedora 37
-
-You need to install `fwupd`, `flashrom` and `fwupd-plugin-flashrom`. Please install `flashrom` from copr://starlabs/fwupd
-
-## Updating
+---
+layout: about
+title:  LVFS via a Graphic Interface
+---
 
 Once you've installed fwupd, there are a few ways to update the firmware; some are distribution specific.
 
@@ -75,34 +45,3 @@ You can check for updates by clicking on the hamburger menu and selecting "Check
 
 ![undefined](https://cdn.shopify.com/s/files/1/2059/5897/files/40a2506d41-79f2952cc772803f85ec.png?v=1614011664)
 
-#### Terminal Method
-
-You can manage your firmware and install updates from the terminal if none of the above options is available.
-
-###### Check for Updates
-
-From your terminal window, type in the below command:
-
-``` bash
-fwupdmgr refresh
-```
-
-###### Install Updates
-
-From your terminal window, type in the below command:
-
-``` bash
-fwupdmgr update
-```
-
-###### Reboot
-
-The update will install upon the next reboot cycle. Ensure the power stays connected during the update, which may take 2-3 minutes to complete. Do not power off the machine during the update.
-
-Specific updates require confirmation when installed; this will appear as a grey screen with blue text. If you see this screen, please select **Proceed with Flash Update.**
-
-If you would like to test the latest updates before their official release, type the below command into your terminal window:
-
-``` bash
-fwupdmgr enable-remote lvfs-testing
-```

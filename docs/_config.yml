@@ -51,9 +51,9 @@ menu:
   - title:             Getting Started
     url:               /started
   - title:             Managing Firmware
-    url:               /install/
+    url:               /methods
   - title:             Known Issues
-    url:              https://github.com/StarLabsLtd/firmware/issues
+    url:               https://github.com/StarLabsLtd/firmware/issues
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..

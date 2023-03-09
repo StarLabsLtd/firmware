@@ -3,11 +3,6 @@ layout: about
 title:  Getting Started
 ---
 
-
-
-
-# Firmware
-
 This repository contains all of our firmware for all of our hardware; it doesn't include any of the source code - for that, please see [coreboot]{:.heading.flip-title}.
 
 The firmware itself, and the mechanisms differ from model to model, so please follow the documentation here. Using other methods, such as `flashrom` or `mtd` are at your owm __peril__!

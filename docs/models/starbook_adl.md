@@ -14,7 +14,16 @@ title:  StarBook Mk VI - Intel
 {:.stretch-table.dl-table}
 
 
+## Release
+[ami]:.heading.flip-title}
+[coreboot]:.heading.flip-title}
+
+
+
 [LVFS]: ../../methods/lvfs.md
 [EFI Shell]: ../../methods/efi_shell.md
 [Mirror Flag]: ../../methods/mirror_flag.md
 [coreboot]: https://github.com/coreboot/coreboot
+
+[ami]: https://fwupd.org/lvfs/devices/com.starlabs.B6-I.ami
+[coreboot]: https://fwupd.org/lvfs/devices/com.starlabs.B6-I.coreboot

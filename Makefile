@@ -88,7 +88,8 @@ ami:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab \
-						$(OUTPUT_DIR)/efi-$(sku).zip
+						$(OUTPUT_DIR)/efi-$(sku).zip \
+						blog
 	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
@@ -98,7 +99,8 @@ ami:						$(OUTPUT_DIR) \
 coreboot: 					$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
-						$(OUTPUT_DIR)/$(target)-$(sku).cab
+						$(OUTPUT_DIR)/$(target)-$(sku).cab \
+						blog
 	printf "\n#### $(target): [$(version)]($(link)/$(target)-$(sku).cab) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
@@ -109,12 +111,30 @@ ite:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab \
-						$(OUTPUT_DIR)/efi-$(sku).zip
+						$(OUTPUT_DIR)/efi-$(sku).zip \
+						blog
 	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)"
 	git push
+
+
+blog = ---\n
+blog += layout: post\n
+blog += title: $(name) $(target) $(version)\n
+blog += description: >\n
+blog +=   $(target) firmware, version $(version) added for $(name).\n
+blog += image:\n
+blog +=   path: /assets/img/$(model.jpg)\n
+blog += sitemap: false\n
+blog += hide_last_modified: true\n
+blog += ---\n
+blog += \n
+blog += readme_release_notes
+
+blog:
+	printf '$(blog)\n' >> docs/_posts/$(date)_$(name)_$(target)_$(version).md
 
 clean:
 	rm -rf build

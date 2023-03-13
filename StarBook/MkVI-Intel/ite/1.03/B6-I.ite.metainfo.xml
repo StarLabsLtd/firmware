@@ -1,0 +1,45 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B6-I.ite</id>
+ 	<name>StarBook MkVI-Intel ite firmware</name>
+ 	<summary>ite firmware for StarBook MkVI-Intel</summary>
+ 	<description>
+ 		<p>Updating the ite firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">d83a4cd0-fce6-58a8-93c7-bcee89b41dcf</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.0">org.freedesktop.fwupd</id>
+ 		<hardware>5c917039-d938-5c9a-b22a-9c392b1534f3</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">tw.com.ite.superio</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-EmbeddedController</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="1.03" date="2023-03-13">
+ 			<checksum filename="1.03.bin" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Improved the reliability of DC Jack charging by modifying it to 800MHz, 3A</li>
+					<li>Avoided charging stalling by continuously polling the SMBus after overcharge protection is active</li>
+					<li>Exposed the behavior of overcharge protection to APCI</li>
+					<li>Set the charge LED to purple when overcharge protection is active</li>
+					<li>Modified fan curve</li>
+					<li>Ensured the trackpad is in the desired state by polling its state every 10ms</li>
+					<li>Set the brightness of the keyboard backlight to the maximum</li>
+					<li>Streamlined the system by removing unused SMM events</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

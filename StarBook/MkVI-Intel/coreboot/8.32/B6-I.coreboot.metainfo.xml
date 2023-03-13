@@ -1,0 +1,51 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B6-I.coreboot</id>
+ 	<name>StarBook MkVI-Intel coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkVI-Intel</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">8c994a92-7ef8-5d68-80b5-99ead7cf4686</firmware>
+ 		<firmware type="flashed">1292e166-a66f-5e11-b2bb-53265a8f53d9</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>5c917039-d938-5c9a-b22a-9c392b1534f3</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="8.32" date="2023-03-13">
+ 			<checksum filename="8.32.rom" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on edk2 master</li>
+					<li>Rebased on coreboot master</li>
+					<li>Remove the hotplug workaround for SSDs and set coreboot to not disable PCI devices</li>
+					<li>Switch to custom FSP based on 3385</li>
+					<li>Disable clock request detect</li>
+					<li>Add a new method for activiting the mirror flag</li>
+					<li>Include EC 1.03</li>
+					<li>Please note - EC 1.03 includes a PD update, and will only update automatically when</li>
+					<li>connected to a DC Jack charger. If you are using a USB-C charger, please update via</li>
+					<li>the EFI Shell</li>
+					<li></li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

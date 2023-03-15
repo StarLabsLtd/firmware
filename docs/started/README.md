@@ -27,12 +27,12 @@ Please find your model below to find the support firmware and methods of managin
 
 
 [coreboot]: https://github.com/coreboot/coreboot
-[StarBook Mk VI - Intel]: ../models/starbook_adl.md
-[StarBook Mk VI - AMD]: ../models/starbook_cezanne.md
-[StarBook Mk V]: ../models/starbook_tgl.md
-[LabTop Mk IV]: ../models/labtop_cml.md
-[LabTop Mk III]: ../models/labtop_kbl.md
-[StarLite Mk IV]: ../models/lite_glkr.md
-[StarLite Mk III]: ../models/lite_glk.md
-[StarLite Mk II]: ../models/lite_apl.md
-[StarLite Mk I]: ../models/byte_cezanne.md
+[StarBook Mk VI - Intel]: starbook_adl.md
+[StarBook Mk VI - AMD]: starbook_cezanne.md
+[StarBook Mk V]: starbook_tgl.md
+[LabTop Mk IV]: labtop_cml.md
+[LabTop Mk III]: labtop_kbl.md
+[StarLite Mk IV]: lite_glkr.md
+[StarLite Mk III]: lite_glk.md
+[StarLite Mk II]: lite_apl.md
+[StarLite Mk I]: byte_cezanne.md

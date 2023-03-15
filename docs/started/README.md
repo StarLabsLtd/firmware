@@ -23,7 +23,7 @@ Please find your model below to find the support firmware and methods of managin
 * [StarLite Mk II]{:.heading.flip-title} --- 2017
 
 ## Byte Series
-* [StarLite Mk I]{:.heading.flip-title} --- 2022
+* [Byte Mk I]{:.heading.flip-title} --- 2022
 
 
 [coreboot]: https://github.com/coreboot/coreboot

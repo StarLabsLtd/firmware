@@ -58,3 +58,9 @@
 >     Enable S2idle support
 >     Add the option to configure UMA size
 
+
+#### ami: [1.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.4.0/efi-B6-A.zip) 2023-03-20
+>     Update AGESA to 1.0.0.D
+>     Update AmiModulePkg to 1.165
+>     Fixes issue with S3 exit
+

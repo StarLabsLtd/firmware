@@ -166,3 +166,9 @@
 >     the EFI Shell
 >     
 
+
+#### ite: [1.04](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.04/efi-B6-I.zip) 2023-03-20
+>     Store power related variables in the EC RAM and mirror them to EC memory
+>     to avoid memory overflow to mitigate some strange behaviours when the EC
+>     memory overflows
+

@@ -190,3 +190,8 @@
 >     Only call Anx when USB-C PD chargers are connected
 >     Disable Hybrid-Power when charging current is less that 1536
 
+
+#### ami-flashrom: [1.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami-flashrom/1.3.0/1.3.0.bin) 2023-03-27
+>     Fix the ESRT entry
+>     Include an uninforced copy of EC 1.05 
+

@@ -195,3 +195,8 @@
 >     Fix the ESRT entry
 >     Include an uninforced copy of EC 1.05 
 
+
+#### ami: [1.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami/1.3.0/efi-B6-I.zip) 2023-03-27
+>     Fix the ESRT entry
+>     Include an uninforced copy of EC 1.05 
+

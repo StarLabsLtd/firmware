@@ -14,7 +14,7 @@ follow these instructions; using other methods such as flashrom and mtd are at y
 ## LVFS
 * [Setting Up]{:.heading.flip-title} --- How to set up fwupd
 * [Graphical Interfaces]{:.heading.flip-title} --- Different GUIs available for fwupd
-* [Terminal Interace]{:.heading.flip-title} --- Managing updates with the terminal
+* [Terminal Interface]{:.heading.flip-title} --- Managing updates with the terminal
 * [Switching Branch]{:.heading.flip-title} --- Switching between AMI and coreboot
 * [Testing Updates]{:.heading.flip-title} --- Installing beta updates
 * [Troubleshooting]{:.heading.flip-title} --- Fixing common problems
@@ -32,7 +32,7 @@ follow these instructions; using other methods such as flashrom and mtd are at y
 
 [Setting Up]: lvfs_requirements.md
 [Graphical Interfaces]: lvfs_gui.md
-[Terminal Interace]: lvfs_terminal.md
+[Terminal Interface]: lvfs_terminal.md
 [Switching Branch]: lvfs_switching.md
 [Testing Updates]: lvfs_testing.md
 [Troubleshooting]: lvfs_troubleshooting.md

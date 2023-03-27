@@ -184,3 +184,9 @@
 >     connected to a DC Jack charger. If you are using a USB-C charger, please update via
 >     the EFI Shell
 
+
+#### ite: [1.05](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.05/efi-B6-I.zip) 2023-03-27
+>     Fix the charging voltage to 13.2V
+>     Only call Anx when USB-C PD chargers are connected
+>     Disable Hybrid-Power when charging current is less that 1536
+

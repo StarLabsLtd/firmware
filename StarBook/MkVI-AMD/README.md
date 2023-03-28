@@ -69,3 +69,8 @@
 >     Disable S2idle
 >     Disable ASPM for 2230 PCIe slot
 
+
+#### ami-flashrom: [1.5.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.5.0/1.5.0.bin) 2023-03-28
+>     Disable S2idle
+>     Disable ASPM for 2230 PCIe slot
+

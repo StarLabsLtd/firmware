@@ -64,3 +64,8 @@
 >     Update AmiModulePkg to 1.165
 >     Fixes issue with S3 exit
 
+
+#### ami: [1.5.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.5.0/efi-B6-A.zip) 2023-03-28
+>     Disable S2idle
+>     Disable ASPM for 2230 PCIe slot
+

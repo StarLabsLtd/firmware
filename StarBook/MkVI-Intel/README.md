@@ -200,3 +200,11 @@
 >     Fix the ESRT entry
 >     Include an uninforced copy of EC 1.05 
 
+
+#### coreboot: [8.34](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.34/coreboot-B6-I.cab) 2023-03-28
+>     Enable OC3 Pin
+>     Correct the OC Pin for the left USB Type-A
+>     Move the mirror flag to a CMOS option
+>     Stop coreboot trying to enable ASPM as its already enabled
+>     Includes EC 1.05
+

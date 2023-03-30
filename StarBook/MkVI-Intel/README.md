@@ -220,3 +220,7 @@
 >     Stop coreboot trying to enable ASPM as its already enabled
 >     Includes EC 1.05
 
+
+#### ite: [1.06](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.06/efi-B6-I.zip) 2023-03-30
+>     Strip PD responses to only include valid bits
+

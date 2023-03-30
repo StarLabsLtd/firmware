@@ -1,0 +1,38 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B6-I.ite</id>
+ 	<name>StarBook MkVI-Intel ite firmware</name>
+ 	<summary>ite firmware for StarBook MkVI-Intel</summary>
+ 	<description>
+ 		<p>Updating the ite firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">d83a4cd0-fce6-58a8-93c7-bcee89b41dcf</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.0">org.freedesktop.fwupd</id>
+ 		<hardware>5c917039-d938-5c9a-b22a-9c392b1534f3</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">tw.com.ite.superio</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-EmbeddedController</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="1.06" date="2023-03-30">
+ 			<checksum filename="1.06.bin" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Strip PD responses to only include valid bits</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

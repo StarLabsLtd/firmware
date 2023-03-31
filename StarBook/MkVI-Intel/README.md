@@ -224,3 +224,9 @@
 #### ite: [1.06](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.06/efi-B6-I.zip) 2023-03-30
 >     Strip PD responses to only include valid bits
 
+
+#### ite: [1.07](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.07/efi-B6-I.zip) 2023-03-31
+>     Disable PD requests when a normal USB-C device is connected
+>     Account for having two chargers connected
+>     Optimise the charging calculations
+

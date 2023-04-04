@@ -230,3 +230,15 @@
 >     Account for having two chargers connected
 >     Optimise the charging calculations
 
+
+#### coreboot: [8.36](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.36/coreboot-B6-I.cab) 2023-04-04
+>     Enable OC3 Pin
+>     Correct the OC Pin for the left USB Type-A
+>     Move the mirror flag to a CMOS option
+>     Stop coreboot trying to enable ASPM as its already enabled
+>     Enable OC3 Pin
+>     Correct the OC Pin for the left USB Type-A
+>     Move the mirror flag to a CMOS option
+>     Stop coreboot trying to enable ASPM as its already enabled
+>     Includes EC 1.07
+

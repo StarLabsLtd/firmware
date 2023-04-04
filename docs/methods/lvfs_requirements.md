@@ -10,7 +10,7 @@ The main program for installing updates is called `fwupd`, and there are a few o
 to have been released after the processor was. The version readily available on most distributions at the time of writtin this, is
 `v1.2` which is almost 3 years old. The are steps below which cover installing a more recent version for popular distributions.
 
-## ITE requirements
+## ITE requirements (only for standalone EC updates)
 * The disk cannot be encrypted with LUKS
 * Plymouth must be installed and active
 

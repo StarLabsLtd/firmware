@@ -10,14 +10,13 @@ title:  Byte Mk I
 |:------------------------------|:-------------------:|:-------------------:|:-------------------:|
 | [coreboot]                    | &#x2714;            | &#x2717;            | &#x2717;            |
 | [AMI]                         | &#x2714;            | &#x2714;            | &#x2717;            |
-| ITE                           | &#x2717;            | &#x2717;            | &#x2714;            |
+| ITE                           | &#x2717;            | &#x2714;            | &#x2714;            |
 {:.stretch-table.dl-table}
 
 
 ## Releases
 [ami]:.heading.flip-title} --- View versions
 [coreboot]:.heading.flip-title} --- View versions
-
 
 [LVFS]: ../../methods
 [EFI Shell]: ../../methods/efi_shell/

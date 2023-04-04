@@ -7,6 +7,16 @@ This repository contains all of our firmware for all of our hardware; it doesn't
 
 The firmware itself, and the mechanisms differ from model to model, so please follow the documentation here. Using other methods, such as `flashrom` or `mtd` are at your owm __peril__!
 
+With a standard Linux distribition, you can check the versions of firmware that you have installed with the below commands:
+##### BIOS
+```
+cat /sys/class/dmi/id/bios_version
+```
+##### EC
+```
+cat /sys/class/dmi/id/ec_firmware_release
+```
+
 Please find your model below to find the support firmware and methods of managing that firmware.
 
 ## StarBook Series
@@ -35,4 +45,4 @@ Please find your model below to find the support firmware and methods of managin
 [StarLite Mk IV]: lite_glkr.md
 [StarLite Mk III]: lite_glk.md
 [StarLite Mk II]: lite_apl.md
-[StarLite Mk I]: byte_cezanne.md
+[Byte Mk I]: byte_cezanne.md

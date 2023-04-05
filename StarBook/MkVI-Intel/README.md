@@ -242,3 +242,9 @@
 >     Stop coreboot trying to enable ASPM as its already enabled
 >     Includes EC 1.07
 
+
+#### ite: [1.10](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.10/efi-B6-I.zip) 2023-04-05
+>     Disable Hybrid Power when the RSOC is less than 20 percent
+>     Only enable LEARN once when RSOC is greater than 50 percent
+>     Dont query unused registers on the BQ24780S
+

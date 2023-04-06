@@ -248,3 +248,8 @@
 >     Only enable LEARN once when RSOC is greater than 50 percent
 >     Dont query unused registers on the BQ24780S
 
+
+#### ite: [1.11](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.11/efi-B6-I.zip) 2023-04-06
+>     Adjust the threshold for Hybrid Power to 1536MA
+>     Adjust the threshold for Hybrid Power to be disable to 5 percent RSOC
+

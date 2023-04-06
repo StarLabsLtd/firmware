@@ -74,3 +74,7 @@
 >     Disable S2idle
 >     Disable ASPM for 2230 PCIe slot
 
+
+#### ite: [1.10](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.10/efi-B6-A.zip) 2023-04-06
+>     Adjust the fan curve
+

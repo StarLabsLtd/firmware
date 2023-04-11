@@ -253,3 +253,12 @@
 >     Adjust the threshold for Hybrid Power to 1536MA
 >     Adjust the threshold for Hybrid Power to be disable to 5 percent RSOC
 
+
+#### coreboot: [8.37](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.37/coreboot-B6-I.cab) 2023-04-11
+>     Correctly disable D3Cold
+>     Fix the inconsistant memory map in edk2
+>     Enable early caching of TOM
+>     Dont let coreboot try to change variables in the EC memory
+>     Fix the verb table not loading completely
+>     
+

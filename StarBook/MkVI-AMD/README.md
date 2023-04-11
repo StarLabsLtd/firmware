@@ -78,3 +78,8 @@
 #### ite: [1.10](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.10/efi-B6-A.zip) 2023-04-06
 >     Adjust the fan curve
 
+
+#### ami: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.6.0/efi-B6-A.zip) 2023-04-11
+>     Update the EC to include a new fan curve
+>     Bump the version number
+

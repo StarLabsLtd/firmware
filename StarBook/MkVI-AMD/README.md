@@ -83,3 +83,8 @@
 >     Update the EC to include a new fan curve
 >     Bump the version number
 
+
+#### ami-flashrom: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.6.0/1.6.0.bin) 2023-04-11
+>     Update the EC to include a new fan curve
+>     Bump the version number
+

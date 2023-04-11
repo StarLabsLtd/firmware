@@ -126,3 +126,9 @@
 >     Minor USB adjustments
 >     Fixed power registers
 
+
+#### coreboot: [8.37](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.37/coreboot-I4.cab) 2023-04-11
+>     Fix the inconsistant memory map in edk2
+>     Disable DPST to fix a flicker with recent kernels
+>     Dont let coreboot try to change EC values
+

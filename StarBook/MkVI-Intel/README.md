@@ -262,3 +262,8 @@
 >     Fix the verb table not loading completely
 >     
 
+
+#### ite: [1.12](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.12/efi-B6-I.zip) 2023-04-14
+>     Revert the charging rate to 0.5C
+>     Store the state of charging at 0xa0
+

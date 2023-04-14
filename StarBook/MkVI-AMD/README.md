@@ -88,3 +88,8 @@
 >     Update the EC to include a new fan curve
 >     Bump the version number
 
+
+#### ami: [1.7.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.7.0/efi-B6-A.zip) 2023-04-14
+>     Update the PSP binaries
+>     Fix the subsystem ID of the sound card
+

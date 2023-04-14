@@ -267,3 +267,11 @@
 >     Revert the charging rate to 0.5C
 >     Store the state of charging at 0xa0
 
+
+#### coreboot: [8.38](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.38/coreboot-B6-I.cab) 2023-04-14
+>     Speed up boot times by not trying to send EOP when the ME is disabled
+>     Speed up boot times by caching ramtop
+>     Remove the Intel sound entries from the verb table, to fix an issue
+>     resuming from suspend thats initiated by a display manager
+>     Hide the P2SB
+

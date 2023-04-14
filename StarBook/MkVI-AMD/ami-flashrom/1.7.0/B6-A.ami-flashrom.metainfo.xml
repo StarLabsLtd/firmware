@@ -1,0 +1,39 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B6-A.ami-flashrom</id>
+ 	<name>StarBook MkVI-AMD ami-flashrom firmware</name>
+ 	<summary>ami-flashrom firmware for StarBook MkVI-AMD</summary>
+ 	<description>
+ 		<p>Updating the ami-flashrom firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">""</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>b39593ad-7522-52a5-a4ab-1b2ca2153956</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">triplet</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="1.7.0" date="2023-04-14">
+ 			<checksum filename="1.7.0.bin" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Update the PSP binaries</li>
+					<li>Fix the subsystem ID of the sound card</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

@@ -93,3 +93,8 @@
 >     Update the PSP binaries
 >     Fix the subsystem ID of the sound card
 
+
+#### ami-flashrom: [1.7.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.7.0/1.7.0.bin) 2023-04-14
+>     Update the PSP binaries
+>     Fix the subsystem ID of the sound card
+

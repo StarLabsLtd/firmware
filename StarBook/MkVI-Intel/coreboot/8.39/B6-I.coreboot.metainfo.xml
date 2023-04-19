@@ -35,6 +35,7 @@
  				<ul>
  					<li>Final testing release before the stable version</li>
 					<li>Move ramtop outside of checksummed area to fix warning about invalid checksum</li>
+					<li>Let coreboot configure ASPM</li>
  				</ul>
  			</description>
  		</release>

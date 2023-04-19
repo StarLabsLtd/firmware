@@ -88,8 +88,7 @@ ami:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab \
-						$(OUTPUT_DIR)/efi-$(sku).zip \
-						blog
+						$(OUTPUT_DIR)/efi-$(sku).zip
 	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
@@ -99,8 +98,7 @@ ami:						$(OUTPUT_DIR) \
 coreboot: 					$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
-						$(OUTPUT_DIR)/$(target)-$(sku).cab \
-						blog
+						$(OUTPUT_DIR)/$(target)-$(sku).cab
 	printf "\n#### $(target): [$(version)]($(link)/$(target)-$(sku).cab) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
@@ -111,8 +109,7 @@ ite:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
 						$(OUTPUT_DIR)/$(target)-$(sku).cab \
-						$(OUTPUT_DIR)/efi-$(sku).zip \
-						blog
+						$(OUTPUT_DIR)/efi-$(sku).zip
 	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md

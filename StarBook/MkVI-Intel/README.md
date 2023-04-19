@@ -275,3 +275,8 @@
 >     resuming from suspend thats initiated by a display manager
 >     Hide the P2SB
 
+
+#### coreboot: [8.39](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.39/coreboot-B6-I.cab) 2023-04-19
+>     Final testing release before the stable version
+>     Move ramtop outside of checksummed area to fix warning about invalid checksum
+

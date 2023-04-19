@@ -15,8 +15,8 @@ title:  StarBook Mk V
 
 
 ## Releases
-[ami]:.heading.flip-title} --- View versions
-[coreboot]:.heading.flip-title} --- View versions
+[ami]{:.heading.flip-title} --- View versions
+[coreboot]{:.heading.flip-title} --- View versions
 
 
 [LVFS]: ../../methods

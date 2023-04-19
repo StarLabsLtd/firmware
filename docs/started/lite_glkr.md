@@ -15,9 +15,8 @@ title:  StarLite Mk IV
 
 
 ## Releases
-[ami]:.heading.flip-title} --- View versions
-[coreboot]:.heading.flip-title} --- View versions
-
+[AMI]{:.heading.flip-title} --- View versions
+[coreboot]{:.heading.flip-title} --- View versions
 
 [LVFS]: ../../methods
 [EFI Shell]: ../../methods/efi_shell/

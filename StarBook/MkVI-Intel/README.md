@@ -309,3 +309,7 @@
 >     Move the mirror flag to a CMOS option
 >     
 
+
+#### coreboot: [8.41](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.41/coreboot-B6-I.cab) 2023-04-23
+>     Adjust the flags for pci_hot_plug to slow down SSD initialisation more
+

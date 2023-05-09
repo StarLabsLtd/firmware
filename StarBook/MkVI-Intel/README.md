@@ -313,3 +313,10 @@
 #### coreboot: [8.41](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.41/coreboot-B6-I.cab) 2023-04-23
 >     Adjust the flags for pci_hot_plug to slow down SSD initialisation more
 
+
+#### ite: [1.13](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.13/efi-B6-I.zip) 2023-05-09
+>     Increase the charging speed to 1C when temperatures allow
+>     Reduce the amount of variables polled via the SMBus
+>     Fixed an issue when batteries would not exit shipping mode
+>     
+

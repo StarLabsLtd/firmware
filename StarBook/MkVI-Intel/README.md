@@ -320,3 +320,12 @@
 >     Fixed an issue when batteries would not exit shipping mode
 >     
 
+
+#### coreboot: [8.42](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.42/coreboot-B6-I.cab) 2023-05-25
+>     Microcode update from Intel
+>     Rebase on edk2 stable tag
+>     Rebase on coreboot master
+>     Switch to fixed bars
+>     Switch to upstream fsp
+>     Increase the size of the ramtop entry
+

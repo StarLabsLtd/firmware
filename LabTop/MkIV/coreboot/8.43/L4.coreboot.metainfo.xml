@@ -1,0 +1,48 @@
+<!-- Copyright 2022 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.L4.coreboot</id>
+ 	<name>LabTop MkIV coreboot firmware</name>
+ 	<summary>coreboot firmware for LabTop MkIV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">0ee5867c-93f0-5fb4-adf1-9d686ea1183a</firmware>
+ 		<firmware type="flashed">cc6437bf-0955-5c03-84a6-8b87c7a7c244</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>baf1d04e-fd16-5e6a-93cc-1c23d171f879</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="8.43" date="2023-05-31">
+ 			<checksum filename="8.43.rom" target="content"/>
+ 			<description>
+ 				<p>This stable release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebase on coreboot 4.20</li>
+					<li>Rebase on edk2 master</li>
+					<li>Moving configurable options to CFR so they can now be changed in edk2</li>
+					<li>rather than via coreboot-configurator</li>
+					<li>Add TPM control to edk2</li>
+					<li>Tidy up the information displayed in edk2</li>
+					<li>Remove the power_on_after_fail option</li>
+					<li>Fix the size allocations in ramtop</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

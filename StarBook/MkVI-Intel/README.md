@@ -355,3 +355,7 @@
 >     Switch to fixed bars
 >     Switch to upstream fsp
 
+
+#### coreboot: [8.51](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.51/coreboot-B6-I.cab) 2023-06-22
+>     Adjust the S3 flow
+

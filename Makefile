@@ -108,7 +108,6 @@ coreboot: 					$(OUTPUT_DIR) \
 ite:						$(OUTPUT_DIR) \
 						$(OUTPUT_DIR)/release_notes.md \
 						$(OUTPUT_DIR)/$(version).$(file_type) \
-						$(OUTPUT_DIR)/$(target)-$(sku).cab \
 						$(OUTPUT_DIR)/efi-$(sku).zip
 	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md

@@ -41,7 +41,7 @@ metadata += 	\t<releases>\n
 metadata += 		\t\t<release urgency=\"medium\" version=\"$(version)\" date=\"$(date)\">\n
 metadata += 			\t\t\t<checksum filename=\"$(version).$(file_type)\" target=\"content\"/>\n
 metadata += 			\t\t\t<description>\n
-metadata += 				\t\t\t\t<p>This stable release includes the following features:</p>\n
+metadata += 				\t\t\t\t<p>This release includes the following features:</p>\n
 metadata += 				\t\t\t\t<ul>\n
 metadata += 					$(meta_release_notes)
 metadata += 				\t\t\t\t</ul>\n

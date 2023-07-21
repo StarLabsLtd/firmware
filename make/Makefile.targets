@@ -10,9 +10,8 @@ meta_guid_1		= $(superio1)
 meta_guid_2		= $(superio2)
 file_type		= bin
 
-nsh_tool		= $(ite_tool)
-nsh_selector		= $(ite_selector)
-nsh_switch		= $(ite_switch)
+nsh_tool		= ifu
+nsh_switch		= 128
 
 else ifeq ($(target),coreboot)
 meta_version		= 1.7.7

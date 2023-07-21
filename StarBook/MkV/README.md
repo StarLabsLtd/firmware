@@ -200,3 +200,9 @@
 >     Remove the power_on_after_fail option
 >     Fix the size allocations in ramtop
 
+
+#### coreboot: [8.60](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.60/coreboot-B5.cab) 2023-07-21
+>     Adjust the Type-C Output types
+>     Enabled the crashlog
+>     Adjust the layout of CFR
+

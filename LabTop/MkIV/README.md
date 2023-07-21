@@ -268,3 +268,8 @@
 >     Fix the size allocations in ramtop
 >     Switch to upstream fsp
 
+
+#### coreboot: [8.60](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/8.60/coreboot-L4.cab) 2023-07-21
+>     Adjust the layout of CFR
+>     Rebase on upstream
+

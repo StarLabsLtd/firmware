@@ -365,3 +365,9 @@
 >     Enabled the crashlog
 >     Adjust the layout of CFR
 
+
+#### coreboot: [8.60](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.60/coreboot-B6-I.cab) 2023-07-21
+>     Adjust the Type-C Output types
+>     Enabled the crashlog
+>     Adjust the layout of CFR
+

@@ -151,3 +151,8 @@
 >     Remove the power_on_after_fail option
 >     Restore the USB reset workaround
 
+
+#### coreboot: [8.60](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.60/coreboot-I4.cab) 2023-07-21
+>     Adjust the layout of CFR
+>     Rebase on upstream
+

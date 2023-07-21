@@ -359,3 +359,9 @@
 #### coreboot: [8.51](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.51/coreboot-B6-I.cab) 2023-06-22
 >     Adjust the S3 flow
 
+
+#### coreboot: [8.60](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.60/coreboot-B6-I.cab) 2023-07-21
+>     Adjust the Type-C Output types
+>     Enabled the crashlog
+>     Adjust the layout of CFR
+

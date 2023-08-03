@@ -206,3 +206,9 @@
 >     Enabled the crashlog
 >     Adjust the layout of CFR
 
+
+#### coreboot: [8.70](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.70/coreboot-B5.cab) 2023-08-03
+>     Fixed an issue where laptop wouldnt turn on without power connected
+>     Rebased on upstream edk2
+>     Rebased on upstream coreboot
+

@@ -156,3 +156,10 @@
 >     Adjust the layout of CFR
 >     Rebase on upstream
 
+
+#### coreboot: [8.70](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.70/coreboot-I4.cab) 2023-08-04
+>     Disable PSR
+>     Rebase on upstream coreboot
+>     Rebase on upstream edk2
+>     Restore PCI access to the PMC
+

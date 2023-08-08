@@ -371,3 +371,9 @@
 >     Enabled the crashlog
 >     Adjust the layout of CFR
 
+
+#### coreboot: [8.80](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.80/coreboot-B6-I.cab) 2023-08-08
+>     Rebased on upstream edk2
+>     Rebased on upstream coreboot
+>     Update EC binary to 1.16
+

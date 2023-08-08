@@ -212,3 +212,10 @@
 >     Rebased on upstream edk2
 >     Rebased on upstream coreboot
 
+
+#### coreboot: [8.80](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.80/coreboot-B5.cab) 2023-08-08
+>     Rebased on upstream edk2
+>     Rebased on upstream coreboot
+>     Update EC binary to 1.16
+>     Fixed an issue which caused the power LED to be lit when off
+

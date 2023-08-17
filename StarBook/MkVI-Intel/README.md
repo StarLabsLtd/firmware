@@ -377,3 +377,11 @@
 >     Rebased on upstream coreboot
 >     Update EC binary to 1.16
 
+
+#### ite: [1.16](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.16/efi-B6-I.zip) 2023-08-17
+>     Make the charging LED flicker between red and blue when no
+>     battery is present
+>     Fix the ANX7447 initialisation
+>     Optimise the power sequence
+>     Adjust the timing of the power button to handle error states
+

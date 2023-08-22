@@ -385,3 +385,9 @@
 >     Optimise the power sequence
 >     Adjust the timing of the power button to handle error states
 
+
+#### coreboot: [8.90](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.90/coreboot-B6-I.cab) 2023-08-22
+>     Rebased on upstream edk2
+>     Rebased on upstream coreboot
+>     Update EC binary to 1.16
+

@@ -163,3 +163,8 @@
 >     Rebase on upstream edk2
 >     Restore PCI access to the PMC
 
+
+#### coreboot: [8.90](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/8.90/coreboot-I4.cab) 2023-08-22
+>     Rebased on upstream edk2
+>     Rebased on upstream coreboot
+

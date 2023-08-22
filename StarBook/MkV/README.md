@@ -219,3 +219,10 @@
 >     Update EC binary to 1.16
 >     Fixed an issue which caused the power LED to be lit when off
 
+
+#### coreboot: [8.90](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.90/coreboot-B5.cab) 2023-08-22
+>     Rebased on upstream edk2
+>     Rebased on upstream coreboot
+>     Update EC binary to 1.16
+>     Fixed power drain in S5
+

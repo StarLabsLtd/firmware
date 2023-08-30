@@ -391,3 +391,8 @@
 >     Rebased on upstream coreboot
 >     Update EC binary to 1.16
 
+
+#### coreboot: [8.92](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.92/coreboot-B6-I.cab) 2023-08-30
+>     Rebased on coreboot 4.21
+>     Rebased on upstream edk2
+

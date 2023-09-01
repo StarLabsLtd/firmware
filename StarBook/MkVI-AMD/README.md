@@ -4,29 +4,9 @@
 >     Based on AMI 5.29
 
 
-#### ite: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.00/efi-B6-A.zip) 2022-11-08
->     Initial release EC firmware for the StarBook Mk VI
-
-
 #### ami: [1.0.1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.0.1/efi-B6-A.zip) 2022-11-08
 >     Modified boot flow
 >     Adjusted PSP configuraton to not lock out SPI access registers
-
-
-#### ite: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.01/efi-B6-A.zip) 2022-11-08
->     Fix the backlight helper to remember the last state
->     Modified the scan code of the sysreq key
-
-
-#### ite: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.02/efi-B6-A.zip) 2022-11-08
->     Modified the F10 scan code for better compatibility
->     Modified the F12 scan code for better compatibility
->     Initialised the Keyboard Backlight from the EC to avoid problems when switching branc
-
-
-#### ite: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.03/efi-B6-A.zip) 2022-11-08
->     Increased over-charge protection for USB PD 3.1 chargers
->     Implemented over-charge protection for limited charge cycles
 
 
 #### ami: [1.0.2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.0.2/efi-B6-A.zip) 2022-11-08
@@ -73,10 +53,6 @@
 #### ami-flashrom: [1.5.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.5.0/1.5.0.bin) 2023-03-28
 >     Disable S2idle
 >     Disable ASPM for 2230 PCIe slot
-
-
-#### ite: [1.10](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ite/1.10/efi-B6-A.zip) 2023-04-06
->     Adjust the fan curve
 
 
 #### ami: [1.6.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.6.0/efi-B6-A.zip) 2023-04-11

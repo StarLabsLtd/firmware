@@ -58,12 +58,6 @@
 >     Enable I2C4
 >     Convert EC_GPE_SCI to Kconfig
 
-#### ITE128: [1.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.03/efi-B5.zip) (2021-12-22)
->     Fixed issue where keyboard backlight wouldn't turn off when entering S3 or turning off
-
-#### ITE128: [1.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.02/efi-B5.zip) (2021-12-10)
->     Update Normal and Quiet fan curves to delay start until 65 degree's. Performance mode is unchanged.
-
 #### AMI: [2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/2/efi-B5.zip) (2021-11-08)
 >     Updated Verb Table
 >     New option to set the maximum battery charge level
@@ -99,13 +93,6 @@
 >     Power Saving:			PL1:         15W
 >     				PL2:         15W
 >     				TurboBoost:  Disabled
-
-#### ITE128: [1.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.01/efi-B5.zip) (2021-10-08)
->     Added support to select maximum charge percentage
->     	
-
-#### ITE128: [1.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/ITE128/1.00/efi-B5.zip) (2021-10-08)
->     Initial release firmware for the StarBook Mk V
 
 #### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-27)
 >     Initial release firmware for the StarBook Mk V

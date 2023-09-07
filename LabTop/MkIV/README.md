@@ -278,3 +278,8 @@
 >     Rebased on upstream edk2
 >     Rebased on upstream coreboot
 
+
+#### coreboot: [8.94](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/8.94/coreboot-L4.cab) 2023-09-07
+>     Based on coreboot 4.21
+>     Rebased on upstream edk2
+

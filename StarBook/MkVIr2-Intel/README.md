@@ -9,3 +9,8 @@
 >     Based on coreboot 4.21
 >     Based on edk2 master
 
+
+#### ami: [1.0.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVIr2-Intel/ami/1.0.0/efi-B62-I.zip) 2023-09-08
+>     Initial release firmware for the StarBook Mk VIr2
+>     Based on AMI 5.29
+

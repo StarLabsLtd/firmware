@@ -1,0 +1,39 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B62-I.ami-flashrom</id>
+ 	<name>StarBook MkVIr2-Intel ami-flashrom firmware</name>
+ 	<summary>ami-flashrom firmware for StarBook MkVIr2-Intel</summary>
+ 	<description>
+ 		<p>Updating the ami-flashrom firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">595c5861-a105-509b-8dd6-f77070345286</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>6fca23e4-71e4-518a-96e2-b03ad7eb484f</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">triplet</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="1.0.0" date="2023-09-08">
+ 			<checksum filename="1.0.0.bin" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Initial release firmware for the StarBook Mk VIr2</li>
+					<li>Based on AMI 5.29</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

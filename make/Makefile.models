@@ -112,4 +112,14 @@ ami		= ""
 coreboot	= ""
 
 ami-switch	= $(afu_amd)
+
+else ifeq ($(model),starbook_rpl)
+name		= StarBook MkVI-Intel
+sku		= B62-I
+# GUIDs
+hwid		= 6fca23e4-71e4-518a-96e2-b03ad7eb484f
+uefi		= 04ae7c00-cd83-48da-a37b-0607c310944a
+ami		= ce35649d-b89d-5188-b961-d992ce7e0f88
+coreboot	= 595c5861-a105-509b-8dd6-f77070345286
+
 endif

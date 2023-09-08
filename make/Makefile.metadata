@@ -1,6 +1,6 @@
 ## SPDX-License-Identifier: GPL-2.0-only
 
-metadata += <\041-- Copyright 2022 Star Labs Online Limited -->\n
+metadata += <\041-- Copyright 2023 Star Labs Online Limited -->\n
 metadata += <component type=\"firmware\">\n
 metadata += 	\t<id>com.starlabs.$(sku).$(target)</id>\n
 metadata += 	\t<name>$(name) $(target) firmware</name>\n

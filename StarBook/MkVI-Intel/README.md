@@ -403,3 +403,8 @@
 >     Improved power reporting
 >     Update EC binary to 1.17
 
+
+#### ite: [1.17](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.17/efi-B6-I.zip) 2023-09-12
+>     Adjust the reporting of the power status
+>     Further optimise the power sequence
+

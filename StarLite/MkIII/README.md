@@ -126,3 +126,8 @@
 >     Disable DPST to fix a flicker with recent kernels
 >     Dont let coreboot try to change EC values
 
+
+#### coreboot: [8.94](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/8.94/coreboot-I3.cab) 2023-09-12
+>     Based on coreboot 4.21
+>     Rebased on upstream edk2
+

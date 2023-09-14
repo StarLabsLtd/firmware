@@ -2,7 +2,7 @@
 
 nsh_script = echo -off\n
 nsh_script += cls\n
-nsh_script += set payload $(version).bin\n
+nsh_script += set payload $(version).rom\n
 nsh_script += \n
 # nsh_script += echo "*******************************************************************"\n
 # nsh_script += echo ".d8888. d888888b  .d8b.  d8888b.   db       .d8b.  d8888b. .d8888. "\n

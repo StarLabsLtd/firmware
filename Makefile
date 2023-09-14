@@ -34,6 +34,10 @@ $(OUTPUT_DIR):
 	mkdir -p $@
 
 # Just the binary
+$(OUTPUT_DIR)/$(version).rom:			$(version).rom
+	mv $< $@
+
+# The target file
 $(OUTPUT_DIR)/$(version).$(file_type):		$(version).$(file_type)
 	mv $< $@
 
@@ -50,7 +54,7 @@ $(OUTPUT_DIR)/startup.nsh:			$(OUTPUT_DIR)
 	printf '$(nsh_script)' > $@
 
 $(OUTPUT_DIR)/efi-$(sku).zip:			$(OUTPUT_DIR)/startup.nsh \
-						$(OUTPUT_DIR)/$(version).$(file_type) \
+						$(OUTPUT_DIR)/$(version).rom \
 						binaries/$(nsh_tool).efi
 	zip -rj $@ $^
 

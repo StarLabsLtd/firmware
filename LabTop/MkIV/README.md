@@ -283,3 +283,10 @@
 >     Based on coreboot 4.21
 >     Rebased on upstream edk2
 
+
+#### coreboot: [8.95](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/8.95/coreboot-L4.cab) 2023-09-21
+>     ebased on coreboot master
+>     Rebased on edk2 master
+>     Handle EC updates when powering on
+>     Revert the 20230808 microcode update
+

@@ -408,3 +408,11 @@
 >     Adjust the reporting of the power status
 >     Further optimise the power sequence
 
+
+#### coreboot: [8.95](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/coreboot/8.95/coreboot-B6-I.cab) 2023-09-21
+>     Rebased on coreboot master
+>     Rebased on edk2 master
+>     Handle EC updates when powering on
+>     Revert the 20230808 microcode update
+>     Disable GpioOverride to allow FSP to configure ClkReq
+

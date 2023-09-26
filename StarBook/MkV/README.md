@@ -228,3 +228,10 @@
 >     Improved power reporting
 >     Update EC binary to 1.17
 
+
+#### coreboot: [8.95](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.95/coreboot-B5.cab) 2023-09-26
+>     Rebased on coreboot master
+>     Rebased on edk2 master
+>     Handle EC updates when powering on
+>     Revert the 20230808 microcode update
+

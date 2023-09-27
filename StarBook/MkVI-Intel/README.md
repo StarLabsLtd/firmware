@@ -416,3 +416,7 @@
 >     Revert the 20230808 microcode update
 >     Disable GpioOverride to allow FSP to configure ClkReq
 
+
+#### ite: [1.18](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.18/efi-B6-I.zip) 2023-09-27
+>     Fixed an issue where batteries werent initialised
+

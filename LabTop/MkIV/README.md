@@ -290,3 +290,9 @@
 >     Handle EC updates when powering on
 >     Revert the 20230808 microcode update
 
+
+#### coreboot: [8.96](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/8.96/coreboot-L4.cab) 2023-09-27
+>     Fixed an issue where the keyboard backlight wasnt functional
+>     Rebased on coreboot master
+>     Rebased on edk2 master
+

@@ -1,0 +1,40 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B6-A.ami</id>
+ 	<name>StarBook MkVI-AMD ami firmware</name>
+ 	<summary>ami firmware for StarBook MkVI-AMD</summary>
+ 	<description>
+ 		<p>Updating the ami firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">5a29ddbb-11dd-476d-a641-a45c1db63d5c</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.3.9">org.freedesktop.fwupd</id>
+ 		<hardware>b39593ad-7522-52a5-a4ab-1b2ca2153956</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+ 		<value key="LVFS::VersionFormat">triplet</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="1.10.0" date="2023-09-28">
+ 			<checksum filename="1.10.0.cap" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Update PI to 1.0.0.fa</li>
+					<li>Expose the behaviour of the overcharge protection</li>
+					<li>Improved power reporting</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

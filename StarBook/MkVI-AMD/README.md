@@ -80,3 +80,9 @@
 >     Expose the behaviour of the overcharge protection
 >     Improved power reporting
 
+
+#### ami: [1.10.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.10.0/efi-B6-A.zip) 2023-09-28
+>     Update PI to 1.0.0.fa
+>     Expose the behaviour of the overcharge protection
+>     Improved power reporting
+

@@ -33,7 +33,7 @@ $(OUTPUT_DIR):
 $(OUTPUT_DIR)/$(version).rom:
 	mv $(version).rom $@
 
-$(OUTPUT_DIR)/$(version).cap:			$(OUTPUT_DIR)/$(version).rom
+$(OUTPUT_DIR)/$(version).cap:			$(subst $() $(),/,$(name))/$(target)-flashrom/$(version)/$(version).rom
 	./binaries/header.py --guid $(uefi) --bin $< --cap $@
 
 # Standard CAB
@@ -83,7 +83,7 @@ push_to_git:
 DEPENDENCIES = 				\
 	$(OUTPUT_DIR)			\
 	$(OUTPUT_DIR)/release_notes.md	\
-	$(OUTPUT_DIR)/$(version).rom
+	$(OUTPUT_DIR)/$(version).$(file_type)
 
 # Master recipes to be called
 ami-flashrom:					$(DEPENDENCIES)				\
@@ -93,7 +93,6 @@ ami-flashrom:					$(DEPENDENCIES)				\
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 ami:						$(DEPENDENCIES)				\
-						$(OUTPUT_DIR)/$(version).cap		\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git

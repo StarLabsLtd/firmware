@@ -32,9 +32,6 @@ meta_branch		= false
 meta_guid_1		= $(uefi)
 file_type		= cap
 
-nsh_tool		= AfuEfix64
-nsh_switch		= $(ami_switch)
-
 else ifeq ($(target),ami-flashrom)
 meta_version		= 1.7.7
 meta_protocol		= org.flashrom
@@ -43,6 +40,9 @@ meta_format		= triplet
 meta_branch		= false
 meta_guid_1		= $(coreboot)
 file_type		= rom
+
+nsh_tool		= AfuEfix64
+nsh_switch		= $(ami_switch)
 
 endif
 

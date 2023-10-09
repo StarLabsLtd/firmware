@@ -98,7 +98,7 @@ superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
 ami		= 4c7c8bc5-475c-5384-b602-78c9d4771b5d
 coreboot	= ""
 
-ami-switch	= $(afu_amd)
+ami_switch	= $(afu_amd)
 
 else ifeq ($(model),byte_cezanne)
 name		= Byte MkI
@@ -111,7 +111,7 @@ superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
 ami		= ""
 coreboot	= ""
 
-ami-switch	= $(afu_amd)
+ami_switch	= $(afu_amd)
 
 else ifeq ($(model),starbook_rpl)
 name		= StarBook MkVIr2-Intel

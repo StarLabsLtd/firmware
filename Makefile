@@ -23,14 +23,16 @@ ifeq ($(target),coreboot)
 	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
 	make -C ../coreboot
 	mv ../coreboot/build/coreboot.rom $@
+else
+	exit 1
 endif
 
 $(OUTPUT_DIR):
 	mkdir -p $@
 
 # Just the binary
-$(OUTPUT_DIR)/$(version).rom:			$(version).rom
-	mv $< $@
+$(OUTPUT_DIR)/$(version).rom:
+	mv $(version).rom $@
 
 $(OUTPUT_DIR)/$(version).cap:			$(OUTPUT_DIR)/$(version).rom
 	./binaries/header.py --guid $(uefi) --bin $< --cap $@
@@ -40,7 +42,7 @@ $(OUTPUT_DIR)/$(sku).$(target).metainfo.xml:	$(OUTPUT_DIR)
 	printf '$(metadata)' > $@
 
 $(OUTPUT_DIR)/$(target)-$(sku).cab:		$(OUTPUT_DIR)/$(sku).$(target).metainfo.xml	\
-						$(OUTPUT_DIR)/$(version).$(file_type)
+						$(OUTPUT_DIR)/$(version).rom
 	gcab -cn $@ $^
 
 # EFI Shell
@@ -48,7 +50,7 @@ $(OUTPUT_DIR)/startup.nsh:			$(OUTPUT_DIR)
 	printf '$(nsh_script)' > $@
 
 $(OUTPUT_DIR)/efi-$(sku).zip:			$(OUTPUT_DIR)/startup.nsh			\
-						$(OUTPUT_DIR)/$(version).$(file_type)		\
+						$(OUTPUT_DIR)/$(version).rom			\
 						binaries/$(nsh_tool).efi
 	zip -rj $@ $^
 
@@ -77,7 +79,7 @@ push_to_git:
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)"
-	git push
+#	git push
 
 DEPENDENCIES = 				\
 	$(OUTPUT_DIR)			\
@@ -90,9 +92,9 @@ ami-flashrom:					$(DEPENDENCIES)				\
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
-ami:						$(DEPENDENCIES)
-						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
+ami:						$(DEPENDENCIES)				\
 						$(OUTPUT_DIR)/$(version).cap		\
+						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
 						$(OUTPUT_DIR)/efi-$(sku).zip
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git

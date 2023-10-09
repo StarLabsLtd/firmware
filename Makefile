@@ -11,7 +11,6 @@ include make/Makefile.metadata
 
 all: help
 
-
 date = $(shell date '+%Y-%m-%d')
 
 OUTPUT_DIR = $(subst $() $(),/,$(name))/$(target)/$(version)
@@ -42,7 +41,7 @@ $(OUTPUT_DIR)/$(sku).$(target).metainfo.xml:	$(OUTPUT_DIR)
 	printf '$(metadata)' > $@
 
 $(OUTPUT_DIR)/$(target)-$(sku).cab:		$(OUTPUT_DIR)/$(sku).$(target).metainfo.xml	\
-						$(OUTPUT_DIR)/$(version).rom
+						$(OUTPUT_DIR)/$(version).$(file_type)
 	gcab -cn $@ $^
 
 # EFI Shell
@@ -88,14 +87,14 @@ DEPENDENCIES = 				\
 
 # Master recipes to be called
 ami-flashrom:					$(DEPENDENCIES)				\
+						$(OUTPUT_DIR)/efi-$(sku).zip		\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 ami:						$(DEPENDENCIES)				\
 						$(OUTPUT_DIR)/$(version).cap		\
-						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
-						$(OUTPUT_DIR)/efi-$(sku).zip
+						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
@@ -136,4 +135,4 @@ help:
 	printf "\nExample usage:\n"
 	printf "make coreboot target=coreboot model=starbook_adl version=8.18\n\n"
 
-.phony: help ite coreboot ami ami-flashrom release-notes
+.PHONY: help ite coreboot ami ami-flashrom release-notes

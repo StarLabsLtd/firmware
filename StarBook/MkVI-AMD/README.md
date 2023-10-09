@@ -97,3 +97,14 @@
 >     Flicker the power LED when changing power states
 >     Minor power savings
 
+
+#### ami: [1.12.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.12.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.12.0/1.12.0.cap) 2023-10-09
+>     Update PI to 1.0.0.fa
+>     Expose the behaviour of the overcharge protection
+>     Improved power reporting
+>     Improved charger detection speed
+>     Improved banking
+>     Improved XLT speed
+>     Flicker the power LED when changing power states
+>     Minor power savings
+

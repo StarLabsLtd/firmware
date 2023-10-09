@@ -1,4 +1,4 @@
-<!-- Copyright 2022 Star Labs Online Limited -->
+<!-- Copyright 2023 Star Labs Online Limited -->
  <component type="firmware">
  	<id>com.starlabs.B6-A.ami-flashrom</id>
  	<name>StarBook MkVI-AMD ami-flashrom firmware</name>
@@ -25,10 +25,10 @@
  		<category>X-System</category>
  	</categories>
  	<releases>
- 		<release urgency="medium" version="1.7.0" date="2023-04-14">
- 			<checksum filename="1.7.0.bin" target="content"/>
+ 		<release urgency="medium" version="1.7.0" date="2023-10-09">
+ 			<checksum filename="1.7.0.rom" target="content"/>
  			<description>
- 				<p>This stable release includes the following features:</p>
+ 				<p>This release includes the following features:</p>
  				<ul>
  					<li>Update the PSP binaries</li>
 					<li>Fix the subsystem ID of the sound card</li>

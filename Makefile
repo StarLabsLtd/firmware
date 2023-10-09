@@ -77,17 +77,21 @@ readme_release_notes = $(shell while IFS= read -r line; do		\
 
 link = https://github.com/StarLabsLtd/firmware/raw/master/$(OUTPUT_DIR)
 
+
+push_to_git:
+	printf "\n#### $(target): [$(version)]($(link)/$(target_link)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
+	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
+	git commit -m "Added $(name) $(target) $(version)"
+	git push
+
 # Master recipes to be called
 ami-flashrom:					$(OUTPUT_DIR)				\
 						$(OUTPUT_DIR)/release_notes.md		\
 						$(OUTPUT_DIR)/$(version).$(file_type)	\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
-	printf "\n#### $(target): [$(version)]($(link)/$(version).$(file_type)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
-	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
-	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
-	git commit -m "Added $(name) $(target) $(version)"
-	git push
+	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 ami:						$(OUTPUT_DIR)				\
 						$(OUTPUT_DIR)/release_notes.md		\
@@ -95,33 +99,21 @@ ami:						$(OUTPUT_DIR)				\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
 						$(OUTPUT_DIR)/efi-$(sku).zip
 
-	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
-	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
-	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
-	git commit -m "Added $(name) $(target) $(version)"
-	git push
+	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 coreboot: 					$(OUTPUT_DIR)				\
 						$(OUTPUT_DIR)/release_notes.md		\
 						$(OUTPUT_DIR)/$(version).$(file_type)	\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
-	printf "\n#### $(target): [$(version)]($(link)/$(target)-$(sku).cab) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
-	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
-	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
-	git commit -m "Added $(name) $(target) $(version)"
-	git push
+	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 ite:						$(OUTPUT_DIR)				\
 						$(OUTPUT_DIR)/release_notes.md		\
 						$(OUTPUT_DIR)/$(version).$(file_type)	\
 						$(OUTPUT_DIR)/efi-$(sku).zip
 
-	printf "\n#### $(target): [$(version)]($(link)/efi-$(sku).zip) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
-	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
-	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
-	git commit -m "Added $(name) $(target) $(version)"
-	git push
+	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 help:
 	printf "Star Labs Firmware\n\n"

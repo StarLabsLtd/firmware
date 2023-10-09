@@ -8,7 +8,7 @@ meta_format		= pair
 meta_branch		= false
 meta_guid_1		= $(superio1)
 meta_guid_2		= $(superio2)
-file_type		= bin
+file_type		= rom
 
 nsh_tool		= ifu
 nsh_switch		= 128
@@ -42,7 +42,7 @@ meta_type		= X-System
 meta_format		= triplet
 meta_branch		= false
 meta_guid_1		= $(coreboot)
-file_type		= bin
+file_type		= rom
 
 endif
 

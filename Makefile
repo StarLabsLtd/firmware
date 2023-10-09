@@ -22,12 +22,7 @@ ifeq ($(target),coreboot)
 	make -C ../coreboot distclean
 	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
 	make -C ../coreboot
-	cp ../coreboot/build/coreboot.rom $@
-else ifeq ($(target),ami)
-	./binaries/header.py --guid $(uefi) --bin $(version).rom --cap $@
-	rm $(version).rom
-else
-	exit 0
+	mv ../coreboot/build/coreboot.rom $@
 endif
 
 $(OUTPUT_DIR):
@@ -37,9 +32,8 @@ $(OUTPUT_DIR):
 $(OUTPUT_DIR)/$(version).rom:			$(version).rom
 	mv $< $@
 
-# The target file
-$(OUTPUT_DIR)/$(version).$(file_type):		$(version).$(file_type)
-	mv $< $@
+$(OUTPUT_DIR)/$(version).cap:			$(OUTPUT_DIR)/$(version).rom
+	./binaries/header.py --guid $(uefi) --bin $< --cap $@
 
 # Standard CAB
 $(OUTPUT_DIR)/$(sku).$(target).metainfo.xml:	$(OUTPUT_DIR)
@@ -85,32 +79,30 @@ push_to_git:
 	git commit -m "Added $(name) $(target) $(version)"
 	git push
 
+DEPENDENCIES = 				\
+	$(OUTPUT_DIR)			\
+	$(OUTPUT_DIR)/release_notes.md	\
+	$(OUTPUT_DIR)/$(version).rom
+
 # Master recipes to be called
-ami-flashrom:					$(OUTPUT_DIR)				\
-						$(OUTPUT_DIR)/release_notes.md		\
-						$(OUTPUT_DIR)/$(version).$(file_type)	\
+ami-flashrom:					$(DEPENDENCIES)				\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
-ami:						$(OUTPUT_DIR)				\
-						$(OUTPUT_DIR)/release_notes.md		\
-						$(OUTPUT_DIR)/$(version).$(file_type)	\
+ami:						$(DEPENDENCIES)
 						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
+						$(OUTPUT_DIR)/$(version).cap		\
 						$(OUTPUT_DIR)/efi-$(sku).zip
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
-coreboot: 					$(OUTPUT_DIR)				\
-						$(OUTPUT_DIR)/release_notes.md		\
-						$(OUTPUT_DIR)/$(version).$(file_type)	\
+coreboot: 					$(DEPENDENCIES)				\
 						$(OUTPUT_DIR)/$(target)-$(sku).cab
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
-ite:						$(OUTPUT_DIR)				\
-						$(OUTPUT_DIR)/release_notes.md		\
-						$(OUTPUT_DIR)/$(version).$(file_type)	\
+ite:						$(DEPENDENCIES)				\
 						$(OUTPUT_DIR)/efi-$(sku).zip
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git

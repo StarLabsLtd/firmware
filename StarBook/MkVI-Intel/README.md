@@ -434,3 +434,10 @@
 >     Fixes #136
 >     Fixes #135
 
+
+#### ite: [1.21](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.21/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ite/1.21/1.21.rom) 2023-10-26
+>     Fix the issue when connecting the charger would power on the laptop
+>     Reset the OCM status before initialisation
+>     Reduce the frequency of battery status updates to 2W
+>     Allow the power button to fall through
+

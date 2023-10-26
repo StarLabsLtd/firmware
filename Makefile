@@ -15,7 +15,7 @@ date = $(shell date '+%Y-%m-%d')
 
 OUTPUT_DIR = $(subst $() $(),/,$(name))/$(target)/$(version)
 
-$(version).$(file_type):
+$(version).rom:
 ifeq ($(target),coreboot)
 	sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
 	make -C ../coreboot distclean
@@ -30,7 +30,7 @@ $(OUTPUT_DIR):
 	mkdir -p $@
 
 # Just the binary
-$(OUTPUT_DIR)/$(version).rom:
+$(OUTPUT_DIR)/$(version).rom:			$(version).rom
 	mv $(version).rom $@
 
 $(OUTPUT_DIR)/$(version).cap:			$(subst $() $(),/,$(name))/$(target)-flashrom/$(version)/$(version).rom

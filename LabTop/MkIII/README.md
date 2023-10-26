@@ -195,3 +195,9 @@
 >     Revert the 20230808 microcode update
 >     
 
+
+#### coreboot: [8.99](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/8.99/https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/8.99/8.99.rom) 2023-10-26
+>     Remove the option to enable the legacy 8254 timer
+>     Rebased on coreboot/main
+>     Rebased on edk2/master
+

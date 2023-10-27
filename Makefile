@@ -15,23 +15,27 @@ date = $(shell date '+%Y-%m-%d')
 
 OUTPUT_DIR = $(subst $() $(),/,$(name))/$(target)/$(version)
 
-$(version).rom:
+$(OUTPUT_DIR):
+	mkdir -p $@
+
+
 ifeq ($(target),coreboot)
+
+$(version).rom:
 	sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
 	make -C ../coreboot distclean
 	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
 	make -C ../coreboot
 	mv ../coreboot/build/coreboot.rom $@
-else
-	exit 1
-endif
-
-$(OUTPUT_DIR):
-	mkdir -p $@
 
 # Just the binary
 $(OUTPUT_DIR)/$(version).rom:			$(version).rom
 	mv $(version).rom $@
+
+else
+$(OUTPUT_DIR)/$(version).rom:
+	mv $(version).rom $@
+endif
 
 $(OUTPUT_DIR)/$(version).cap:			$(subst $() $(),/,$(name))/$(target)-flashrom/$(version)/$(version).rom
 	./binaries/header.py --guid $(uefi) --bin $< --cap $@

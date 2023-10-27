@@ -132,3 +132,9 @@
 >     Minor power savings
 >     Clear the anx memory when latching
 
+
+#### ami-flashrom: [1.14.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.14.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.14.0/1.14.0.rom) 2023-10-27
+>     djust the notifications to the GPU
+>     Reset the OCM status before initialisation
+>     Reduce the frequency of battery status updates to 2W
+

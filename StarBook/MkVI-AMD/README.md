@@ -149,3 +149,8 @@
 >     Call ALIB via a Q Event
 >     Dont notify AFN4 of state changes
 
+
+#### ami: [1.16.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.16.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.16.0/1.16.0.cap) 2023-11-07
+>     Call ALIB via a Q Event
+>     Dont notify AFN4 of state changes
+

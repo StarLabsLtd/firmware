@@ -81,7 +81,7 @@ push_to_git:
 	printf "\n#### $(target): [$(version)]($(link)/$(target_link)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
-	git commit -m "Added $(name) $(target) $(version)"
+	git commit -m "Added $(name) $(target) $(version)" -m "$(readme_release_notes)"
 #	git push
 
 DEPENDENCIES = 				\

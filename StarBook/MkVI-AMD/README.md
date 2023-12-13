@@ -162,3 +162,9 @@
 #### ami: [1.16.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.16.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/1.16.0/1.16.0.cap) 2023-12-08
 >     Call ALIB via a Q Event Dont notify AFN4 of state changes
 
+
+#### ami-flashrom: [1.16.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.16.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/1.16.0/1.16.0.rom) 2023-12-13
+>     Update PI to 1.0.0.fa
+>     Call ALIB via a Q Event Dont notify AFN4 of state changes
+>     Disable Force Mirror Flag
+

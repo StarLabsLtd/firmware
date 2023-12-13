@@ -25,12 +25,14 @@
  		<category>X-System</category>
  	</categories>
  	<releases>
- 		<release urgency="medium" version="1.16.0" date="2023-12-08">
+ 		<release urgency="medium" version="1.16.0" date="2023-12-13">
  			<checksum filename="1.16.0.rom" target="content"/>
  			<description>
  				<p>This release includes the following features:</p>
  				<ul>
- 					<li>Call ALIB via a Q Event Dont notify AFN4 of state changes</li>
+ 					<li>Update PI to 1.0.0.fa</li>
+					<li>Call ALIB via a Q Event Dont notify AFN4 of state changes</li>
+					<li>Disable Force Mirror Flag</li>
  				</ul>
  			</description>
  		</release>

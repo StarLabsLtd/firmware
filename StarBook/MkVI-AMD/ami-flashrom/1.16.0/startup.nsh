@@ -9,7 +9,9 @@ echo -off
  echo "This update is for the StarBook MkVI-AMD. Installing on any other laptop will cause it not to start."
  echo " "
  echo "This update contains the following changes:"
- echo "Call ALIB via a Q Event Dont notify AFN4 of state changes"
+ echo "Update PI to 1.0.0.fa"
+echo "Call ALIB via a Q Event Dont notify AFN4 of state changes"
+echo "Disable Force Mirror Flag"
  echo "Press Enter to update firmware or press Q to quit."
  pause
  for %a run (0 10)

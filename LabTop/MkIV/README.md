@@ -302,3 +302,9 @@
 >     Rebased on coreboot/main
 >     Rebased on edk2/master
 
+
+#### coreboot: [9.01](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/9.01/https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/9.01/9.01.rom) 2024-01-11
+>     Rebased on coreboot 4.22
+>     Rebased on edk2/master
+>     Fixed an issue that stopped the scheduler running
+

@@ -1,0 +1,55 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B5.coreboot</id>
+ 	<name>StarBook MkV coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">54c96fef-31e7-5011-a3ff-ea8e855d9acd</firmware>
+ 		<firmware type="flashed">612d0af2-6b4b-5d1a-bd63-433022fdaefe</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>85aba599-addd-5985-a2e8-eddb41c61ba3</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="9.02" date="2024-01-22">
+ 			<checksum filename="9.02.rom" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 4.22</li>
+					<li>Rebased on edk2/master</li>
+					<li>Enabled PMC muxing</li>
+					<li>Remove the option to turn on when connecting a charger</li>
+					<li>Make PECI IRQ driven</li>
+					<li>Empty the keyboard buffer faster</li>
+					<li>Switch the compiler from Keil to SDCC</li>
+					<li>Automatically power on after FMF</li>
+					<li>Fixed an issue that stopped the scheduler running</li>
+					<li>Reduced false over-current protection warnings</li>
+					<li>Only wakeup when closing the lid with CC1 and CC2</li>
+					<li>Adjust the 6064 commands and data handling</li>
+					<li>Add a simple cbmem style console that uses the PMC interface</li>
+					<li>Adjust the muxing to avoid coreboot disconnecting displays on boot</li>
+					<li>Optimise i2c ops</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

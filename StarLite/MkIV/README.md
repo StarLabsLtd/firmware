@@ -179,3 +179,9 @@
 >     Rebased on coreboot/main
 >     Rebased on edk2/master
 
+
+#### coreboot: [9.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/9.03/https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/9.03/9.03.rom) 2024-01-30
+>     Remove the option to enable the legacy 8254 timer
+>     Rebased on coreboot/main
+>     Rebased on edk2/master
+

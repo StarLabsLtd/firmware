@@ -207,3 +207,9 @@
 >     Rebased on edk2/master
 >     Fixed an issue that stopped the scheduler running
 
+
+#### coreboot: [9.03](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/9.03/https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/9.03/9.03.rom) 2024-01-30
+>     Remove the option to enable the legacy 8254 timer
+>     Rebased on coreboot/main
+>     Rebased on edk2/master
+

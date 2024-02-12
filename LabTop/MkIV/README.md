@@ -314,3 +314,9 @@
 >     Rebased on coreboot/main
 >     Rebased on edk2/master
 
+
+#### coreboot: [9.04](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/9.04/https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/9.04/9.04.rom) 2024-02-12
+>     Rebased on coreboot 4.22
+>     Rebased on edk2/master
+>     Remove the option to turn on when connecting a charger
+

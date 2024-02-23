@@ -191,3 +191,8 @@
 >     Rebased on edk2/master
 >     Remove the option to turn on when connecting a charger
 
+
+#### coreboot: [24.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/24.02/https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/24.02/24.02.rom) 2024-02-23
+>     Rebased on coreboot 24.02.
+>     Rebased on edk2/master.
+

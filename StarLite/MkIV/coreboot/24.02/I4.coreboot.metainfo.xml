@@ -1,0 +1,42 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.I4.coreboot</id>
+ 	<name>StarLite MkIV coreboot firmware</name>
+ 	<summary>coreboot firmware for StarLite MkIV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">5dc1dd5b-761e-5146-8ac2-1fdd8445f2ff</firmware>
+ 		<firmware type="flashed">32edd806-13a0-5b0f-a8e9-656a0e147369</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>0fc25c8c-ffa8-54ad-a216-d13cfe75bee4</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="24.02" date="2024-02-23">
+ 			<checksum filename="24.02.rom" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 24.02.</li>
+					<li>Rebased on edk2/master.</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

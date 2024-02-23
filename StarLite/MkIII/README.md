@@ -131,3 +131,8 @@
 >     Based on coreboot 4.21
 >     Rebased on upstream edk2
 
+
+#### coreboot: [24.02](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/24.02/https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIII/coreboot/24.02/24.02.rom) 2024-02-23
+>     Rebased on coreboot 24.02.
+>     Rebased on edk2/master.
+

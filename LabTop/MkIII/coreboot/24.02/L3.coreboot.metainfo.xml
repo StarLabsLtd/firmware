@@ -1,0 +1,42 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.L3.coreboot</id>
+ 	<name>LabTop MkIII coreboot firmware</name>
+ 	<summary>coreboot firmware for LabTop MkIII</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">d33219e2-b84c-53a8-a624-27af9752dba6</firmware>
+ 		<firmware type="flashed">a20caf4c-3ed8-531c-b59a-eb079ab5e65e</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>013b60e5-1023-5bee-8ae5-14cae21377b7</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="24.02" date="2024-02-23">
+ 			<checksum filename="24.02.rom" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 24.02.</li>
+					<li>Rebased on edk2/master.</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

@@ -1,0 +1,58 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.L4.coreboot</id>
+ 	<name>LabTop MkIV coreboot firmware</name>
+ 	<summary>coreboot firmware for LabTop MkIV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">0ee5867c-93f0-5fb4-adf1-9d686ea1183a</firmware>
+ 		<firmware type="flashed">cc6437bf-0955-5c03-84a6-8b87c7a7c244</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>baf1d04e-fd16-5e6a-93cc-1c23d171f879</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="24.02" date="2024-02-23">
+ 			<checksum filename="24.02.rom" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 24.02.</li>
+					<li>Rebased on edk2/master.</li>
+					<li>Enabled PMC muxing to save power.</li>
+					<li>Removed the option for automatic power-on when connecting to a charger.</li>
+					<li>Changed PECI to IRQ-driven operation for improved efficiency.</li>
+					<li>Emptied the keyboard buffer more quickly.</li>
+					<li>Switched the compiler from Keil to SDCC.</li>
+					<li>Enabled automatic power-on after an EC update.</li>
+					<li>Fixed an issue that prevented the scheduler from running.</li>
+					<li>Reduced false over-current protection warnings.</li>
+					<li>Only wake from sleep when the lid is closed with an active PD connection.</li>
+					<li>Optimised the Keyboard Controller initialization.</li>
+					<li>Added a simple cbmem-style console that uses the PMC interface.</li>
+					<li>Adjusted the muxing to prevent coreboot from disconnecting displays on boot.</li>
+					<li>Optimised i2c operations.</li>
+					<li>Improved S3 resume times.</li>
+					<li>Added options to disable the card reader and fingerprint reader.</li>
+					<li>Changed the default fan profile to Balanced.</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

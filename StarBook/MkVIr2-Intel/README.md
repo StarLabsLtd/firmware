@@ -146,3 +146,8 @@
 >     Make LEARN configurable
 >     Improved ASPM detection
 
+
+#### ami-flashrom: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVIr2-Intel/ami-flashrom/1.2.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVIr2-Intel/ami-flashrom/1.2.0/1.2.0.rom) 2024-03-26
+>     Updated the EC to 24.03
+>     Fixes batteries not being initialised correctly
+

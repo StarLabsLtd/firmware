@@ -174,3 +174,10 @@
 >     Call ALIB via a Q Event Dont notify AFN4 of state changes
 >     Disable Force Mirror Flag
 
+
+#### ami-flashrom: [24.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/24.3.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/24.3.0/24.3.0.rom) 2024-03-26
+>     Fixed an issue that stopped the backlight working after S3
+>     Enabled support for PD 2.0 chargers
+>     Disable USB power in S3
+>     Improved battery reporting
+

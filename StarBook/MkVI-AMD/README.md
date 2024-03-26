@@ -181,3 +181,10 @@
 >     Disable USB power in S3
 >     Improved battery reporting
 
+
+#### ami: [24.3.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/24.3.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/24.3.0/24.3.0.cap) 2024-03-26
+>     Fixed an issue that stopped the backlight working after S3
+>     Enabled support for PD 2.0 chargers
+>     Disable USB power in S3
+>     Improved battery reporting
+

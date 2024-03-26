@@ -552,3 +552,8 @@
 >     Added options to disable the card reader and fingerprint reader.
 >     Changed the default fan profile to Balanced.
 
+
+#### ami-flashrom: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami-flashrom/1.2.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami-flashrom/1.2.0/1.2.0.rom) 2024-03-26
+>     Updated the EC to 24.03
+>     Fixes batteries not being initialised correctly
+

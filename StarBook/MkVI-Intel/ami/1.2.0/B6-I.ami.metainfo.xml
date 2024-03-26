@@ -1,4 +1,4 @@
-<!-- Copyright 2022 Star Labs Online Limited -->
+<!-- Copyright 2023 Star Labs Online Limited -->
  <component type="firmware">
  	<id>com.starlabs.B6-I.ami</id>
  	<name>StarBook MkVI-Intel ami firmware</name>
@@ -25,13 +25,13 @@
  		<category>X-System</category>
  	</categories>
  	<releases>
- 		<release urgency="medium" version="1.2.0" date="2023-01-13">
+ 		<release urgency="medium" version="1.2.0" date="2024-03-26">
  			<checksum filename="1.2.0.cap" target="content"/>
  			<description>
- 				<p>This stable release includes the following features:</p>
+ 				<p>This release includes the following features:</p>
  				<ul>
- 					<li>Updated default configuration</li>
-					<li>Enabled mirror flag to update EC along with BIOS</li>
+ 					<li>Updated the EC to 24.03</li>
+					<li>Fixes batteries not being initialised correctly</li>
  				</ul>
  			</description>
  		</release>

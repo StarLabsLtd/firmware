@@ -1,2 +1,2 @@
-Updated default configuration
-Enabled mirror flag to update EC along with BIOS
+Updated the EC to 24.03
+Fixes batteries not being initialised correctly

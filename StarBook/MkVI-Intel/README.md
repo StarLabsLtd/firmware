@@ -557,3 +557,8 @@
 >     Updated the EC to 24.03
 >     Fixes batteries not being initialised correctly
 
+
+#### ami: [1.2.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami/1.2.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-Intel/ami/1.2.0/1.2.0.cap) 2024-03-26
+>     Updated the EC to 24.03
+>     Fixes batteries not being initialised correctly
+

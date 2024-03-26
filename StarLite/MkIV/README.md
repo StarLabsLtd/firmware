@@ -196,3 +196,10 @@
 >     Rebased on coreboot 24.02.
 >     Rebased on edk2/master.
 
+
+#### coreboot: [24.03](https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/24.03/https://github.com/StarLabsLtd/firmware/raw/master/StarLite/MkIV/coreboot/24.03/24.03.rom) 2024-03-26
+>     Rebased on coreboot 24.02.1
+>     Rebased on edk2 master
+>     Includes fix for coreboots leap year bug
+>     Extended battery reporting
+

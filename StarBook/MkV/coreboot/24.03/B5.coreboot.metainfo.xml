@@ -1,0 +1,47 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B5.coreboot</id>
+ 	<name>StarBook MkV coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">54c96fef-31e7-5011-a3ff-ea8e855d9acd</firmware>
+ 		<firmware type="flashed">612d0af2-6b4b-5d1a-bd63-433022fdaefe</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>85aba599-addd-5985-a2e8-eddb41c61ba3</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="24.03" date="2024-03-26">
+ 			<checksum filename="24.03.rom" target="content"/>
+ 			<description>
+ 				<p>This release includes the following features:</p>
+ 				<ul>
+ 					<li>Rebased on coreboot 24.02.1</li>
+					<li>Rebased on edk2 master</li>
+					<li>Includes fix for coreboots leap year bug</li>
+					<li>Extended battery reporting</li>
+					<li>Add an indicator for LEARN</li>
+					<li>Make LEARN configurable</li>
+					<li>Improved ASPM detection</li>
+ 				</ul>
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

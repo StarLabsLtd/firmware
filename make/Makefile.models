@@ -122,4 +122,10 @@ uefi		= 04ae7c00-cd83-48da-a37b-0607c310944a
 ami		= ce35649d-b89d-5188-b961-d992ce7e0f88
 coreboot	= 595c5861-a105-509b-8dd6-f77070345286
 
+else ifeq ($(model),byte_adl)
+name		= Byte MkII
+sku		= Y2
+hwid		= ef9b469e-2429-53e6-b4c0-3646ac0f53ed
+coreboot	= f96fab52-5c36-5b0f-9e16-2cf1e9e519dc
+
 endif

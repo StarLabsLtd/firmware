@@ -156,3 +156,10 @@
 >     Updated the EC to 24.03
 >     Fixes batteries not being initialised correctly
 
+
+#### coreboot: [24.04](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVIr2-Intel/coreboot/24.04/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVIr2-Intel/coreboot/24.04/24.04.rom) 2024-04-25
+>     Add PCI Device ID for the sound card to improve Windows compatibility
+>     Dont report the battery serial number to avoid issues with Windows
+>     Make PCI Clock Power Management, ASPM and L1 Substates configurable
+>     Fix USB-C devices being limited to USB 2.0 speeds
+

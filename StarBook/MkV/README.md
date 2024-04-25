@@ -358,3 +358,9 @@
 >     Make LEARN configurable
 >     Improved ASPM detection
 
+
+#### coreboot: [24.04](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.04/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.04/24.04.rom) 2024-04-25
+>     Add PCI Device ID for the sound card to improve Windows compatibility
+>     Dont report the battery serial number to avoid issues with Windows
+>     Make PCI Clock Power Management, ASPM and L1 Substates configurable
+

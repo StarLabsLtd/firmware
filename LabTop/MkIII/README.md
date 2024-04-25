@@ -231,3 +231,9 @@
 >     Includes fix for coreboots leap year bug
 >     Extended battery reporting
 
+
+#### coreboot: [24.04](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/24.04/https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIII/coreboot/24.04/24.04.rom) 2024-04-25
+>     Add PCI Device ID for the sound card to improve Windows compatibility
+>     Dont report the battery serial number to avoid issues with Windows
+>     Make PCI Clock Power Management, ASPM and L1 Substates configurable
+

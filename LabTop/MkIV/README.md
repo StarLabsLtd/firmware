@@ -354,3 +354,10 @@
 >     Extended battery reporting
 >     Improved ASPM detection
 
+
+#### coreboot: [24.04](https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/24.04/https://github.com/StarLabsLtd/firmware/raw/master/LabTop/MkIV/coreboot/24.04/24.04.rom) 2024-04-25
+>     Add PCI Device ID for the sound card to improve Windows compatibility
+>     Dont report the battery serial number to avoid issues with Windows
+>     Make PCI Clock Power Management, ASPM and L1 Substates configurable
+>     Fix PD 2.0 devices connecting to the USB-C port
+

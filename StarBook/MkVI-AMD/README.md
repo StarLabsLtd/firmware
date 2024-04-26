@@ -193,3 +193,8 @@
 >     Fixed the EC not being configured to match to the BIOS Settings
 >     Updated IPV6 modules
 
+
+#### ami: [24.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/24.4.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami/24.4.0/24.4.0.cap) 2024-04-26
+>     Fixed the EC not being configured to match to the BIOS Settings
+>     Updated IPV6 modules
+

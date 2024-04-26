@@ -188,3 +188,8 @@
 >     Disable USB power in S3
 >     Improved battery reporting
 
+
+#### ami-flashrom: [24.4.0](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/24.4.0/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkVI-AMD/ami-flashrom/24.4.0/24.4.0.rom) 2024-04-26
+>     Fixed the EC not being configured to match to the BIOS Settings
+>     Updated IPV6 modules
+

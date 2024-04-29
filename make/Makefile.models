@@ -127,5 +127,6 @@ name		= Byte MkII
 sku		= Y2
 hwid		= ef9b469e-2429-53e6-b4c0-3646ac0f53ed
 coreboot	= f96fab52-5c36-5b0f-9e16-2cf1e9e519dc
+meta_branch	= false
 
 endif

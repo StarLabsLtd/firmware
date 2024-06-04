@@ -129,4 +129,11 @@ hwid		= ef9b469e-2429-53e6-b4c0-3646ac0f53ed
 coreboot	= f96fab52-5c36-5b0f-9e16-2cf1e9e519dc
 meta_branch	= false
 
+else ifeq ($(model),lite_adl)
+name		= StarLite MkV
+sku		= I5
+hwid		= 3d9415bb-3027-541b-99b7-cf21e5383bdb
+coreboot	= c9d8edd8-8c89-598f-9d7a-e3ad247ee9cd
+meta_branch	= false
+
 endif

@@ -136,4 +136,11 @@ hwid		= 3d9415bb-3027-541b-99b7-cf21e5383bdb
 coreboot	= c9d8edd8-8c89-598f-9d7a-e3ad247ee9cd
 meta_branch	= false
 
+else ifeq ($(model),starfighter_rpl)
+name		= StarFighter MkI
+sku		= F1
+hwid		= 9299159f-8ac4-5e25-81f3-e8cf2ae62f32
+coreboot	= 79733fb5-3230-54ae-8940-6b897c8169a5
+meta_branch	= false
+
 endif

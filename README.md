@@ -1,6 +1,6 @@
 # Star Labs [Firmware](https://github.com/StarLabsLtd/firmware/) ![alt text](https://cdn.shopify.com/s/files/1/2059/5897/files/Star_50x.png?v=1513954416 "Star Labs Systems")
 
-Please see [here](https://starlabsltd.github.io/firmware/)
+Please see [here](https://support.starlabs.systems/kb/firmware/getting-started)
 
 ---
 # [© Star Labs®](https://starlabs.systems) / All Rights Reserved.

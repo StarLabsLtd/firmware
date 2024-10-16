@@ -62,9 +62,16 @@ $(OUTPUT_DIR)/efi-$(sku).zip:			$(OUTPUT_DIR)/startup.nsh			\
 $(OUTPUT_DIR)/release_notes.md:			$(OUTPUT_DIR)
 	nano $(OUTPUT_DIR)/release_notes.md
 
-meta_release_notes = $(shell while IFS= read -r line; do		\
-		printf '\\t\\t\\t\\t\\t<li>%s</li>\\n' "$$line";	\
-		done <$(OUTPUT_DIR)/release_notes.md)
+meta_release_notes = $(shell while IFS= read -r line; do					\
+	if echo "$$line" | grep -q '^[*]'; then							\
+		printf '\\t\\t\\t\\t\\t\\t<li>%s</li>\\n' "$${line#* }";			\
+	elif [ -n "$$line" ]; then								\
+		printf '\\t\\t\\t\\t\\t\\t<p>%s</p>\\n\\t\\t\\t\\t\\t\\t<ul>\\n' "$$line";	\
+	else											\
+		printf '\\t\\t\\t\\t\\t\\t</ul>\\n\\n\\n';					\
+	fi;											\
+	done < $(OUTPUT_DIR)/release_notes.md)
+
 
 nsh_release_notes = $(shell while IFS= read -r line; do			\
 		printf 'echo "%s"\\n' "$$line";				\

@@ -1,0 +1,72 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B6-I.coreboot</id>
+ 	<name>StarBook MkVI-Intel coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkVI-Intel</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">8c994a92-7ef8-5d68-80b5-99ead7cf4686</firmware>
+ 		<firmware type="flashed">1292e166-a66f-5e11-b2bb-53265a8f53d9</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>5c917039-d938-5c9a-b22a-9c392b1534f3</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="24.09" date="2024-10-17">
+ 			<checksum filename="24.09.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Reworked performance profiles for race to idle</li>
+						<li>Added options to disable certain devices</li>
+						<li>Removed the option to enable the 8254 timer</li>
+						<li>Enhanced wireless driver, with support for RTD3</li>
+						<li>Limit the PL4 to 1.0C</li>
+						<li>Intel Microcode update</li>
+						<li>Disabled RamTop optimisation</li>
+						<li>[StarLite Mk V] Made it possible to configure the memory speed</li>
+						<li>[StarLite Mk V] Make the i2c speed configurable</li>
+						</ul>
+
+
+						<p>Security Updates:</p>
+						<ul>
+						<li>Added support for SecureBoot (no keys will be enrolled in this release)</li>
+						</ul>
+
+
+						<p>Bug Fixes/Enchancements:</p>
+						<ul>
+						<li>Fixed an issue with the DFP driver that prevented it from loading</li>
+						<li>Fixed an issue with the TPM driver that prevented it from loading</li>
+						<li>Fixed memory allocation issue with fTPMs</li>
+						<li>Fixed an issue with the discharge rate reporting</li>
+						<li>Fixed the maximum C-State</li>
+						<li>[StarLite Mk V] Fixed an issue where charging was intermittent</li>
+						<li>[StarLite Mk V] Fixed an issue where a depleted battery could not be charged</li>
+						<li>[Byte Mk II] Fixed issue where DisplayPort monitors were not connected</li>
+						<li>[StarFighter Mk I] Fixed backslash key not working</li>
+						<li>[StarFighter Mk I] Fixed issue where certain charges wouldnt work</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

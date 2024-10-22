@@ -60,6 +60,9 @@
 						<li>[Byte Mk II] Fixed issue where DisplayPort monitors were not connected</li>
 						<li>[StarFighter Mk I] Fixed backslash key not working</li>
 						<li>[StarFighter Mk I] Fixed issue where certain charges wouldnt work</li>
+						</ul>
+
+
  			</description>
  		</release>
  	</releases>

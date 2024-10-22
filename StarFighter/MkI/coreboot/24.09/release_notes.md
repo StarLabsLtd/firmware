@@ -23,3 +23,4 @@ Bug Fixes:
 * [Byte Mk II] Fixed issue where DisplayPort monitors were not connected
 * [StarFighter Mk I] Fixed backslash key not working
 * [StarFighter Mk I] Fixed issue where certain charges wouldnt work
+

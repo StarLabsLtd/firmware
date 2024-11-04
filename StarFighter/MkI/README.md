@@ -1,5 +1,5 @@
 
-#### coreboot: [24.09](https://github.com/StarLabsLtd/firmware/raw/master/StarFighter/MkI/coreboot/24.09/https://github.com/StarLabsLtd/firmware/raw/master/StarFighter/MkI/coreboot/24.09/24.09.rom) 2024-10-22
+#### coreboot: [24.09](https://support.starlabs.systems/kb/firmware/getting-started) 2024-10-22
 >     General Updates:
 >     * Reworked performance profiles for race to idle
 >     * Added options to disable certain devices
@@ -27,7 +27,7 @@
 >     * [StarFighter Mk I] Fixed issue where certain charges wouldnt work
 
 
-#### coreboot: [24.09](https://github.com/StarLabsLtd/firmware/raw/master/StarFighter/MkI/coreboot/24.09/https://github.com/StarLabsLtd/firmware/raw/master/StarFighter/MkI/coreboot/24.09/24.09.rom) 2024-10-22
+#### coreboot: [24.09](https://support.starlabs.systems/kb/firmware/getting-started) 2024-10-22
 >     General Updates:
 >     * Reworked performance profiles for race to idle
 >     * Added options to disable certain devices

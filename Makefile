@@ -85,11 +85,10 @@ link = https://github.com/StarLabsLtd/firmware/raw/master/$(OUTPUT_DIR)
 
 
 push_to_git:
-	printf "\n#### $(target): [$(version)]($(link)/$(target_link)) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
+	printf "\n#### $(target): [$(version)](https://support.starlabs.systems/kb/firmware/getting-started) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
 	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
 	git commit -m "Added $(name) $(target) $(version)" -m "$(readme_release_notes)"
-#	git push
 
 DEPENDENCIES = 				\
 	$(OUTPUT_DIR)			\

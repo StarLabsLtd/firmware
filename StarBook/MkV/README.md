@@ -1,5 +1,5 @@
 ## **StarBook**[MkV](https://github.com/StarLabsLtd/firmware/tree/master/StarBook/MkV)
-#### coreboot: [8.15](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.15/efi-B5.zip) (2022-10-04)
+#### coreboot: [8.15](https://support.starlabs.systems/kb/firmware/getting-started) (2022-10-04)
 >     Improved handling of USB devices in edk2
 >     Switched to open-source libgfxinit
 >     Improved resource allocated
@@ -7,43 +7,43 @@
 >     Prefetch memory above 4G
 >     Enabled PMC muxing for reduced power consumption
 
-#### coreboot: [8.07](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.07/efi-B5.zip) (2022-08-15)
+#### coreboot: [8.07](https://support.starlabs.systems/kb/firmware/getting-started) (2022-08-15)
 >     Rebased edk2 on upstream edk2
 >     Disabled debug output to decrease boot time
 
-#### coreboot: [8.05](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.05/efi-B5.zip) (2022-08-01)
+#### coreboot: [8.05](https://support.starlabs.systems/kb/firmware/getting-started) (2022-08-01)
 >     Reduced timeout for initialising SD Card Reader
 >     Dynamically created CMOS entries so only relevant options are shown
 >     Enabled Measured Boot
 >     Removed unused CryptoLib from edk2
 >     Fixed relocation address logic check
 
-#### coreboot: [8.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.02/efi-B5.zip) (2022-07-04)
+#### coreboot: [8.02](https://support.starlabs.systems/kb/firmware/getting-started) (2022-07-04)
 >     Disabled edk2 serial debug support for faster boot times
 >     Configured PCIe Base Address in edk2 to avoid auto-config
 >     Increase setup resolution to full screen
 >     Adjusted spacing for boot prompt
 >     
 
-#### coreboot: [8.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.00/efi-B5.zip) (2022-06-16)
+#### coreboot: [8.00](https://support.starlabs.systems/kb/firmware/getting-started) (2022-06-16)
 >     Rebased on coreboot 4.17
 >     Built using edk2 202205
 >     Disable unused USB 3.0 port 2
 >     Adjust TCC Offset depending on Power Profi
 >     
 
-#### coreboot: [7.96](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.96/efi-B5.zip) (2022-03-14)
+#### coreboot: [7.96](https://support.starlabs.systems/kb/firmware/getting-started) (2022-03-14)
 >     Store EC values when entering S3, S4 and S5
 >     Dont update CMOS values at runtime
 
-#### coreboot: [7.95](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.95/efi-B5.zip) (2022-03-07)
+#### coreboot: [7.95](https://support.starlabs.systems/kb/firmware/getting-started) (2022-03-07)
 >     Pull SSD Pin to low when entering S3 - saves power when suspended
 >     Use Mutex for communication between BIOS and EC
 >     Save EC preferences when rebooting
 >     Disable legacy timer by default
 >     Optimise suspend functions
 
-#### coreboot: [7.91](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7.91/efi-B5.zip) (2022-01-06)
+#### coreboot: [7.91](https://support.starlabs.systems/kb/firmware/getting-started) (2022-01-06)
 >     Update GPIOs
 >     Update CNVi GPIOs
 >     Update trackpad GPIO
@@ -58,13 +58,13 @@
 >     Enable I2C4
 >     Convert EC_GPE_SCI to Kconfig
 
-#### AMI: [2](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/2/efi-B5.zip) (2021-11-08)
+#### AMI: [2](https://support.starlabs.systems/kb/firmware/getting-started) (2021-11-08)
 >     Updated Verb Table
 >     New option to set the maximum battery charge level
 >     Fixed ACPI error
 >     Remember Fn Lock state between reboot
 
-#### coreboot: [7](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/7/efi-B5.zip) (2021-10-08)
+#### coreboot: [7](https://support.starlabs.systems/kb/firmware/getting-started) (2021-10-08)
 >     Initial release firmware for the StarBook Mk V
 >      
 >     coreboot:			4.14
@@ -94,7 +94,7 @@
 >     				PL2:         15W
 >     				TurboBoost:  Disabled
 
-#### AMI: [1](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/AMI/1/efi-B5.zip) (2021-09-27)
+#### AMI: [1](https://support.starlabs.systems/kb/firmware/getting-started) (2021-09-27)
 >     Initial release firmware for the StarBook Mk V
 >     
 >     AMI:				5.29
@@ -124,7 +124,7 @@
 >     				PL2:		15W
 >     				TurboBoost:	Disabled
 
-\#\#\#\# coreboot: [8.18](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.18/coreboot-B5.cab) 2022-11-08
+\#\#\#\# coreboot: [8.18](https://support.starlabs.systems/kb/firmware/getting-started) 2022-11-08
 >     Rebased on coreboot 4.18
 >     Rebased on edk2 master
 >     Reserved the centuary byte
@@ -140,11 +140,11 @@
 >     
 
 
-#### coreboot: [8.19](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.19/coreboot-B5.cab) 2022-11-25
+#### coreboot: [8.19](https://support.starlabs.systems/kb/firmware/getting-started) 2022-11-25
 >     Fixed an issue with Thunderbolt hubs not initialising USB devices
 
 
-#### coreboot: [8.20](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.20/coreboot-B5.cab) 2022-12-22
+#### coreboot: [8.20](https://support.starlabs.systems/kb/firmware/getting-started) 2022-12-22
 >     Rebased on edk2 master
 >     Rebased on coreboot master
 >     Reserve the centuary byte
@@ -152,13 +152,13 @@
 >     Check USB port is compatible before checking PSIV
 
 
-#### coreboot: [8.37](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.37/coreboot-B5.cab) 2023-04-11
+#### coreboot: [8.37](https://support.starlabs.systems/kb/firmware/getting-started) 2023-04-11
 >     Fix the inconsistant memory map in edk2
 >     Disable DPST to fix a flicker with recent kernels
 >     Dont let coreboot try to change EC values
 
 
-#### coreboot: [8.40](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.40/coreboot-B5.cab) 2023-04-21
+#### coreboot: [8.40](https://support.starlabs.systems/kb/firmware/getting-started) 2023-04-21
 >     Rebased on edk2 master
 >     Rebased on coreboot master
 >     Let coreboot configure ASPM
@@ -167,7 +167,7 @@
 >     Dont let coreboot try to change variables in the EC memory
 
 
-#### coreboot: [8.43](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.43/coreboot-B5.cab) 2023-05-31
+#### coreboot: [8.43](https://support.starlabs.systems/kb/firmware/getting-started) 2023-05-31
 >     Rebase on coreboot 4.20
 >     Rebase on edk2 master
 >     Moving configurable options to CFR so they can now be changed in edk2
@@ -178,7 +178,7 @@
 >     Fix the size allocations in ramtop
 
 
-#### coreboot: [8.50](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.50/coreboot-B5.cab) 2023-06-21
+#### coreboot: [8.50](https://support.starlabs.systems/kb/firmware/getting-started) 2023-06-21
 >     Rebase on coreboot 4.20
 >     Rebase on edk2 master
 >     Move the configurable options to CFR so they can now be changed in
@@ -188,40 +188,40 @@
 >     Fix the size allocations in ramtop
 
 
-#### coreboot: [8.60](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.60/coreboot-B5.cab) 2023-07-21
+#### coreboot: [8.60](https://support.starlabs.systems/kb/firmware/getting-started) 2023-07-21
 >     Adjust the Type-C Output types
 >     Enabled the crashlog
 >     Adjust the layout of CFR
 
 
-#### coreboot: [8.70](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.70/coreboot-B5.cab) 2023-08-03
+#### coreboot: [8.70](https://support.starlabs.systems/kb/firmware/getting-started) 2023-08-03
 >     Fixed an issue where laptop wouldnt turn on without power connected
 >     Rebased on upstream edk2
 >     Rebased on upstream coreboot
 
 
-#### coreboot: [8.80](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.80/coreboot-B5.cab) 2023-08-08
+#### coreboot: [8.80](https://support.starlabs.systems/kb/firmware/getting-started) 2023-08-08
 >     Rebased on upstream edk2
 >     Rebased on upstream coreboot
 >     Update EC binary to 1.16
 >     Fixed an issue which caused the power LED to be lit when off
 
 
-#### coreboot: [8.90](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.90/coreboot-B5.cab) 2023-08-22
+#### coreboot: [8.90](https://support.starlabs.systems/kb/firmware/getting-started) 2023-08-22
 >     Rebased on upstream edk2
 >     Rebased on upstream coreboot
 >     Update EC binary to 1.16
 >     Fixed power drain in S5
 
 
-#### coreboot: [8.92](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.92/coreboot-B5.cab) 2023-08-30
+#### coreboot: [8.92](https://support.starlabs.systems/kb/firmware/getting-started) 2023-08-30
 >     Rebased on coreboot 4.21
 >     Rebased on upstream edk2
 >     Fix the power drain in S3 and S5
 >     Added fingerprint reader support
 
 
-#### coreboot: [8.94](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.94/coreboot-B5.cab) 2023-09-07
+#### coreboot: [8.94](https://support.starlabs.systems/kb/firmware/getting-started) 2023-09-07
 >     Based on coreboot 4.21
 >     Rebased on upstream edk2
 >     Fixed power drain in S5
@@ -229,14 +229,14 @@
 >     Update EC binary to 1.17
 
 
-#### coreboot: [8.95](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.95/coreboot-B5.cab) 2023-09-26
+#### coreboot: [8.95](https://support.starlabs.systems/kb/firmware/getting-started) 2023-09-26
 >     Rebased on coreboot master
 >     Rebased on edk2 master
 >     Handle EC updates when powering on
 >     Revert the 20230808 microcode update
 
 
-#### coreboot: [8.99](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.99/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/8.99/8.99.rom) 2023-10-26
+#### coreboot: [8.99](https://support.starlabs.systems/kb/firmware/getting-started) 2023-10-26
 >     Remove the option to enable the legacy 8254 timer
 >     Fix the issue when connecting the charger would power on the laptop
 >     Reduce the frequency of battery status updates to 2W
@@ -245,7 +245,7 @@
 >     Rebased on edk2/master
 
 
-#### coreboot: [9.00](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.00/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.00/9.00.rom) 2023-12-07
+#### coreboot: [9.00](https://support.starlabs.systems/kb/firmware/getting-started) 2023-12-07
 >     Rebased on coreboot 4.22
 >     Rebased on edk2/master
 >     Enabled PMC muxing
@@ -257,24 +257,7 @@
 >     Only wakeup when closing the lid with CC1 and CC2
 
 
-#### coreboot: [9.01](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.01/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.01/9.01.rom) 2024-01-11
->     Rebased on coreboot 4.22
->     Rebased on edk2/master
->     Enabled PMC muxing
->     Remove the option to turn on when connecting a charger
->     Make PECI IRQ driven
->     Empty the keyboard buffer faster
->     Switch the compiler from Keil to SDCC
->     Automatically power on after FMF
->     Fixed an issue that stopped the scheduler running
->     Reduced false over-current protection warnings
->     Only wakeup when closing the lid with CC1 and CC2
->     Adjust the 6064 commands and data handling
->     Add a simple cbmem style console that uses the PMC interface
->     Adjust the muxing to avoid coreboot disconnecting displays on boot
-
-
-#### coreboot: [9.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.02/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.02/9.02.rom) 2024-01-22
+#### coreboot: [9.01](https://support.starlabs.systems/kb/firmware/getting-started) 2024-01-11
 >     Rebased on coreboot 4.22
 >     Rebased on edk2/master
 >     Enabled PMC muxing
@@ -289,10 +272,9 @@
 >     Adjust the 6064 commands and data handling
 >     Add a simple cbmem style console that uses the PMC interface
 >     Adjust the muxing to avoid coreboot disconnecting displays on boot
->     Optimise i2c ops
 
 
-#### coreboot: [9.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.03/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.03/9.03.rom) 2024-01-30
+#### coreboot: [9.02](https://support.starlabs.systems/kb/firmware/getting-started) 2024-01-22
 >     Rebased on coreboot 4.22
 >     Rebased on edk2/master
 >     Enabled PMC muxing
@@ -310,7 +292,7 @@
 >     Optimise i2c ops
 
 
-#### coreboot: [9.04](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.04/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/9.04/9.04.rom) 2024-02-12
+#### coreboot: [9.03](https://support.starlabs.systems/kb/firmware/getting-started) 2024-01-30
 >     Rebased on coreboot 4.22
 >     Rebased on edk2/master
 >     Enabled PMC muxing
@@ -328,7 +310,25 @@
 >     Optimise i2c ops
 
 
-#### coreboot: [24.02](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.02/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.02/24.02.rom) 2024-02-23
+#### coreboot: [9.04](https://support.starlabs.systems/kb/firmware/getting-started) 2024-02-12
+>     Rebased on coreboot 4.22
+>     Rebased on edk2/master
+>     Enabled PMC muxing
+>     Remove the option to turn on when connecting a charger
+>     Make PECI IRQ driven
+>     Empty the keyboard buffer faster
+>     Switch the compiler from Keil to SDCC
+>     Automatically power on after FMF
+>     Fixed an issue that stopped the scheduler running
+>     Reduced false over-current protection warnings
+>     Only wakeup when closing the lid with CC1 and CC2
+>     Adjust the 6064 commands and data handling
+>     Add a simple cbmem style console that uses the PMC interface
+>     Adjust the muxing to avoid coreboot disconnecting displays on boot
+>     Optimise i2c ops
+
+
+#### coreboot: [24.02](https://support.starlabs.systems/kb/firmware/getting-started) 2024-02-23
 >     ebased on coreboot 24.02.
 >     Rebased on edk2/master.
 >     Enabled PMC muxing to save power.
@@ -349,7 +349,7 @@
 >     Changed the default fan profile to Balanced.
 
 
-#### coreboot: [24.03](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.03/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.03/24.03.rom) 2024-03-26
+#### coreboot: [24.03](https://support.starlabs.systems/kb/firmware/getting-started) 2024-03-26
 >     Rebased on coreboot 24.02.1
 >     Rebased on edk2 master
 >     Includes fix for coreboots leap year bug
@@ -359,13 +359,13 @@
 >     Improved ASPM detection
 
 
-#### coreboot: [24.04](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.04/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.04/24.04.rom) 2024-04-25
+#### coreboot: [24.04](https://support.starlabs.systems/kb/firmware/getting-started) 2024-04-25
 >     Add PCI Device ID for the sound card to improve Windows compatibility
 >     Dont report the battery serial number to avoid issues with Windows
 >     Make PCI Clock Power Management, ASPM and L1 Substates configurable
 
 
-#### coreboot: [24.09](https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.09/https://github.com/StarLabsLtd/firmware/raw/master/StarBook/MkV/coreboot/24.09/24.09.rom) 2024-10-18
+#### coreboot: [24.09](https://support.starlabs.systems/kb/firmware/getting-started) 2024-10-18
 >     General Updates:
 >     * Reworked performance profiles for race to idle
 >     * Added options to disable certain devices

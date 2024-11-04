@@ -1,11 +1,11 @@
 
-#### coreboot: [24.04](https://github.com/StarLabsLtd/firmware/raw/master/Byte/MkII/coreboot/24.04/https://github.com/StarLabsLtd/firmware/raw/master/Byte/MkII/coreboot/24.04/24.04.rom) 2024-04-25
+#### coreboot: [24.04](https://support.starlabs.systems/kb/firmware/getting-started) 2024-04-25
 >     Initial release firmware for the Byte Mk II
 >     Based on coreboot 24.02.1
 >     Based on edk2/master
 
 
-#### coreboot: [24.08](https://github.com/StarLabsLtd/firmware/raw/master/Byte/MkII/coreboot/24.08/https://github.com/StarLabsLtd/firmware/raw/master/Byte/MkII/coreboot/24.08/24.08.rom) 2024-09-06
+#### coreboot: [24.08](https://support.starlabs.systems/kb/firmware/getting-started) 2024-09-06
 >     Add a new driver for WiFi
 >     Add a new driver for Bluetooth
 >     Optimise initial GPIO configuration
@@ -14,7 +14,7 @@
 >     Rebased on edk2/master
 
 
-#### coreboot: [24.09](https://github.com/StarLabsLtd/firmware/raw/master/Byte/MkII/coreboot/24.09/https://github.com/StarLabsLtd/firmware/raw/master/Byte/MkII/coreboot/24.09/24.09.rom) 2024-10-17
+#### coreboot: [24.09](https://support.starlabs.systems/kb/firmware/getting-started) 2024-10-17
 >     General Updates:
 >     * Reworked performance profiles for race to idle
 >     * Added options to disable certain devices

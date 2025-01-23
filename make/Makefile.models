@@ -143,4 +143,18 @@ hwid		= 9299159f-8ac4-5e25-81f3-e8cf2ae62f32
 coreboot	= 79733fb5-3230-54ae-8940-6b897c8169a5
 meta_branch	= false
 
+else ifeq ($(model),lite_adl_sb)
+name		= StarLite MkV-SB
+sku		= I5-SB
+hwid		= aa5fc6db-7a87-5c05-b67c-3cba16e73aaf
+coreboot	= 5caef5cb-dccc-5482-ae45-18bda9e8dd0c
+meta_branch	= false
+
+else ifeq ($(model),starbook_adl_n)
+name		= StarBook MkVII-N
+sku		= B7N
+hwid		= a03a57fd-a71b-5166-a2f2-5eef4ad5c22d
+coreboot	= 0573c43a-e6ec-51db-b672-0185b59b947b
+meta_branch	= false
+
 endif

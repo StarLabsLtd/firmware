@@ -1,0 +1,53 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B7U.coreboot</id>
+ 	<name>StarBook MkVII-U coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkVII-U</summary>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">69f9b787-ffbe-5af2-9d72-56fa29187848</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>3e2aba0e-9dba-52d9-a8de-2c86716459dc</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="25.01" date="2025-02-05">
+ 			<checksum filename="25.01.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Added conditional logic to ACPI to improve boot times based on current settings.</li>
+						<li>Updated device names in the Boot Manager to be more human-readable.</li>
+						<li>Reduced overall power consumption.</li>
+						</ul>
+
+
+						<p>Bug Fixes/Enhancements:</p>
+						<ul>
+						<li>Corrected the configuration of vGPIOs to enable Bluetooth scanning.</li>
+						<li>Fixed an issue causing inconsistent charger detection.</li>
+						<li>Resolved a display flickering issue on certain Arch Linux distributions.</li>
+						<li>Fixed a power status reporting error for Bluetooth devices in Windows.</li>
+						<li>Fixed an issue where the battery incorrectly reported as depleted.</li>
+						<li>Improved USB error handling in the BIOS.</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

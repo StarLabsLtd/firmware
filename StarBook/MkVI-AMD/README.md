@@ -198,3 +198,12 @@
 >     Fixed the EC not being configured to match to the BIOS Settings
 >     Updated IPV6 modules
 
+
+#### ami-flashrom: [25.2.0](https://support.starlabs.systems/kb/firmware/getting-started) 2025-02-25
+>     General Updates:
+>     * Updated AGESA
+>     * Updated PSP
+>     * Adjusted charging frequency for more stable charging
+>     * More consistant power control
+>     
+

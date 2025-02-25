@@ -207,3 +207,12 @@
 >     * More consistant power control
 >     
 
+
+#### ami: [25.2.0](https://support.starlabs.systems/kb/firmware/getting-started) 2025-02-25
+>     General Updates:
+>     * Updated AGESA
+>     * Updated PSP
+>     * Adjusted charging frequency for more stable charging
+>     * More consistant power control
+>     
+

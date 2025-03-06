@@ -1,0 +1,55 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.F1.coreboot</id>
+ 	<name>StarFighter MkI coreboot firmware</name>
+ 	<summary>coreboot firmware for StarFighter MkI</summary>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">79733fb5-3230-54ae-8940-6b897c8169a5</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>9299159f-8ac4-5e25-81f3-e8cf2ae62f32</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="25.02" date="2025-03-06">
+ 			<checksum filename="25.02.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Added support for low power mode for wireless card</li>
+						<li>Enable waking up from suspend by pressing any key on the keyboard</li>
+						<li>Add an option to disable the fan</li>
+						<li>Add an option to completely ignore the lid switch</li>
+						<li>General adjustments to save power</li>
+						<li>[StarLite Mk V] Low power drain when using the magnetic keyboard</li>
+						</ul>
+
+
+						<p>Bug Fixes/Enhancements:</p>
+						<ul>
+						<li>Improved detection for third-party SSDs</li>
+						<li>Use interrupts for the TPM instead of polling</li>
+						<li>Fixed an issue where Linux would hang trying to initialise the TPM</li>
+						<li>[LabTop Mk IV] Fixed delay when pressing brightness control keys</li>
+						<li>[StarLite Mk V] Fixed regression that stopped Bluetooth communication</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

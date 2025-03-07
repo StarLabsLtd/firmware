@@ -28,7 +28,7 @@ $(version).rom:
 	rm -rf $(COREBOOT_DIR)/build 2>/dev/null
 	make -C $(COREBOOT_DIR) clean
 	make -C $(COREBOOT_DIR) defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
-	make -C $(COREBOOT_DIR)
+	make -C $(COREBOOT_DIR) -j $(nproc)
 	mv $(COREBOOT_DIR)/build/coreboot.rom $@
 
 # Just the binary

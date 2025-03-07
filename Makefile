@@ -21,13 +21,15 @@ $(OUTPUT_DIR):
 
 ifeq ($(target),coreboot)
 
+COREBOOT_DIR ?= "../coreboot"
+
 $(version).rom:
-	sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
-	rm -rf ../coreboot/build 2>/dev/null
-	make -C ../coreboot clean
-	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
-	make -C ../coreboot
-	mv ../coreboot/build/coreboot.rom $@
+	sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' $(COREBOOT_DIR)/configs/config.starlabs_$(model)
+	rm -rf $(COREBOOT_DIR)/build 2>/dev/null
+	make -C $(COREBOOT_DIR) clean
+	make -C $(COREBOOT_DIR) defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
+	make -C $(COREBOOT_DIR)
+	mv $(COREBOOT_DIR)/build/coreboot.rom $@
 
 # Just the binary
 $(OUTPUT_DIR)/$(version).rom:			$(version).rom
@@ -143,6 +145,6 @@ help:
 	printf "%-25s %s\n"	"triplet"		"1.0.0"
 
 	printf "\nExample usage:\n"
-	printf "make coreboot target=coreboot model=starbook_adl version=8.18\n\n"
+	printf "make coreboot target=coreboot model=starbook_adl version=8.18 [COREBOOT_DIR="/path/to/coreboot]\n\n"
 
 .PHONY: help ite coreboot ami ami-flashrom release-notes

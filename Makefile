@@ -23,7 +23,8 @@ ifeq ($(target),coreboot)
 
 $(version).rom:
 	sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' ../coreboot/configs/config.starlabs_$(model)
-	make -C ../coreboot distclean
+	rm -rf ../coreboot/build 2>/dev/null
+	make -C ../coreboot clean
 	make -C ../coreboot defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model)
 	make -C ../coreboot
 	mv ../coreboot/build/coreboot.rom $@

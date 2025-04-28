@@ -63,7 +63,11 @@ $(OUTPUT_DIR)/efi-$(sku).zip:			$(OUTPUT_DIR)/startup.nsh			\
 
 # Release notes
 $(OUTPUT_DIR)/release_notes.md:			$(OUTPUT_DIR)
-	nano $(OUTPUT_DIR)/release_notes.md
+	if [ -f $(release_notes) ]; then \
+	  cp $(release_notes) $(OUTPUT_DIR)/release_notes.md; \
+	else \
+	  nano $(OUTPUT_DIR)/release_notes.md; \
+	fi; \
 
 meta_release_notes = $(shell while IFS= read -r line; do					\
 	if echo "$$line" | grep -q '^[*]'; then							\

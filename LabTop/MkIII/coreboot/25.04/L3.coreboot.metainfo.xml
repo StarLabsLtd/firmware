@@ -1,0 +1,58 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.L3.coreboot</id>
+ 	<name>LabTop MkIII coreboot firmware</name>
+ 	<summary>coreboot firmware for LabTop MkIII</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">d33219e2-b84c-53a8-a624-27af9752dba6</firmware>
+ 		<firmware type="flashed">a20caf4c-3ed8-531c-b59a-eb079ab5e65e</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>013b60e5-1023-5bee-8ae5-14cae21377b7</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="25.04" date="2025-04-28">
+ 			<checksum filename="25.04.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Updated the UEFI revocation database (dbx)</li>
+						</ul>
+
+
+						<p>Bug Fixes/Enhancements:</p>
+						<ul>
+						<li>[StarBook MkVII-U] Fixed HDMI Hot Plug </li>
+						<li>[StarLite Mk V] Fixed inconsistent charger detection</li>
+						<li>[StarBook Mk VII Ultra] Fixed power deficit that causes a shutdown</li>
+						<li>[StarBook MkV] Fixed suspend</li>
+						<li>[StarBook MkVII-U] Added setup option to enable/disable the NPU</li>
+						<li>Added persistence of EC settings like charging speed/limit in G3</li>
+						<li>Fixed display output for certain devices</li>
+						<li>Fixed StarLite batteries showing 0 0x0p+0fter being idle for a long time</li>
+						<li>Fixed Bluetooth cycling on/off in Windows Device Manager via RT3D toggle</li>
+						<li>Fixed Manjaro GNOME display flickering with native display mode feature</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

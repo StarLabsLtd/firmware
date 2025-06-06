@@ -156,6 +156,6 @@ help:
 	printf "%-25s %s\n"	"triplet"		"1.0.0"
 
 	printf "\nExample usage:\n"
-	printf "make coreboot target=coreboot model=starbook_adl version=8.18 [COREBOOT_DIR="/path/to/coreboot]\n\n"
+	printf "make coreboot target=coreboot model=starbook_adl version=8.18 [COREBOOT_DIR=\"/path/to/coreboot\"]\n\n"
 
 .PHONY: help ite coreboot ami ami-flashrom release-notes

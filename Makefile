@@ -63,11 +63,11 @@ $(OUTPUT_DIR)/efi-$(sku).zip:			$(OUTPUT_DIR)/startup.nsh			\
 
 # Release notes
 $(OUTPUT_DIR)/release_notes.md:			$(OUTPUT_DIR)
-	if [ -f $(release_notes) ]; then \
+	if [[ ! -z "$(release_notes)" && -f "$(release_notes)" ]]; then \
 	  cp $(release_notes) $(OUTPUT_DIR)/release_notes.md; \
 	else \
 	  nano $(OUTPUT_DIR)/release_notes.md; \
-	fi; \
+	fi;
 
 meta_release_notes = $(shell while IFS= read -r line; do					\
 	if echo "$$line" | grep -q '^[*]'; then							\
@@ -156,6 +156,6 @@ help:
 	printf "%-25s %s\n"	"triplet"		"1.0.0"
 
 	printf "\nExample usage:\n"
-	printf "make coreboot target=coreboot model=starbook_adl version=8.18 [COREBOOT_DIR=\"/path/to/coreboot\"]\n\n"
+	printf "make coreboot target=coreboot model=starbook_adl version=8.18 [COREBOOT_DIR=\"/path/to/coreboot\"] [release_notes=\"/path/to/release_notes.md\"]\n\n"
 
 .PHONY: help ite coreboot ami ami-flashrom release-notes

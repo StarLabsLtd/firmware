@@ -225,3 +225,11 @@
 >     
 >     
 
+
+#### ami: [25.4.0](https://support.starlabs.systems/kb/firmware/getting-started) 2025-06-11
+>     General Updates:
+>     * Update AGESA to the latest version
+>     * Make the VRAM allocation configurable
+>     * Fix issue that prevented the batteries from charging
+>     
+

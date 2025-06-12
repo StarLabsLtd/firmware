@@ -163,4 +163,11 @@ hwid		= 3e2aba0e-9dba-52d9-a8de-2c86716459dc
 coreboot	= 69f9b787-ffbe-5af2-9d72-56fa29187848
 meta_branch	= false
 
+else ifeq ($(model),byte_twl)
+name		= Byte MkIII
+sku		= Y3
+hwid		= 49fcf7b8-0ee8-59cf-9e43-c3aa794be03b
+coreboot	= 1c7fe071-4fb8-5134-8410-edec96a3069f
+meta_branch	= false
+
 endif

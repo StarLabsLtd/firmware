@@ -150,6 +150,7 @@ help:
 	printf "%-25s %s\n"	"starflighter_rpl"	"StarFighter MK I"
 	printf "%-25s %s\n"	"byte_cezanne"		"Byte Mk I"
 	printf "%-25s %s\n"	"byte_adl"		"Byte Mk II"
+	printf "%-25s %s\n"	"byte_twl"		"Byte Mk III"
 
 	printf "\nversion:\n"
 	printf "%-25s %s\n"	"pair"			"1.00"

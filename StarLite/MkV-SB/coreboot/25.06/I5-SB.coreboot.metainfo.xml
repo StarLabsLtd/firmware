@@ -1,0 +1,54 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.I5-SB.coreboot</id>
+ 	<name>StarLite MkV-SB coreboot firmware</name>
+ 	<summary>coreboot firmware for StarLite MkV-SB</summary>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">5caef5cb-dccc-5482-ae45-18bda9e8dd0c</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>aa5fc6db-7a87-5c05-b67c-3cba16e73aaf</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="25.06" date="2025-06-12">
+ 			<checksum filename="25.06.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Updated the UEFI revocation database (dbx)</li>
+						</ul>
+
+
+						<p>Bug Fixes/Enhancements:</p>
+						<ul>
+						<li>[StarBook MkVII-N] Fixed issue that prevented the processor from being idle</li>
+						<li>[StarBook MkVII-U] Enabled Total Memory Encryption</li>
+						<li>[StarLite Mk V] Fixed rotation</li>
+						<li>[StarLite Mk V] Improved keyboard detection</li>
+						<li>[StarLite Mk V] Unify the Smart Battery and CW2015 variants</li>
+						<li>[LabTop Mk IV] Fix reading the processor temperature</li>
+						<li>[Byte Mk II] Improved boot times</li>
+						<li>Improved power management for Thunderbolt ports</li>
+						<li>Better power consumption reporting</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

@@ -40,6 +40,9 @@ $(OUTPUT_DIR)/$(version).rom:
 	mv $(version).rom $@
 endif
 
+roms/$(sku).bios:				$(OUTPUT_DIR)/$(version).rom
+	cp $< $@
+
 $(OUTPUT_DIR)/$(version).cap:			$(subst $() $(),/,$(name))/$(target)-flashrom/$(version)/$(version).rom
 	./binaries/header.py --guid $(uefi) --bin $< --cap $@
 
@@ -94,7 +97,7 @@ link = https://github.com/StarLabsLtd/firmware/raw/master/$(OUTPUT_DIR)
 push_to_git:
 	printf "\n#### $(target): [$(version)](https://support.starlabs.systems/kb/firmware/getting-started) $(date)\n" >> $(subst $() $(),/,$(name))/README.md
 	printf '$(readme_release_notes)\n' >> $(subst $() $(),/,$(name))/README.md
-	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md
+	git add $(OUTPUT_DIR) $(subst $() $(),/,$(name))/README.md roms
 	git commit -m "Added $(name) $(target) $(version)" -m "$(readme_release_notes)"
 
 DEPENDENCIES = 				\
@@ -105,7 +108,8 @@ DEPENDENCIES = 				\
 # Master recipes to be called
 ami-flashrom:					$(DEPENDENCIES)				\
 						$(OUTPUT_DIR)/efi-$(sku).zip		\
-						$(OUTPUT_DIR)/$(target)-$(sku).cab
+						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
+						roms/$(sku).bios
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
@@ -115,7 +119,8 @@ ami:						$(DEPENDENCIES)				\
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 
 coreboot: 					$(DEPENDENCIES)				\
-						$(OUTPUT_DIR)/$(target)-$(sku).cab
+						$(OUTPUT_DIR)/$(target)-$(sku).cab	\
+						roms/$(sku).bios
 
 	$(MAKE) target_link="$(link)/$(version).$(file_type)" push_to_git
 

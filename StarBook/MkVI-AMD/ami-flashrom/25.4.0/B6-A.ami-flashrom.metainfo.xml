@@ -7,7 +7,7 @@
  		<p>Updating the ami-flashrom firmware makes your computer more reliable and can add new features.</p>
  	</description>
  	<provides>
- 		<firmware type="flashed">""</firmware>
+ 		<firmware type="flashed">4c7c8bc5-475c-5384-b602-78c9d4771b5d</firmware>
  	</provides>
  	<requires>
  		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>

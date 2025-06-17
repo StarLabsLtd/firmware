@@ -216,3 +216,12 @@
 >     * More consistant power control
 >     
 
+
+#### ami-flashrom: [25.4.0](https://support.starlabs.systems/kb/firmware/getting-started) 2025-06-17
+>     General Updates:
+>     * Update AGESA to the latest versionAdd commentMore actions
+>     * Make the VRAM allocation configurable
+>     * Fix issue that prevented the batteries from charging
+>     
+>     
+

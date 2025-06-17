@@ -72,7 +72,7 @@ function update_coreboot() {
 	read -p "Once updated, the system will automatically shutdown. Please [Enter] to continue"
 
 	[ "$SKU" = "B6-A" ] && flags="" || flags="--fmap -n -N -i COREBOOT -i EC"
-	if sudo flashrom -p internal -w "$SKU.bios" "$flags"; then
+	if sudo flashrom -p internal -w "$SKU.bios" $flags; then
 		echo "coreboot update complete. System will now shutdown."
 		sudo ./reset-cmos
 		sudo shutdown now

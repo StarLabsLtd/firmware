@@ -43,22 +43,31 @@ function update_keyboard() {
 	wget -q "$REPO/binaries/kb-usb-flasher"
 	chmod +x kb-usb-flasher
 
+	current_version=$(lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }')
 
-
-	keyboard_variant=$(lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }')
-
-	if [[ -n "$keyboard_variant" ]]; then
-		wget -q "$REPO/StarLite/MkV/keyboard/$keyboard_variant.bin" -O kbfw.bin
-
-		if sudo ./kb-usb-flasher --rom-in kbfw.bin write -s 0x6000; then
-			echo "Updating keyboard - do not disconnect your keyboard."
-			sleep 30
-			echo "Keyboard update complete. Please disconnect and reconnect your keyboard."
+	# Odd numbers are US, even are UK
+	if [[ -n "$current_version" ]]; then
+		if [[ "$current_version" == "1.05" ]] || [[ "$current_version" == "1.06" ]]; then
+			echo "Keyboard is already up-to-date"
 		else
-			echo "Keyboard update failed!"
+			if [[ "$current_version" == "1.03" ]]; then
+				wget -q "$REPO/StarLite/MkV/keyboard/1.05.bin" -O kbfw.bin
+			elif [[ "$current_version" == "1.04" ]]; then
+				wget -q "$REPO/StarLite/MkV/keyboard/1.06.bin" -O kbfw.bin
+			fi
+
+			if [[ -f "kbfw.bin" ]]; then
+				if sudo ./kb-usb-flasher --rom-in kbfw.bin write -s 0x6000; then
+					echo "Updating keyboard - do not disconnect your keyboard."
+					sleep 10
+					echo "Keyboard update complete. Please disconnect and reconnect your keyboard."
+				else
+					echo "Keyboard update failed!"
+				fi
+			else
+				echo "No keyboard detected"
+			fi
 		fi
-	else
-		echo "No keyboard detected"
 	fi
 }
 

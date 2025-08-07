@@ -40,10 +40,8 @@ function update_touchscreen() {
 
 # Keyboard
 function update_keyboard() {
-	current_version=$(lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }')
-
-	# Odd numbers are US, even are UK
-	if [[ -n "$current_version" ]]; then
+	if lsusb -d 1018:1006 >/dev/null 2>&1; then
+		current_version=$(lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }')
 		if [[ "$current_version" == "1.05" ]] || [[ "$current_version" == "1.06" ]]; then
 			echo "Keyboard is already up-to-date"
 		else

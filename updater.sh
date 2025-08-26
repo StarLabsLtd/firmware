@@ -42,16 +42,16 @@ function update_touchscreen() {
 function update_keyboard() {
 	if lsusb -d 1018:1006 >/dev/null 2>&1; then
 		current_version=$(lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }')
-		if [[ "$current_version" == "1.05" ]] || [[ "$current_version" == "1.06" ]]; then
+		if [[ "$current_version" == "1.08" ]] || [[ "$current_version" == "1.09" ]]; then
 			echo "Keyboard is already up-to-date"
 		else
 			wget -q "$REPO/binaries/kb-usb-flasher"
 			chmod +x kb-usb-flasher
 
-			if [[ "$current_version" == "1.03" ]]; then
-				wget -q "$REPO/StarLite/MkV/keyboard/1.05.bin" -O kbfw.bin
-			elif [[ "$current_version" == "1.04" ]]; then
-				wget -q "$REPO/StarLite/MkV/keyboard/1.06.bin" -O kbfw.bin
+			if [[ "$current_version" == "1.03" ]] || [[ "$current_version" == "1.05" ]]; then
+				wget -q "$REPO/StarLite/MkV/keyboard/1.09/1.09.bin" -O kbfw.bin
+			elif [[ "$current_version" == "1.04" ]] || [[ "$current_version" == "1.06" ]]; then
+				wget -q "$REPO/StarLite/MkV/keyboard/1.08/1.08.bin" -O kbfw.bin
 			fi
 
 			if [[ -f "kbfw.bin" ]]; then

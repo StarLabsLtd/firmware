@@ -35,7 +35,7 @@ function update_touchscreen() {
 				echo "Touchscreen update failed!"
 			fi
 		fi
-	done
+	done || true
 }
 
 # Keyboard

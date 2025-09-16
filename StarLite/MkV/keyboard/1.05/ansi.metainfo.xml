@@ -7,7 +7,7 @@
 		<p>Updating the firmware for makes your computer more reliable and can add new features.</p>
 	</description>
 	<provides>
-		<firmware type="flashed">deea77a0-33e6-565b-94a4-4b20451ab094</firmware> 	
+		<firmware type="flashed">deea77a0-33e6-565b-94a4-4b20451ab094|aa5fc6db-7a87-5c05-b67c-3cba16e73aaf|5b46e807-cae6-5e46-8a99-ad0433d9a03a</firmware> 	
 	</provides> 	
 	<requires> 	
 		<id compare="ge" version="1.9.28">org.freedesktop.fwupd</id>

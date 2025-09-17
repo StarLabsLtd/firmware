@@ -67,6 +67,57 @@ function update_keyboard() {
 	fi
 }
 
+function update_ssd() {
+	IFS=$'\t' read -r mn sn fr < <(
+		sudo nvme id-ctrl /dev/nvme0 | awk -F':' '
+			/^[[:space:]]*mn[[:space:]]*:/ {m=$2}
+			/^[[:space:]]*sn[[:space:]]*:/ {s=$2}
+			/^[[:space:]]*fr[[:space:]]*:/ {f=$2}
+			END {
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", m)
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", f)
+				s = substr(s, length(s)-4)
+				printf "%s\t%s\t%s\n", m, s, f
+			}'
+		)
+
+	info="$mn $sn"
+	if [[ "$info" == "Lexar SSD NM620"* ]]; then
+		# Strip leading model text, leaving "<size> <last5>"
+		rest=$(echo "$info" | sed 's/.*Lexar SSD NM620[[:space:]]*//')	# e.g. "1TB P110W"
+		size="${rest%% *}"
+		code="${rest##* }"
+		model="${code}/${size}"
+
+		# Map to bin + expected firmware numeric (from your table)
+		ssdbin=""; ssdfw=""
+		case "$model" in
+			"P1103/1TB")	ssdbin="KC2RCADC.bin"; ssdfw="16391" ;;
+			"P1103/512GB")	ssdbin="KC2RCALC.bin"; ssdfw="16391" ;;
+			"P110W/1TB")	ssdbin="ATH1CALC.bin"; ssdfw="16422" ;;
+			"P110W/512GB")	ssdbin="ATH1CADC.bin"; ssdfw="16422" ;;
+			"P111D/2TB")	ssdbin="YIQZCB2C.bin"; ssdfw="13767" ;;
+			"P1125/2TB")	ssdbin="OOD4CA4C.bin"; ssdfw="32900" ;;
+			"P112W/512GB")	ssdbin="ATH1CADC.bin"; ssdfw="16263" ;;
+			"P1157/1TB")	ssdbin="KCA1AA4C.bin"; ssdfw="28241" ;;
+		esac
+
+		# Current firmware revision as digits only (e.g. SN28192 -> 28192)
+		currfw_digits=$(echo "$fr" | tr -cd '0-9' | sed 's/^0*//')
+
+		if [[ -n "$currfw_digits" && -n "$ssdfw" && "$currfw_digits" == "$ssdfw" ]]; then
+			echo "SSD firmware up to date (current fr=$currfw_digits matches expected $ssdfw)."
+			return 0
+		fi
+
+		if wget -q "$REPO/Lexar/NM620/$model/$ssdbin" -O ssdfw.bin; then
+			sudo nvme fw-download -f ssdfw.bin /dev/nvme0n1 && \
+			sudo nvme fw-commit -s 1 -a 3 /dev/nvme0n1
+		fi
+	fi
+}
+
 # Coreboot
 function update_coreboot() {
 	current_version=$(cat /sys/class/dmi/id/bios_version)
@@ -91,5 +142,6 @@ function update_coreboot() {
 
 update_touchscreen
 update_keyboard
+update_ssd
 update_coreboot
 echo "All firmware up to date"

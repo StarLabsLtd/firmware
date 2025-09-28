@@ -271,3 +271,14 @@
 >     * Adjust Charge Controller to prevent overdraw
 >     
 
+
+#### ami-flashrom: [25.10](https://support.starlabs.systems/kb/firmware/getting-started) 2025-09-28
+>     General Updates:
+>     * Faster power sequencing
+>     * Wake up from S3 when the battery is low
+>     * Make forced-shutdowns more stable
+>     
+>     Bug Fixes/Enhancements:
+>     * Adjust Charge Controller to prevent overdraw
+>     
+

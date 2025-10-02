@@ -15,7 +15,7 @@ while upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -q "state:\s
 done
 
 WORKING_DIR="/tmp"
-REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main/"
+REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/25.10/"
 
 SKU="$(< /sys/class/dmi/id/product_sku)"
 
@@ -70,7 +70,7 @@ function update_keyboard() {
 # Coreboot
 function update_coreboot() {
 	current_version=$(cat /sys/class/dmi/id/bios_version)
-	if [[ "$current_version" != "25.08" ]]; then
+	if [[ "$current_version" != "25.10" ]]; then
 		echo "${YELLOW}Make sure flashrom 1.3.0 or newer is installed.${RESET}"
 
 		wget "$REPO/binaries/reset-cmos"

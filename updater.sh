@@ -21,6 +21,42 @@ SKU=$(sed 's/-SB//' /sys/class/dmi/id/product_sku)
 
 pushd "$WORKING_DIR" >/dev/null
 
+function get_fw_tools() {
+	if ! command -v nvme >/dev/null 2>&1; then
+		echo "Installing nvme-cli..."
+		if command -v apt-get >/dev/null 2>&1; then
+			sudo apt-get update -y && sudo apt-get install -y nvme-cli
+		elif command -v dnf >/dev/null 2>&1; then
+			sudo dnf install -y nvme-cli
+		elif command -v pacman >/dev/null 2>&1; then
+			sudo pacman -Sy --noconfirm nvme-cli
+		elif command -v zypper >/dev/null 2>&1; then
+			sudo zypper -n install nvme-cli
+		elif command -v apk >/dev/null 2>&1; then
+			sudo apk add --no-cache nvme-cli
+		else
+			echo "Please install nvme-cli manually."
+		fi
+	fi
+
+	if ! command -v flashrom >/dev/null 2>&1; then
+		echo "Installing flashrom..."
+		if command -v apt-get >/dev/null 2>&1; then
+			sudo apt-get install -y flashrom
+		elif command -v dnf >/dev/null 2>&1; then
+			sudo dnf install -y flashrom
+		elif command -v pacman >/dev/null 2>&1; then
+			sudo pacman -Sy --noconfirm flashrom
+		elif command -v zypper >/dev/null 2>&1; then
+			sudo zypper -n install flashrom
+		elif command -v apk >/dev/null 2>&1; then
+			sudo apk add --no-cache flashrom
+		else
+			echo "Please install flashrom manually."
+		fi
+	fi
+}
+
 # Touchscreen
 function update_touchscreen() {
 	for SYS in /sys/class/hidraw/hidraw*; do
@@ -140,6 +176,7 @@ function update_coreboot() {
 	fi
 }
 
+get_fw_tools
 update_touchscreen
 update_keyboard
 update_ssd

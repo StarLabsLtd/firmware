@@ -7,7 +7,7 @@
 		<p>Updating the firmware for Lexar NM620 SSD makes your computer more reliable and can add new features.</p>
 	</description>
 	<provides>	
-		<firmware type="flashed">?</firmware>
+		<firmware type="flashed">b169252a-e625-5740-b647-0d036809cd7c</firmware>
 	</provides>
 	<requires>	
 		<id compare="ge" version="1.1.0">org.freedesktop.fwupd</id>

@@ -1,0 +1,67 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.F1.coreboot</id>
+ 	<name>StarFighter MkI coreboot firmware</name>
+ 	<summary>coreboot firmware for StarFighter MkI</summary>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">79733fb5-3230-54ae-8940-6b897c8169a5</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>9299159f-8ac4-5e25-81f3-e8cf2ae62f32</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="25.11" date="2025-11-10">
+ 			<checksum filename="25.11.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Add an option to disable the Power LED</li>
+						<li>Removed the PL4 limit in favour of Charge Controller PROCHOT unlocking twice the amount of power</li>
+						<li>Optimised boot times for both coreboot and the EC</li>
+						<li>Allow lower brightness levels</li>
+						<li>Updated microcode</li>
+						<li>Improved eSPI handshaking</li>
+						<li>Allow booting straight from G3 with a 200ms power button press</li>
+						<li>Reduce the time</li>
+						<li>Improved S0IX support</li>
+						</ul>
+
+
+						<p>Security Updates:</p>
+						<ul>
+						<li>Updated UEFI Revocation list</li>
+						<li>Add support for LUKS and BitLocker</li>
+						</ul>
+
+
+						<p>Bug Fixes/Enhancements:</p>
+						<ul>
+						<li>[StarBook Mk VII-U] Fixed the iGPU IRQ</li>
+						<li>[StarBook Mk VII-U] Fixed an issue with DisplayAlt Mode</li>
+						<li>[StarBook Mk VII-N] Reduce charging noise</li>
+						<li>[StarBook Mk VII] Fixed an issue that prevented audio output on Windows</li>
+						<li>[StarBook Mk VI] Fixed an issue that prevented S3 exit</li>
+						<li>Wake for suspend if the battery gets low</li>
+						<li>Fixed an issue where the fan could stop increasing</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

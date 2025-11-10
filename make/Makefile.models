@@ -177,4 +177,11 @@ hwid		= 49fcf7b8-0ee8-59cf-9e43-c3aa794be03b
 coreboot	= 1c7fe071-4fb8-5134-8410-edec96a3069f
 meta_branch	= false
 
+else ifeq ($(model),starfighter_mtl)
+name		= StarFighter Mk II
+sku		= F2
+hwid		= daf3f999-158b-5339-917b-117d8707fee7
+coreboot	= 70ec4fa2-2a60-513f-b834-742c82eb4faa
+meta_branch	= false
+
 endif

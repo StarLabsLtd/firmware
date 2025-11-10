@@ -3,7 +3,7 @@
 
 set -e
 
-build_targets=(byte_adl labtop_cml labtop_kbl lite_adl lite_adl_sb starbook_adl \
+build_targets=(byte_adl byte_twl labtop_cml labtop_kbl lite_adl starbook_adl \
     starbook_adl_n starbook_mtl starbook_rpl starbook_tgl starfighter_rpl)
 
 if [ -z "$1" ]; then

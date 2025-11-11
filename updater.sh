@@ -137,6 +137,7 @@ function update_ssd() {
 			"P1125/2TB")	ssdbin="OOD4CA4C.bin"; ssdfw="32900" ;;
 			"P112W/512GB")	ssdbin="ATH1CADC.bin"; ssdfw="16263" ;;
 			"P1157/1TB")	ssdbin="KCA1AA4C.bin"; ssdfw="28241" ;;
+			"P113V/1TB")	ssdbin="UK3SCELC.bin"; ssdfw="13294" ;;
 		esac
 
 		# Current firmware revision as digits only (e.g. SN28192 -> 28192)

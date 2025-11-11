@@ -11,8 +11,7 @@
 	</provides>
 	<requires>	
 		<id compare="ge" version="1.1.0">org.freedesktop.fwupd</id>
-		<firmware compare="eq" version="15664"/>
-		<hardware>80f1fd54-f581-571f-90e6-00bf8a67f627|d5521faa-c50b-5d64-971d-8fd400030c51|0fc25c8c-ffa8-54ad-a216-d13cfe75bee4|61329016-2c61-5873-8682-ab300694452e|baf1d04e-fd16-5e6a-93cc-1c23d171f879|85aba599-addd-5985-a2e8-eddb41c61ba3|5c917039-d938-5c9a-b22a-9c392b1534f3|b39593ad-7522-52a5-a4ab-1b2ca2153956|79a64046-5643-59c4-91d0-e68b33db5829|12122d1c-c383-5583-9cb7-3ba8d220913d|ef9b469e-2429-53e6-b4c0-3646ac0f53ed|3d9415bb-3027-541b-99b7-cf21e5383bdb|9299159f-8ac4-5e25-81f3-e8cf2ae62f32|aa5fc6db-7a87-5c05-b67c-3cba16e73aaf|a03a57fd-a71b-5166-a2f2-5eef4ad5c22d|3e2aba0e-9dba-52d9-a8de-2c86716459dc|49fcf7b8-0ee8-59cf-9e43-c3aa794be03b</hardware>
+		<hardware>80f1fd54-f581-571f-90e6-00bf8a67f627|d5521faa-c50b-5d64-971d-8fd400030c51|0fc25c8c-ffa8-54ad-a216-d13cfe75bee4|61329016-2c61-5873-8682-ab300694452e|baf1d04e-fd16-5e6a-93cc-1c23d171f879|85aba599-addd-5985-a2e8-eddb41c61ba3|5c917039-d938-5c9a-b22a-9c392b1534f3|b39593ad-7522-52a5-a4ab-1b2ca2153956|79a64046-5643-59c4-91d0-e68b33db5829|12122d1c-c383-5583-9cb7-3ba8d220913d|ef9b469e-2429-53e6-b4c0-3646ac0f53ed|3d9415bb-3027-541b-99b7-cf21e5383bdb|9299159f-8ac4-5e25-81f3-e8cf2ae62f32|a03a57fd-a71b-5166-a2f2-5eef4ad5c22d|3e2aba0e-9dba-52d9-a8de-2c86716459dc|49fcf7b8-0ee8-59cf-9e43-c3aa794be03b|daf3f999-158b-5339-917b-117d8707fee7</hardware>
 	</requires>
 	<url type="homepage">https://starlabs.systems</url>
 	<metadata_license>CC0-1.0</metadata_license>

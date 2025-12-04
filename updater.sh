@@ -15,7 +15,7 @@ while upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -q "state:\s
 done
 
 WORKING_DIR="/tmp"
-REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main/"
+REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/mtd_update/"
 
 SKU=$(sed -e 's/-SB//' -e 's/-MXC//' /sys/class/dmi/id/product_sku)
 
@@ -160,7 +160,7 @@ function update_ssd() {
 # Coreboot
 function update_coreboot() {
 	current_version=$(cat /sys/class/dmi/id/bios_version)
-	if [[ "$current_version" != "25.10" ]]; then
+	if [[ "$current_version" != "25.12" ]]; then
 		echo "${YELLOW}Make sure flashrom 1.3.0 or newer is installed.${RESET}"
 
 		wget "$REPO/binaries/reset-cmos"
@@ -168,7 +168,8 @@ function update_coreboot() {
 		wget "$REPO/roms/$SKU.bios"
 		read -p "Once updated, the system will automatically shutdown. Please [Enter] to continue"
 
-		[ "$SKU" = "B6-A" ] && flags="" || flags="--fmap -n -N -i COREBOOT -i EC"
+
+		[ "$SKU" = "B6-A" ] && flags="" || flags="-n -N --ifd -i bios"
 		if sudo flashrom -p internal -w "$SKU.bios" $flags; then
 			echo "coreboot update complete. System will now shutdown."
 			sudo ./reset-cmos

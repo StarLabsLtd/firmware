@@ -131,6 +131,7 @@ function update_ssd() {
 		case "$model" in
 			"P1103/1TB")	ssdbin="KC2RCADC.bin"; ssdfw="16391" ;;
 			"P1103/512GB")	ssdbin="KC2RCALC.bin"; ssdfw="16391" ;;
+			"P110W/2TB")	ssdbin="ATH1CA2C.bin"; ssdfw="16422" ;;
 			"P110W/1TB")	ssdbin="ATH1CALC.bin"; ssdfw="16422" ;;
 			"P110W/512GB")	ssdbin="ATH1CADC.bin"; ssdfw="16422" ;;
 			"P111D/2TB")	ssdbin="YIQZCB2C.bin"; ssdfw="13767" ;;

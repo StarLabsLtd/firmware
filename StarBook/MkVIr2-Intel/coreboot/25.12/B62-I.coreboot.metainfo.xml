@@ -1,0 +1,82 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.B62-I.coreboot</id>
+ 	<name>StarBook MkVIr2-Intel coreboot firmware</name>
+ 	<summary>coreboot firmware for StarBook MkVIr2-Intel</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">595c5861-a105-509b-8dd6-f77070345286</firmware>
+ 		<firmware type="flashed">ce35649d-b89d-5188-b961-d992ce7e0f88</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>12122d1c-c383-5583-9cb7-3ba8d220913d</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="25.12" date="2025-12-11">
+ 			<checksum filename="25.12.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates</p>
+						<ul>
+						<li>EC startup time has been reduced from 415ms to 170ms</li>
+						<li>Hardened power sequence to avoid getting stuck</li>
+						<li>Updated Intel microcode</li>
+						<li>eSPI Virtual Wires are now interrupt-driven for better response times</li>
+						<li>Updated default settings aimed at performance</li>
+						<li>Remove the power button debounce (double press is no longer required)</li>
+						<li>Updated firmware menu that now shows battery level and allows adjusting the time and date</li>
+						<li>The system will now wake if suspended, and the battery gets too low</li>
+						</ul>
+
+
+						<p>New Options:</p>
+						<ul>
+						<li>Enable/Disable/Dim the power LED</li>
+						<li>Enable/Disable/Dim the charging LED</li>
+						<li>Enable/Disable Total Memory Encryption</li>
+						<li>Enable/Disable BIOS Lock</li>
+						</ul>
+
+
+						<p>Security Updates:</p>
+						<ul>
+						<li>Updated UEFI revocation list</li>
+						<li>Added support for LUKS and BitLocker</li>
+						</ul>
+
+
+						<p>Bug Fixes / Enhancements</p>
+						<ul>
+						<li>Fixed reset paths in coreboot to avoid the system hanging when changing settings that required global resets</li>
+						<li>Guard against SMBUS transactions not completing</li>
+						<li>Increase SMM store size in coreboot to allow UEFI revocation list updates to be installed from the LVFS</li>
+						<li>Fixed backlight level restoration after suspend (S3)</li>
+						<li>Fixed resuming from hibernation (S4)</li>
+						<li>Fixed an issue that prevented powering off in certain conditions</li>
+						<li>Fixed sound output on Windows</li>
+						<li>Fixed an issue where the fan could stall</li>
+						<li>Fixed disabling the card reader</li>
+						<li>Fixed Device Manager constantly refreshing on Windows</li>
+						<li>Fixed the capabilities reported by the TPM driver</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

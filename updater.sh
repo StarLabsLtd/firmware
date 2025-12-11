@@ -17,7 +17,7 @@ done
 WORKING_DIR="/tmp"
 REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main/"
 
-SKU=$(sed 's/-SB//' /sys/class/dmi/id/product_sku)
+SKU=$(sed -e 's/-SB//' -e 's/-MXC//' /sys/class/dmi/id/product_sku)
 
 pushd "$WORKING_DIR" >/dev/null
 

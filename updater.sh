@@ -160,7 +160,7 @@ function update_ssd() {
 # Coreboot
 function update_coreboot() {
 	current_version=$(cat /sys/class/dmi/id/bios_version)
-	if [[ "$current_version" != "25.10" ]]; then
+	if [[ "$current_version" != "25.12" ]]; then
 		echo "${YELLOW}Make sure flashrom 1.3.0 or newer is installed.${RESET}"
 
 		wget "$REPO/binaries/reset-cmos"

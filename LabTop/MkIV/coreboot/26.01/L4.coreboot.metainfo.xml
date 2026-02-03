@@ -1,0 +1,66 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.L4.coreboot</id>
+ 	<name>LabTop MkIV coreboot firmware</name>
+ 	<summary>coreboot firmware for LabTop MkIV</summary>
+ 	<branch>coreboot</branch>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">0ee5867c-93f0-5fb4-adf1-9d686ea1183a</firmware>
+ 		<firmware type="flashed">cc6437bf-0955-5c03-84a6-8b87c7a7c244</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>baf1d04e-fd16-5e6a-93cc-1c23d171f879</hardware>
+ 		<client>switch-branch</client>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="26.01" date="2026-02-03">
+ 			<checksum filename="26.01.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Improved sleep/wake and reset reliability</li>
+						<li>Added support for EFI capsules for easier, more secure updates</li>
+						<li>Updated BIOS setup lauouy, with simpler user-interface</li>
+						</ul>
+
+
+						<p>New Options:</p>
+						<ul>
+						<li>[StarFighter] Memory Speed</li>
+						</ul>
+
+
+						<p>Security Updates:</p>
+						<ul>
+						<li>Add an option to lock the BIOS Setup with a password</li>
+						<li>BIOS Lock is now enabled by default</li>
+						</ul>
+
+
+						<p>Bug Fixes / Enhancements:</p>
+						<ul>
+						<li>Fixed power LED “breathing” behavior in sleep (S3).</li>
+						<li>Fixed Wake-on-LAN on Byte</li>
+						<li>Updated platform defaults based on fan presence</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

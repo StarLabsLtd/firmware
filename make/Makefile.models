@@ -180,7 +180,7 @@ coreboot_caps	= fb17c9c8-0cb6-43bf-9a8b-4642c61e2ac3
 meta_branch	= false
 
 else ifeq ($(model),starfighter_mtl)
-name		= StarFighter Mk II
+name		= StarFighter MkII
 sku		= F2
 hwid		= daf3f999-158b-5339-917b-117d8707fee7
 coreboot	= 70ec4fa2-2a60-513f-b834-742c82eb4faa

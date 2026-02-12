@@ -4,7 +4,7 @@
 set -e
 
 build_targets=(byte_adl byte_twl labtop_cml labtop_kbl lite_adl starbook_adl \
-    starbook_adl_n starbook_mtl starbook_rpl starbook_tgl starfighter_rpl starfighter_mtl)
+    starbook_adl_n starbook_mtl starbook_rpl starbook_tgl starfighter_rpl starfighter_mtl adl_horizon)
 
 if [ -z "$1" ]; then
   echo -e "Error: release version required"
@@ -16,5 +16,5 @@ VERSION=$1
 NOTES=$2
 
 for device in "${build_targets[@]}"; do
-	make coreboot target=coreboot model="$device" version="$VERSION" release_notes="$NOTES"
+	make coreboot model="$device" version="$VERSION" release_notes="$NOTES"
 done

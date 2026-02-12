@@ -15,9 +15,10 @@ while upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -q "state:\s
 done
 
 WORKING_DIR="/tmp"
-REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main/"
+REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/capsules/"
 
-SKU=$(sed -e 's/-SB//' -e 's/-MXC//' /sys/class/dmi/id/product_sku)
+SKU_RAW=$(cat /sys/class/dmi/id/product_sku)
+SKU=$(echo "$SKU_RAW" | sed -e 's/-SB//' -e 's/-MXC//')
 
 pushd "$WORKING_DIR" >/dev/null
 
@@ -36,23 +37,6 @@ function get_fw_tools() {
 			sudo apk add --no-cache nvme-cli
 		else
 			echo "Please install nvme-cli manually."
-		fi
-	fi
-
-	if ! command -v flashrom >/dev/null 2>&1; then
-		echo "Installing flashrom..."
-		if command -v apt-get >/dev/null 2>&1; then
-			sudo apt-get install -y flashrom
-		elif command -v dnf >/dev/null 2>&1; then
-			sudo dnf install -y flashrom
-		elif command -v pacman >/dev/null 2>&1; then
-			sudo pacman -Sy --noconfirm flashrom
-		elif command -v zypper >/dev/null 2>&1; then
-			sudo zypper -n install flashrom
-		elif command -v apk >/dev/null 2>&1; then
-			sudo apk add --no-cache flashrom
-		else
-			echo "Please install flashrom manually."
 		fi
 	fi
 }
@@ -157,25 +141,52 @@ function update_ssd() {
 	fi
 }
 
-# Coreboot
 function update_coreboot() {
-	current_version=$(cat /sys/class/dmi/id/bios_version)
-	if [[ "$current_version" != "26.01" ]]; then
-		echo "${YELLOW}Make sure flashrom 1.3.0 or newer is installed.${RESET}"
+	function sku_to_model_path() {
+		case "$1" in
+			I2) echo "StarLite/MkII" ;;
+			I3) echo "StarLite/MkIII" ;;
+			I4) echo "StarLite/MkIV" ;;
+			I5) echo "StarLite/MkV" ;;
+			L3) echo "LabTop/MkIII" ;;
+			L4) echo "LabTop/MkIV" ;;
+			B5) echo "StarBook/MkV" ;;
+			B6-I) echo "StarBook/MkVI-Intel" ;;
+			B6-A) echo "StarBook/MkVI-AMD" ;;
+			B62-I) echo "StarBook/MkVIr2-Intel" ;;
+			B7-N) echo "StarBook/MkVII-N" ;;
+			B7-U) echo "StarBook/MkVII-U" ;;
+			F1) echo "StarFighter/MkI" ;;
+			F2) echo "StarFighter/MkII" ;;
+			HZ) echo "StarBook/Horizon" ;;
+		esac
+	}
 
-		wget "$REPO/binaries/reset-cmos"
-		chmod +x reset-cmos
-		wget "$REPO/roms/$SKU.bios"
-		read -p "Once updated, the system will automatically shutdown. Please [Enter] to continue"
+	echo "${YELLOW}Coreboot updates now use UEFI capsules via fwupd (no flashrom ROM downloads).${RESET}"
 
-		[ "$SKU" = "B6-A" ] && flags="" || flags="--fmap -n -N -i COREBOOT -i EC"
-		if sudo flashrom -p internal -w "$SKU.bios" $flags; then
-			echo "coreboot update complete. System will now shutdown."
-			sudo ./reset-cmos
-			sudo shutdown now
-		else
-			echo "coreboot update failed."
-		fi
+	model_path=$(sku_to_model_path "$SKU")
+	if [[ -z "${model_path:-}" ]]; then
+		echo "${YELLOW}Unknown SKU '$SKU_RAW' (mapped '$SKU'); skipping coreboot update.${RESET}"
+		return 0
+	fi
+
+	cab_url="${REPO}${model_path}/coreboot/coreboot-${SKU}.cab"
+	cab_file="${WORKING_DIR}/coreboot-${SKU}.cab"
+
+	echo "${YELLOW}Downloading ${cab_url}${RESET}"
+	if ! wget -q "$cab_url" -O "$cab_file"; then
+		echo "${RED}Failed to download coreboot CAB for SKU '$SKU'.${RESET}"
+		return 1
+	fi
+
+	if command -v fwupdmgr >/dev/null 2>&1; then
+		sudo fwupdmgr install "$cab_file"
+	elif command -v fwupdtool >/dev/null 2>&1; then
+		sudo fwupdtool install-blob "$cab_file"
+	else
+		echo "${RED}Neither fwupdmgr nor fwupdtool is installed; cannot apply coreboot capsule.${RESET}"
+		echo "${YELLOW}Install fwupd, then run: sudo fwupdmgr install \"$cab_file\"${RESET}"
+		return 1
 	fi
 }
 
@@ -184,4 +195,4 @@ update_touchscreen
 update_keyboard
 update_ssd
 update_coreboot
-echo "All firmware up to date"
+echo "Done"

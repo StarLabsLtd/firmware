@@ -1,48 +1,24 @@
 ## SPDX-License-Identifier: GPL-2.0-only
 
-metadata += <\041-- Copyright 2023 Star Labs Online Limited -->\n
-metadata += <component type=\"firmware\">\n
-metadata += 	\t<id>com.starlabs.$(sku).$(target)</id>\n
-metadata += 	\t<name>$(name) $(target) firmware</name>\n
-metadata += 	\t<summary>$(target) firmware for $(name)</summary>\n
-ifeq ($(meta_branch),true)
-metadata += 	\t<branch>coreboot</branch>\n
-endif
-metadata += 	\t<description>\n
-metadata += 		\t\t<p>Updating the $(target) firmware makes your computer more reliable and can add new features.</p>\n
-metadata += 	\t</description>\n
-metadata += 	\t<provides>\n
-ifneq ($(meta_guid_1),)
-metadata += 		\t\t<firmware type=\"flashed\">$(meta_guid_1)</firmware>\n
-endif
-ifneq ($(meta_guid_2),)
-metadata += 		\t\t<firmware type=\"flashed\">$(meta_guid_2)</firmware>\n
-endif
-metadata += 	\t</provides>\n
-metadata += 	\t<requires>\n
-metadata += 		\t\t<id compare=\"ge\" version=\"$(meta_version)\">org.freedesktop.fwupd</id>\n
-metadata += 		\t\t<hardware>$(hwid)</hardware>\n
-ifeq ($(meta_branch),true)
-metadata += 		\t\t<client>switch-branch</client>\n
-endif
-metadata += 	\t</requires>\n
-metadata += 	\t<url type=\"homepage\">https://starlabs.systems</url>\n
-metadata += 	\t<metadata_license>CC0-1.0</metadata_license>\n
-metadata += 	\t<project_license>proprietary</project_license>\n
-metadata += 	\t<developer_name>Star Labs</developer_name>\n
-metadata += 	\t<custom>\n
-metadata += 		\t\t<value key=\"LVFS::UpdateProtocol\">$(meta_protocol)</value>\n
-metadata += 		\t\t<value key=\"LVFS::VersionFormat\">$(meta_format)</value>\n
-metadata += 	\t</custom>\n
-metadata += 	\t<categories>\n
-metadata += 		\t\t<category>$(meta_type)</category>\n
-metadata += 	\t</categories>\n
-metadata += 	\t<releases>\n
-metadata += 		\t\t<release urgency=\"medium\" version=\"$(version)\" date=\"$(date)\">\n
-metadata += 			\t\t\t<checksum filename=\"$(version).$(file_type)\" target=\"content\"/>\n
-metadata += 			\t\t\t<description>\n
-metadata += 				$(meta_release_notes)
-metadata += 			\t\t\t</description>\n
-metadata += 		\t\t</release>\n
-metadata += 	\t</releases>\n
-metadata += </component>\n
+empty :=
+space := $(empty) $(empty)
+indent_1 := $(space)$(space)
+indent_2 := $(indent_1)$(indent_1)
+indent_3 := $(indent_2)$(indent_1)
+indent_4 := $(indent_2)$(indent_2)
+
+metadata_branch = $(if $(filter true,$(meta_branch)),$(indent_1)<branch>coreboot</branch>\n,)
+
+metadata_provides_1 = $(if $(meta_guid_1),$(indent_2)<firmware type=\"flashed\">$(meta_guid_1)</firmware>\n,)
+metadata_provides_2 = $(if $(meta_guid_2),$(indent_2)<firmware type=\"flashed\">$(meta_guid_2)</firmware>\n,)
+
+metadata_requires_branch = $(if $(filter true,$(meta_branch)),$(indent_2)<client>switch-branch</client>\n,)
+
+metadata_header = <\041-- Copyright 2023 Star Labs Online Limited -->\n<component type=\"firmware\">\n$(indent_1)<id>com.starlabs.$(sku).$(target)</id>\n$(indent_1)<name>$(name) $(target) firmware</name>\n$(indent_1)<summary>$(target) firmware for $(name)</summary>\n
+metadata_description = $(indent_1)<description>\n$(indent_2)<p>Updating the $(target) firmware makes your computer more reliable and can add new features.</p>\n$(indent_1)</description>\n
+metadata_provides = $(indent_1)<provides>\n$(metadata_provides_1)$(metadata_provides_2)$(indent_1)</provides>\n
+metadata_requires = $(indent_1)<requires>\n$(indent_2)<id compare=\"ge\" version=\"$(meta_version)\">org.freedesktop.fwupd</id>\n$(indent_2)<hardware>$(hwid)</hardware>\n$(metadata_requires_branch)$(indent_1)</requires>\n
+metadata_misc = $(indent_1)<url type=\"homepage\">https://starlabs.systems</url>\n$(indent_1)<metadata_license>CC0-1.0</metadata_license>\n$(indent_1)<project_license>proprietary</project_license>\n$(indent_1)<developer_name>Star Labs</developer_name>\n$(indent_1)<custom>\n$(indent_2)<value key=\"LVFS::UpdateProtocol\">$(meta_protocol)</value>\n$(indent_2)<value key=\"LVFS::VersionFormat\">$(meta_format)</value>\n$(indent_1)</custom>\n$(indent_1)<categories>\n$(indent_2)<category>$(meta_type)</category>\n$(indent_1)</categories>\n
+metadata_releases = $(indent_1)<releases>\n$(indent_2)<release urgency=\"medium\" version=\"$(version)\" date=\"$(date)\">\n$(indent_3)<checksum filename=\"$(PAYLOAD_FILENAME)\" target=\"content\"/>\n$(indent_3)<description>\n$(meta_release_notes)$(indent_3)</description>\n$(indent_2)</release>\n$(indent_1)</releases>\n</component>\n
+
+metadata = $(metadata_header)$(metadata_branch)$(metadata_description)$(metadata_provides)$(metadata_requires)$(metadata_misc)$(metadata_releases)

@@ -28,7 +28,7 @@
  		<category>X-System</category>
  	</categories>
  	<releases>
- 		<release urgency="medium" version="26.01" date="2026-02-03">
+ 		<release urgency="medium" version="26.01" date="2026-02-12">
  			<checksum filename="26.01.rom" target="content"/>
  			<description>
  						<p>General Updates:</p>

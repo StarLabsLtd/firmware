@@ -1,0 +1,67 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+ <component type="firmware">
+ 	<id>com.starlabs.Y2.coreboot</id>
+ 	<name>Byte MkII coreboot firmware</name>
+ 	<summary>coreboot firmware for Byte MkII</summary>
+ 	<description>
+ 		<p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+ 	</description>
+ 	<provides>
+ 		<firmware type="flashed">f96fab52-5c36-5b0f-9e16-2cf1e9e519dc</firmware>
+ 	</provides>
+ 	<requires>
+ 		<id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+ 		<hardware>ef9b469e-2429-53e6-b4c0-3646ac0f53ed</hardware>
+ 	</requires>
+ 	<url type="homepage">https://starlabs.systems</url>
+ 	<metadata_license>CC0-1.0</metadata_license>
+ 	<project_license>proprietary</project_license>
+ 	<developer_name>Star Labs</developer_name>
+ 	<custom>
+ 		<value key="LVFS::UpdateProtocol">org.flashrom</value>
+ 		<value key="LVFS::VersionFormat">pair</value>
+ 	</custom>
+ 	<categories>
+ 		<category>X-System</category>
+ 	</categories>
+ 	<releases>
+ 		<release urgency="medium" version="26.02" date="2026-02-18">
+ 			<checksum filename="26.02.rom" target="content"/>
+ 			<description>
+ 						<p>General Updates:</p>
+						<ul>
+						<li>Improved sleep/wake and reset reliability</li>
+						<li>Added support for EFI capsules for easier, more secure updates</li>
+						<li>Updated BIOS setup layout, with a simpler user interface and clearer security shortcuts</li>
+						</ul>
+
+
+						<p>New Options:</p>
+						<ul>
+						<li>[StarFighter] Memory Speed</li>
+						</ul>
+
+
+						<p>Security Updates:</p>
+						<ul>
+						<li>Add an option to lock the BIOS Setup with a password</li>
+						<li>BIOS Lock is now enabled by default</li>
+						<li>Added TCG OPAL Storage disk encryption support, including S3 unlock support</li>
+						<li>Improved Secure Boot key enrollment behavior when a KEK is already present</li>
+						</ul>
+
+
+						<p>Bug Fixes / Enhancements:</p>
+						<ul>
+						<li>Fixed power LED “breathing” behavior in S3</li>
+						<li>Fixed Wake-on-LAN on Byte (including Wake-on-LAN in S5 where supported)</li>
+						<li>[StarFighter] Enabled the card reader</li>
+						<li>[StarFighter/StarBook Horizon] Improved USB-C/PD configuration</li>
+						<li>Updated default power profile tuning and limits</li>
+						</ul>
+
+
+ 			</description>
+ 		</release>
+ 	</releases>
+ </component>

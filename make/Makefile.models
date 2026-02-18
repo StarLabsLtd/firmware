@@ -1,74 +1,35 @@
 ## SPDX-License-Identifier: GPL-2.0-only
 
-# Afu options
-afu_small_core	= /P /N
-afu_big_core	= /P /N /B /L
-afu_amd		= /P /B /N /R /K /X /L
-
-ami_switch	= $(afu_big_core)
-
 ifeq ($(model),lite_apl)
 name		= StarLite MkII
 sku		= I2
-# GUIDs
 hwid		= 80f1fd54-f581-571f-90e6-00bf8a67f627
 coreboot_caps	= 5d9d096d-2c62-4bfd-b2ed-a5ce77dcc9e6
-uefi		= 797f8bae-0ea2-4c0f-8a30-7d10ccfacbc0
-superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
-superio2	= f90a3e8e-af9b-5023-8804-a7faf809e0b1
-ami		= 0676539d-150f-5f07-89b9-fe0afd98c44e
-# AMI opts
-ami_switch	= $(afu_small_core)
 
 else ifeq ($(model),lite_glk)
 name		= StarLite MkIII
 sku		= I3
-# GUIDs
 hwid		= d5521faa-c50b-5d64-971d-8fd400030c51
-uefi		= d9d7b13b-e4db-4f91-8bf6-8952a9caa82a
-superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
-superio2	= b0e3a8ac-24ce-55e3-8aad-2261f1f4fa08
-ami		= ec375a72-9ed9-5a21-b1da-5e7f00dcada1
-coreboot	= 3d2f164a-8818-58fd-a082-6c60a67e21a6
 coreboot_caps	= 5070631a-0521-4177-bb78-1672c6716a03
-
-# AMI opts
-ami_switch	= $(afu_small_core)
 
 else ifeq ($(model),lite_glkr)
 name		= StarLite MkIV
 sku		= I4
 
 hwid		= 0fc25c8c-ffa8-54ad-a216-d13cfe75bee4
-uefi		= b1ff7b4d-8b6a-4f50-a047-cddfdb75fa28
-ami		= 32edd806-13a0-5b0f-a8e9-656a0e147369
-coreboot	= 5dc1dd5b-761e-5146-8ac2-1fdd8445f2ff
 coreboot_caps	= a0382981-b0e3-4ae5-98c4-cbf6c7a16860
-
-ami_switch	= $(afu_small_core)
 
 else ifeq ($(model),labtop_kbl)
 name		= LabTop MkIII
 sku		= L3
 
 hwid		= 61329016-2c61-5873-8682-ab300694452e
-uefi		= 8265d473-a6c2-42b4-897b-bc220faa2d32
-superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
-superio2	= f90a3e8e-af9b-5023-8804-a7faf809e0b1
-ami		= a20caf4c-3ed8-531c-b59a-eb079ab5e65e
-coreboot	= a9360f99-f561-5002-ab5f-9e68dce55f12
 coreboot_caps	= 9f84eb61-f9c5-489a-baf4-c9ad13d72060
 
 else ifeq ($(model),labtop_cml)
 name		= LabTop MkIV
 sku		= L4
-# GUIDs
 hwid		= baf1d04e-fd16-5e6a-93cc-1c23d171f879
-uefi		= 502bff68-b8db-4b01-86ef-ab65f6502a77
-superio1	= 0aa07091-dc02-5e62-a0cd-9d3880721b64
-superio2	= 1e8bc0cc-eee2-5e30-ab4f-1ff923118f01
-ami		= cc6437bf-0955-5c03-84a6-8b87c7a7c244
-coreboot	= 0ee5867c-93f0-5fb4-adf1-9d686ea1183a
 coreboot_caps	= d33fbe7d-90b9-493e-9a94-2a63dc915044
 
 else ifeq ($(model),starbook_tgl)
@@ -76,66 +37,37 @@ name		= StarBook MkV
 sku		= B5
 
 hwid		= 85aba599-addd-5985-a2e8-eddb41c61ba3
-uefi		= e27d9e98-cbb2-4975-a8f8-261de2adde05
-superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
-superio2	= 049060b5-5010-5ca0-8002-07923951d15e
-ami		= 612d0af2-6b4b-5d1a-bd63-433022fdaefe
-coreboot	= 54c96fef-31e7-5011-a3ff-ea8e855d9acd
 coreboot_caps	= 78681eee-2edc-4575-a861-d593f8145ce0
 
 else ifeq ($(model),starbook_adl)
 name		= StarBook MkVI-Intel
 sku		= B6-I
-# GUIDs
 hwid		= 5c917039-d938-5c9a-b22a-9c392b1534f3
-uefi		= 02e64049-abcc-44a5-af9a-fafc390dd844
-superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
-ami		= 1292e166-a66f-5e11-b2bb-53265a8f53d9
-coreboot	= 8c994a92-7ef8-5d68-80b5-99ead7cf4686
 coreboot_caps	= d86dddc7-8e8e-45b8-a830-d5d602467bcc
 
 else ifeq ($(model),starbook_cezanne)
 name		= StarBook MkVI-AMD
 sku		= B6-A
-# GUIDs
 hwid		= b39593ad-7522-52a5-a4ab-1b2ca2153956
-uefi		= 5a29ddbb-11dd-476d-a641-a45c1db63d5c
-superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
-ami		= 4c7c8bc5-475c-5384-b602-78c9d4771b5d
-coreboot	= 4c7c8bc5-475c-5384-b602-78c9d4771b5d
 coreboot_caps	= 2ef5db2f-2791-4e62-bd7b-fdb23f83c615
-
-ami_switch	= $(afu_amd)
 
 else ifeq ($(model),byte_cezanne)
 name		= Byte MkI
 sku		= Y1
-# GUIDs
 
 hwid		= 79a64046-5643-59c4-91d0-e68b33db5829
-uefi		= c24f6311-d2de-49e6-aba0-b8e971b1a425
-superio1	= d83a4cd0-fce6-58a8-93c7-bcee89b41dcf
-ami		= ""
-coreboot	= ""
 coreboot_caps	= 83335bd5-ec9e-4a78-8931-223d990f5b44
-
-ami_switch	= $(afu_amd)
 
 else ifeq ($(model),starbook_rpl)
 name		= StarBook MkVIr2-Intel
 sku		= B62-I
-# GUIDs
 hwid		= 12122d1c-c383-5583-9cb7-3ba8d220913d
-uefi		= 04ae7c00-cd83-48da-a37b-0607c310944a
-ami		= ce35649d-b89d-5188-b961-d992ce7e0f88
-coreboot	= 595c5861-a105-509b-8dd6-f77070345286
 coreboot_caps	= 6d5381ba-53ea-426e-bf5d-a9c722b1f45f
 
 else ifeq ($(model),byte_adl)
 name		= Byte MkII
 sku		= Y2
 hwid		= ef9b469e-2429-53e6-b4c0-3646ac0f53ed
-coreboot	= f96fab52-5c36-5b0f-9e16-2cf1e9e519dc
 coreboot_caps	= 1bb1161f-9939-4213-8744-32887dd9514f
 meta_branch	= false
 
@@ -143,7 +75,6 @@ else ifeq ($(model),lite_adl)
 name		= StarLite MkV
 sku		= I5
 hwid		= 3d9415bb-3027-541b-99b7-cf21e5383bdb
-coreboot	= c9d8edd8-8c89-598f-9d7a-e3ad247ee9cd
 coreboot_caps	= 975cd0e6-c540-4e2b-906c-72c0d0d1e40d
 meta_branch	= false
 
@@ -151,7 +82,6 @@ else ifeq ($(model),starfighter_rpl)
 name		= StarFighter MkI
 sku		= F1
 hwid		= 9299159f-8ac4-5e25-81f3-e8cf2ae62f32
-coreboot	= 79733fb5-3230-54ae-8940-6b897c8169a5
 coreboot_caps	= ac75492e-18ad-477d-a719-710a0ddb6c2c
 meta_branch	= false
 
@@ -159,7 +89,6 @@ else ifeq ($(model),starbook_adl_n)
 name		= StarBook MkVII-N
 sku		= B7-N
 hwid		= a03a57fd-a71b-5166-a2f2-5eef4ad5c22d
-coreboot	= 0573c43a-e6ec-51db-b672-0185b59b947b
 coreboot_caps	= 231fcee3-2374-416d-8218-088c90199a77
 meta_branch	= false
 
@@ -167,7 +96,6 @@ else ifeq ($(model),starbook_mtl)
 name		= StarBook MkVII-U
 sku		= B7-U
 hwid		= 3e2aba0e-9dba-52d9-a8de-2c86716459dc
-coreboot	= 69f9b787-ffbe-5af2-9d72-56fa29187848
 coreboot_caps	= 85584837-7b03-4b6c-940c-8b6186cbf7a1
 meta_branch	= false
 
@@ -175,7 +103,6 @@ else ifeq ($(model),byte_twl)
 name		= Byte MkIII
 sku		= Y3
 hwid		= 49fcf7b8-0ee8-59cf-9e43-c3aa794be03b
-coreboot	= 1c7fe071-4fb8-5134-8410-edec96a3069f
 coreboot_caps	= fb17c9c8-0cb6-43bf-9a8b-4642c61e2ac3
 meta_branch	= false
 
@@ -183,7 +110,6 @@ else ifeq ($(model),starfighter_mtl)
 name		= StarFighter MkII
 sku		= F2
 hwid		= daf3f999-158b-5339-917b-117d8707fee7
-coreboot	= 70ec4fa2-2a60-513f-b834-742c82eb4faa
 coreboot_caps	= 75b29ff6-e882-41c7-903f-5af89e004113
 meta_branch	= false
 
@@ -191,7 +117,6 @@ else ifeq ($(model),adl_horizon)
 name		= StarBook Horizon
 sku		= HZ
 hwid		= 092ff992-7ee6-5fb9-ad26-8dfabd4c84af
-coreboot	= 2a177241-dcd2-5456-a5b5-0ba22ea52a9b
 coreboot_caps	= 634fefb2-7099-4e5c-8b85-bd458132f51e
 meta_branch	= false
 

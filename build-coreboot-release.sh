@@ -19,6 +19,8 @@ build_targets=(
 	adl_horizon
 )
 
+required_firmware_version=26.02
+
 usage() {
 	cat <<'EOF'
 Usage:
@@ -47,9 +49,9 @@ BINARY="${4:-}"
 run_make() {
 	local board="$1"
 	if [[ -n "$BINARY" ]]; then
-		make release model="$board" version="$VERSION" release_notes="$NOTES" binary="$BINARY"
+		make release model="$board" version="$VERSION" release_notes="$NOTES" binary="$BINARY" required_firmware_version="$required_firmware_version"
 	else
-		make release model="$board" version="$VERSION" release_notes="$NOTES"
+		make release model="$board" version="$VERSION" release_notes="$NOTES" required_firmware_version="$required_firmware_version"
 	fi
 }
 

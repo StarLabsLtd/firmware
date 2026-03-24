@@ -4,6 +4,7 @@ meta_version		= 1.7.7
 meta_protocol		= org.uefi.capsule
 meta_type		= X-System
 meta_format		= pair
+meta_device_flags	= no-ux-capsule
 meta_branch		= true
 meta_guid_1		= $(coreboot_caps)
 file_type		= cap

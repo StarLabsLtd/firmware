@@ -52,6 +52,18 @@ PENDING_UPDATES=0
 CAMERA_TARGET_VERSION="HYGD-240907-A"
 TRACKPAD_TARGET_VERSION="8196"
 COREBOOT_TARGET_VERSION="26.04"
+COREBOOT_ALLOWED_SKUS=(
+	B6-A
+	B62-I
+	F1
+	F1-A
+	F2
+	HZ
+	I5
+	L4
+	Y2
+	Y3
+)
 
 status_color()
 {
@@ -143,6 +155,17 @@ mark_task_wanted()
 task_is_wanted()
 {
 	[[ "${TASK_WANTED[$1]:-0}" == "1" ]]
+}
+
+coreboot_allowed_sku()
+{
+	local allowed
+
+	for allowed in "${COREBOOT_ALLOWED_SKUS[@]}"; do
+		[[ "$SKU" == "$allowed" ]] && return 0
+	done
+
+	return 1
 }
 
 ansi_strip()
@@ -435,6 +458,11 @@ discover_ssd()
 
 discover_coreboot()
 {
+	if ! coreboot_allowed_sku; then
+		set_task coreboot skipped "not enabled for ${RAW_SKU}"
+		return
+	fi
+
 	if [[ "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
 		set_task coreboot up-to-date "$BIOS_VERSION"
 	else

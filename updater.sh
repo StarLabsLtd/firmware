@@ -24,7 +24,7 @@ WORKING_DIR="$(mktemp -d /tmp/starlabs-fwup.XXXXXX)"
 trap 'rm -rf "$WORKING_DIR"' EXIT
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main"
+REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/capsules"
 RAW_SKU="$(cat /sys/class/dmi/id/product_sku)"
 case "$RAW_SKU" in
 I5-MXC|I5-SB)

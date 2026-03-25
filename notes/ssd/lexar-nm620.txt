@@ -1,0 +1,2 @@
+* Updates supported Lexar NM620 SSDs to the bundled model-specific firmware release
+* The fallback updater matches the installed SSD model and only uses the corresponding firmware image

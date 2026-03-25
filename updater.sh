@@ -22,6 +22,7 @@ fi
 
 WORKING_DIR="$(mktemp -d /tmp/starlabs-fwup.XXXXXX)"
 trap 'rm -rf "$WORKING_DIR"' EXIT
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main"
 RAW_SKU="$(cat /sys/class/dmi/id/product_sku)"
@@ -157,6 +158,19 @@ task_is_wanted()
 	[[ "${TASK_WANTED[$1]:-0}" == "1" ]]
 }
 
+note_relpath_for_task()
+{
+	case "$1" in
+	touchscreen) printf "notes/touchscreen/starlite-mkv.txt" ;;
+	keyboard) printf "notes/keyboard/starlite-mkv.txt" ;;
+	trackpad) printf "notes/trackpad/starfighter.txt" ;;
+	camera) printf "notes/camera/starfighter.txt" ;;
+	ssd) printf "notes/ssd/lexar-nm620.txt" ;;
+	coreboot) printf "26.04-release-notes.md" ;;
+	*) return 1 ;;
+	esac
+}
+
 coreboot_allowed_sku()
 {
 	local allowed
@@ -179,6 +193,8 @@ download_to()
 	local dest="$2"
 	local url="${REPO}/${relpath}"
 
+	mkdir -p "$(dirname "$dest")"
+
 	if [[ -s "$dest" ]]; then
 		return 0
 	fi
@@ -200,6 +216,21 @@ ensure_binary()
 
 	download_to "binaries/${name}" "$path"
 	chmod +x "$path"
+	printf "%s\n" "$path"
+}
+
+ensure_note()
+{
+	local relpath="$1"
+	local local_path="${SCRIPT_DIR}/${relpath}"
+	local path="${WORKING_DIR}/${relpath}"
+
+	if [[ -r "$local_path" ]]; then
+		printf "%s\n" "$local_path"
+		return 0
+	fi
+
+	download_to "$relpath" "$path"
 	printf "%s\n" "$path"
 }
 
@@ -483,6 +514,34 @@ discover_updates()
 		ssd) discover_ssd ;;
 		coreboot) discover_coreboot ;;
 		esac
+	done
+}
+
+show_release_notes()
+{
+	local key relpath note shown=0
+
+	for key in "${TASK_KEYS[@]}"; do
+		if ! task_is_wanted "$key"; then
+			continue
+		fi
+
+		relpath="$(note_relpath_for_task "$key" || true)"
+		[[ -n "$relpath" ]] || continue
+		note="$(ensure_note "$relpath" 2>/dev/null || true)"
+		[[ -n "$note" && -r "$note" ]] || continue
+
+		if (( shown == 0 )); then
+			printf "\n%sRelease Notes%s\n" "$BOLD" "$RESET"
+			shown=1
+		fi
+
+		printf "\n%s%s%s" "$BOLD" "${TASK_LABELS[$key]}" "$RESET"
+		if [[ -n "${TASK_DETAIL[$key]:-}" ]]; then
+			printf " %s(%s)%s" "$BLUE" "${TASK_DETAIL[$key]}" "$RESET"
+		fi
+		printf "\n"
+		sed 's/^/  /' "$note"
 	done
 }
 
@@ -1047,6 +1106,8 @@ main()
 		printf "\n%sAll firmware is already up to date.%s\n" "$GREEN" "$RESET"
 		return 0
 	fi
+
+	show_release_notes
 
 	run_prerequisite_checks || exit 1
 

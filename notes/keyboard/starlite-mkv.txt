@@ -1,0 +1,2 @@
+* Updates the StarLite Mk V keyboard firmware to the appropriate bundled target for the attached keyboard
+* The fallback updater selects the correct keyboard payload based on the current keyboard firmware version

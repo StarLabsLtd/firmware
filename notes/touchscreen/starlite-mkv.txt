@@ -1,0 +1,2 @@
+* Updates the StarLite Mk V touchscreen firmware to the bundled release in this repository
+* Version readback is not currently available in the fallback updater, so the touchscreen is offered when detected

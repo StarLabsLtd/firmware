@@ -1,0 +1,2 @@
+* Updates the StarFighter detachable camera to firmware HYGD-240907-A
+* This is the tested normal-runtime camera update path used by the fallback updater

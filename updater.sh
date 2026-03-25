@@ -20,11 +20,22 @@ else
 	USE_TTY=0
 fi
 
+if [[ -r /dev/tty ]]; then
+	HAS_TTY_INPUT=1
+else
+	HAS_TTY_INPUT=0
+fi
+
 WORKING_DIR="$(mktemp -d /tmp/starlabs-fwup.XXXXXX)"
 trap 'rm -rf "$WORKING_DIR"' EXIT
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_SOURCE="$0"
+if [[ "$SCRIPT_SOURCE" == "bash" || "$SCRIPT_SOURCE" == "-bash" ]]; then
+	SCRIPT_DIR="$PWD"
+else
+	SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
+fi
 
-REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/capsules"
+REPO="https://raw.githubusercontent.com/StarLabsLtd/firmware/capsules"
 RAW_SKU="$(cat /sys/class/dmi/id/product_sku)"
 case "$RAW_SKU" in
 I5-MXC|I5-SB)
@@ -49,22 +60,59 @@ STARFIGHTER_TRACKPAD_NODE=""
 STARLITE_TOUCHSCREEN_NODE=""
 LEXAR_PRESENT=0
 PENDING_UPDATES=0
+SUDO_READY=0
+FLASHROM_PROBE_OUTPUT=""
+ALLOW_UNSUPPORTED_COREBOOT=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
 TRACKPAD_TARGET_VERSION="8196"
+TRACKPAD_TARGET_VERSION_HEX="2004"
 COREBOOT_TARGET_VERSION="26.04"
 COREBOOT_ALLOWED_SKUS=(
-	B6-A
-	B62-I
-	F1
-	F1-A
 	F2
+	F1
 	HZ
 	I5
-	L4
-	Y2
+	B7-U
+	B7-N
+	B62-I
+	B6-I
+	B5
 	Y3
+	Y2
 )
+
+usage()
+{
+	cat <<EOF
+Usage: $0 [--allow-unsupported-coreboot] [--help]
+
+  --allow-unsupported-coreboot  Allow the coreboot update path on SKUs that are
+                                 not currently in the built-in allow-list.
+  --help                         Show this help text.
+EOF
+}
+
+parse_args()
+{
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		--allow-unsupported-coreboot)
+			ALLOW_UNSUPPORTED_COREBOOT=1
+			;;
+		--help|-h)
+			usage
+			exit 0
+			;;
+		*)
+			printf "%sUnknown option:%s %s\n" "$RED" "$RESET" "$1" >&2
+			usage >&2
+			exit 1
+			;;
+		esac
+		shift
+	done
+}
 
 status_color()
 {
@@ -158,6 +206,14 @@ task_is_wanted()
 	[[ "${TASK_WANTED[$1]:-0}" == "1" ]]
 }
 
+trackpad_version_matches_target()
+{
+	local version="$1"
+
+	[[ -n "$version" ]] || return 1
+	[[ "$version" == "$TRACKPAD_TARGET_VERSION" || "${version^^}" == "${TRACKPAD_TARGET_VERSION_HEX^^}" ]]
+}
+
 note_relpath_for_task()
 {
 	case "$1" in
@@ -174,6 +230,10 @@ note_relpath_for_task()
 coreboot_allowed_sku()
 {
 	local allowed
+
+	if (( ALLOW_UNSUPPORTED_COREBOOT == 1 )); then
+		return 0
+	fi
 
 	for allowed in "${COREBOOT_ALLOWED_SKUS[@]}"; do
 		[[ "$SKU" == "$allowed" ]] && return 0
@@ -234,6 +294,28 @@ ensure_note()
 	printf "%s\n" "$path"
 }
 
+ensure_sudo()
+{
+	if (( SUDO_READY == 1 )); then
+		return 0
+	fi
+
+	if (( USE_TTY )); then
+		printf "\n%sSudo access is required for firmware checks and updates.%s\n" "$YELLOW" "$RESET" >&2
+		if sudo -v; then
+			SUDO_READY=1
+			return 0
+		fi
+	else
+		if sudo -n true >/dev/null 2>&1; then
+			SUDO_READY=1
+			return 0
+		fi
+	fi
+
+	return 1
+}
+
 wait_for_charger()
 {
 	while upower -i /org/freedesktop/UPower/devices/battery_BAT0 2>/dev/null | grep -q "state:\\s*discharging"; do
@@ -260,15 +342,35 @@ offer_reboot_to_firmware_setup()
 {
 	local reply
 
-	if (( ! USE_TTY )); then
+	if (( ! USE_TTY || ! HAS_TTY_INPUT )); then
 		return 1
 	fi
 
 	printf "\n%sReboot into firmware setup now?%s [Y/n] " "$YELLOW" "$RESET"
-	read -r reply || true
+	read -r reply </dev/tty || true
 	if [[ -z "$reply" || "$reply" =~ ^[Yy]$ ]]; then
 		sudo systemctl reboot --firmware-setup
 		exit 1
+	fi
+	return 1
+}
+
+prompt_shutdown_after_coreboot_update()
+{
+	local reply
+
+	printf "\n%sFirmware update complete.%s\n" "$GREEN" "$RESET"
+	printf "To finish the update safely, shut the system down, disconnect the charger, and wait about 12 seconds until the LEDs flicker.\n"
+
+	if (( ! USE_TTY || ! HAS_TTY_INPUT )); then
+		printf "Shut the system down manually when you are ready.\n"
+		return 1
+	fi
+
+	printf "\n%sShut down now?%s [y/N] " "$YELLOW" "$RESET"
+	read -r reply </dev/tty || true
+	if [[ "$reply" =~ ^[Yy]$ ]]; then
+		return 0
 	fi
 	return 1
 }
@@ -323,20 +425,79 @@ raise SystemExit(1)
 PY
 }
 
+os_release_id()
+{
+	if [[ -r /etc/os-release ]]; then
+		. /etc/os-release
+		printf "%s\n" "${ID:-}"
+		return 0
+	fi
+	return 1
+}
+
+os_release_like()
+{
+	if [[ -r /etc/os-release ]]; then
+		. /etc/os-release
+		printf "%s\n" "${ID_LIKE:-}"
+		return 0
+	fi
+	return 1
+}
+
+print_iomem_relaxed_instructions()
+{
+	local os_id os_like
+
+	os_id="$(os_release_id || true)"
+	os_like="$(os_release_like || true)"
+
+	case " ${os_id} ${os_like} " in
+	*" ubuntu "*|*" debian "*|*" linuxmint "*|*" pop "*)
+		printf "Ubuntu/Debian: run:\n" >&2
+		printf "  sudo sed -i 's/^\\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\\)\"/\\1 iomem=relaxed\"/' /etc/default/grub\n" >&2
+		printf "  sudo update-grub\n" >&2
+		printf "  reboot\n" >&2
+		;;
+	*" fedora "*)
+		printf "Fedora: run:\n" >&2
+		printf "  sudo grubby --update-kernel=ALL --args=\"iomem=relaxed\"\n" >&2
+		printf "  reboot\n" >&2
+		;;
+	*" arch "*|*" endeavouros "*|*" manjaro "*)
+		printf "Arch: run:\n" >&2
+		printf "  sudo sed -i 's/^\\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\\)\"/\\1 iomem=relaxed\"/' /etc/default/grub\n" >&2
+		printf "  sudo grub-mkconfig -o /boot/grub/grub.cfg\n" >&2
+		printf "  reboot\n" >&2
+		;;
+	*)
+		printf "Add %siomem=relaxed%s to your kernel command line, reboot, and re-run this updater.\n" "$BOLD" "$RESET" >&2
+		;;
+	esac
+}
+
 bios_lock_state()
 {
-	local line
+	local output
 
-	command -v fwupdmgr >/dev/null 2>&1 || return 1
-	line="$(fwupdmgr security --force 2>/dev/null | ansi_strip | awk -F':' '/SPI BIOS region/ {gsub(/^[[:space:]]+/, "", $2); print $2; exit}')"
-	[[ -n "$line" ]] || return 1
-	printf "%s\n" "$line"
+	output="$(get_flashrom_probe_output || true)"
+	[[ -n "$output" ]] || return 1
+
+	if [[ "$output" == *"SMM protection is enabled"* ]]; then
+		printf "SMM_BWP enabled\n"
+		return 0
+	fi
+
+	printf "SMM_BWP disabled\n"
+	return 0
 }
 
 flashrom_access_check()
 {
 	local tool="$1"
 	local output rc
+
+	ensure_sudo || return 1
 
 	set +e
 	output="$(sudo "$tool" -p internal --flash-name 2>&1)"
@@ -345,6 +506,25 @@ flashrom_access_check()
 
 	printf "%s" "$output"
 	return "$rc"
+}
+
+get_flashrom_probe_output()
+{
+	local tool output
+
+	if [[ -n "$FLASHROM_PROBE_OUTPUT" ]]; then
+		printf "%s" "$FLASHROM_PROBE_OUTPUT"
+		return 0
+	fi
+
+	tool="$(ensure_binary flashrom)"
+	ensure_sudo || return 1
+	set +e
+	output="$(sudo "$tool" -VV -p internal --flash-name 2>&1)"
+	set -e
+	FLASHROM_PROBE_OUTPUT="$output"
+	printf "%s" "$output"
+	return 0
 }
 
 discover_touchscreen()
@@ -396,12 +576,18 @@ discover_trackpad()
 	fi
 
 	tool="$(ensure_binary pixtpfwup)"
+	if ! ensure_sudo; then
+		mark_task_wanted trackpad
+		set_task trackpad pending "sudo required"
+		return
+	fi
+
 	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
-	if [[ -n "$current_version" && "$current_version" == "$TRACKPAD_TARGET_VERSION" ]]; then
+	if trackpad_version_matches_target "$current_version"; then
 		set_task trackpad up-to-date "$current_version"
 	else
 		mark_task_wanted trackpad
-		set_task trackpad pending "${current_version:-unknown} -> ${TRACKPAD_TARGET_VERSION}"
+		set_task trackpad pending "${current_version:-version check failed} -> ${TRACKPAD_TARGET_VERSION_HEX}"
 	fi
 }
 
@@ -437,6 +623,12 @@ discover_ssd()
 		set_task ssd pending "nvme-cli needed"
 		return
 	}
+
+	if ! ensure_sudo; then
+		mark_task_wanted ssd
+		set_task ssd pending "sudo required"
+		return
+	fi
 
 	IFS=$'\t' read -r mn sn fr < <(
 		sudo nvme id-ctrl /dev/nvme0 2>/dev/null | awk -F':' '
@@ -552,7 +744,7 @@ add_prerequisite_tasks()
 	fi
 
 	add_task prereq-ac "Charger connected"
-	add_task prereq-battery "Battery at least 30%%"
+	add_task prereq-battery "Battery at least 30%"
 
 	if task_is_wanted coreboot; then
 		add_task prereq-bios-lock "BIOS Lock disabled"
@@ -583,9 +775,9 @@ check_battery_task()
 		return 1
 	fi
 	if (( pct >= 30 )); then
-		set_task prereq-battery done "${pct}%%"
+		set_task prereq-battery done "${pct}%"
 	else
-		set_task prereq-battery failed "${pct}%%"
+		set_task prereq-battery failed "${pct}%"
 		return 1
 	fi
 }
@@ -597,21 +789,27 @@ check_bios_lock_task()
 	set_task prereq-bios-lock checking
 	state="$(bios_lock_state || true)"
 	case "$state" in
-	Unlocked|Disabled)
+	"SMM_BWP disabled")
 		set_task prereq-bios-lock done "$state"
 		return 0
 		;;
-	Locked)
+	"SMM_BWP enabled")
 		set_task prereq-bios-lock failed "$state"
 		path="$(firmware_setup_path)"
-		printf "\n%sBIOS Lock is enabled.%s\n" "$RED" "$RESET" >&2
+		printf "\n%sBIOS SMM write protection is enabled.%s\n" "$RED" "$RESET" >&2
 		printf "Open %s and disable BIOS Lock, then boot Linux and re-run this updater.\n" "$path" >&2
 		offer_reboot_to_firmware_setup || true
 		return 1
 		;;
 	*)
-		set_task prereq-bios-lock done "not reported"
-		return 0
+		if [[ "$FLASHROM_PROBE_OUTPUT" == *"/dev/mem"* || "$FLASHROM_PROBE_OUTPUT" == *"iomem"* || "$FLASHROM_PROBE_OUTPUT" == *"Operation not permitted"* || "$FLASHROM_PROBE_OUTPUT" == *"Permission denied"* ]]; then
+			set_task prereq-bios-lock failed "kernel blocked flashrom"
+			printf "\n%sUnable to check BIOS Lock because flashrom is blocked by the running kernel.%s\n" "$RED" "$RESET" >&2
+			print_iomem_relaxed_instructions
+			return 1
+		fi
+		set_task prereq-bios-lock failed "unable to determine"
+		return 1
 		;;
 	esac
 }
@@ -651,8 +849,8 @@ check_flashrom_task()
 	if [[ "$output" == *"/dev/mem"* || "$output" == *"iomem"* || "$output" == *"Operation not permitted"* || "$output" == *"Permission denied"* ]]; then
 		set_task prereq-flashrom failed "kernel blocked flashrom"
 		printf "\n%sFlashrom access is blocked by the running kernel.%s\n" "$RED" "$RESET" >&2
-		printf "If Secure Boot is already disabled, add %siomem=relaxed%s to your kernel command line, reboot, and re-run this updater.\n" "$BOLD" "$RESET" >&2
-		printf "This is most common on Fedora and Arch.\n" >&2
+		printf "If Secure Boot is already disabled, enable relaxed iomem access, reboot, and re-run this updater.\n" >&2
+		print_iomem_relaxed_instructions
 		return 1
 	fi
 
@@ -732,13 +930,23 @@ find_starfighter_camera_usb_dir()
 
 find_starfighter_camera_node()
 {
-	local usbdir video
+	local usbdir sys devpath
 
-	usbdir="$(find_starfighter_camera_usb_dir)" || return 1
-	for video in "$usbdir"/video4linux/video*; do
-		[[ -e "$video" ]] || continue
-		printf "/dev/%s\n" "$(basename "$video")"
-		return 0
+	usbdir="$(find_starfighter_camera_usb_dir || true)"
+	[[ -n "$usbdir" ]] || return 1
+	usbdir="$(readlink -f "$usbdir" 2>/dev/null || true)"
+	[[ -n "$usbdir" ]] || return 1
+
+	for sys in /sys/class/video4linux/video*; do
+		[[ -e "$sys/device" ]] || continue
+		devpath="$(readlink -f "$sys/device" 2>/dev/null || true)"
+		while [[ -n "$devpath" && "$devpath" != "/" ]]; do
+			if [[ "$devpath" == "$usbdir" ]]; then
+				printf "/dev/%s\n" "$(basename "$sys")"
+				return 0
+			fi
+			devpath="$(dirname "$devpath")"
+		done
 	done
 	return 1
 }
@@ -765,7 +973,7 @@ wait_for_optional_device()
 		if "$detect_fn" >/dev/null 2>&1; then
 			return 0
 		fi
-		if (( USE_TTY )) && read -r -t 1 _; then
+		if (( USE_TTY && HAS_TTY_INPUT )) && read -r -t 1 _ </dev/tty; then
 			return 1
 		fi
 		sleep 1
@@ -799,8 +1007,14 @@ trackpad_current_version()
 {
 	local tool="$1"
 	local node="$2"
+	local output
 
-	sudo "$tool" "$node" get_fwver 2>&1 | awk '/The firmware version is/ {print $5; exit}'
+	output="$({ sudo "$tool" "$node" get_fwver 2>&1 || true; })"
+	printf '%s
+' "$output" | sed -n '
+		s/.*The firmware version is[[:space:]]*//p
+		s/.*Firmware Version:[[:space:]]*//p
+	' | head -n1
 }
 
 update_touchscreen()
@@ -879,7 +1093,7 @@ update_trackpad()
 	download_to "trackpad/starfighter/PT279_V2004.bin" "$fw"
 	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
 
-	if [[ -n "$current_version" && "$current_version" == "$TRACKPAD_TARGET_VERSION" ]]; then
+	if trackpad_version_matches_target "$current_version"; then
 		set_task trackpad up-to-date "$current_version"
 		return 0
 	fi
@@ -894,7 +1108,7 @@ update_trackpad()
 
 update_camera()
 {
-	local tool fw version
+	local tool fw version camera_index
 
 	set_task camera checking
 	if (( STARFIGHTER_CAMERA_PRESENT == 0 )) || [[ -z "$STARFIGHTER_CAMERA_NODE" ]]; then
@@ -908,12 +1122,13 @@ update_camera()
 		return 0
 	fi
 
-	tool="$(ensure_binary hygdtool)"
+	tool="$(ensure_binary V4L2_FWUpdate_GNU_x86_64)"
 	fw="${WORKING_DIR}/HYGD-SPCA2092C-OV2740-1920x1080-30-15fps-N-AML-240907.bin"
+	camera_index="${STARFIGHTER_CAMERA_NODE#/dev/video}"
 	download_to "camera/starfighter/HYGD-SPCA2092C-OV2740-1920x1080-30-15fps-N-AML-240907.bin" "$fw"
 
 	set_task camera updating "${version:-unknown}"
-	if sudo "$tool" --device "$STARFIGHTER_CAMERA_NODE" write "$fw"; then
+	if sudo "$tool" -D "$camera_index" -d "$fw"; then
 		set_task camera "done"
 	else
 		set_task camera failed
@@ -1016,7 +1231,7 @@ update_ssd()
 
 update_coreboot()
 {
-	local tool reset_tool fw
+	local tool reset_tool fw flashrom_log
 	local -a flashrom_flags=()
 
 	set_task coreboot checking
@@ -1025,21 +1240,37 @@ update_coreboot()
 	tool="$(ensure_binary flashrom)"
 	reset_tool="$(ensure_binary reset-cmos)"
 	fw="${WORKING_DIR}/${SKU}.bios"
-	download_to "roms/${SKU}.bios" "$fw"
-
-	if [[ "$SKU" != "B6-A" ]]; then
-		flashrom_flags=(--fmap -n -N -i COREBOOT -i EC)
+	if ! download_to "roms/${SKU}.bios" "$fw"; then
+		set_task coreboot failed "missing ${SKU}.bios"
+		printf "\n%sMissing BIOS payload for %s.%s\n" "$RED" "$RAW_SKU" "$RESET" >&2
+		printf "Expected %sroms/%s.bios%s in the firmware release.\n" "$BOLD" "$SKU" "$RESET" >&2
+		return 0
+	fi
+	if [[ ! -s "$fw" ]]; then
+		set_task coreboot failed "missing ${SKU}.bios"
+		printf "\n%sMissing BIOS payload for %s.%s\n" "$RED" "$RAW_SKU" "$RESET" >&2
+		printf "Expected %sroms/%s.bios%s in the firmware release.\n" "$BOLD" "$SKU" "$RESET" >&2
+		return 0
 	fi
 
+	if [[ "$SKU" != "B6-A" ]]; then
+		flashrom_flags=(--ifd -i bios -n -N)
+	fi
+
+	flashrom_log="${WORKING_DIR}/flashrom-coreboot.log"
 	set_task coreboot updating "$BIOS_VERSION"
-	if sudo "$tool" -p internal -w "$fw" "${flashrom_flags[@]}"; then
+	if sudo "$tool" -p internal -w "$fw" "${flashrom_flags[@]}" >"$flashrom_log" 2>&1; then
 		set_task coreboot "done"
-		printf "\n%scoreboot update complete. The system will now reset CMOS and shut down.%s\n" \
-			"$GREEN" "$RESET"
-		sudo "$reset_tool" || true
-		sudo shutdown now
+		if prompt_shutdown_after_coreboot_update; then
+			sudo "$reset_tool" || true
+			sudo shutdown now
+		fi
 	else
 		set_task coreboot failed
+		printf "\n%sflashrom failed while updating coreboot.%s\n" "$RED" "$RESET" >&2
+		if [[ -s "$flashrom_log" ]]; then
+			sed 's/^/  /' "$flashrom_log" >&2
+		fi
 	fi
 }
 
@@ -1095,6 +1326,7 @@ build_task_list()
 
 main()
 {
+	parse_args "$@"
 	prepare_optional_devices
 	build_task_list
 	render_tasks
@@ -1108,6 +1340,11 @@ main()
 	fi
 
 	show_release_notes
+
+	if ! ensure_sudo; then
+		printf "\n%sSudo authentication is required to continue.%s\n" "$RED" "$RESET" >&2
+		exit 1
+	fi
 
 	run_prerequisite_checks || exit 1
 

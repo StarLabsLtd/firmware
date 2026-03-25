@@ -167,7 +167,7 @@ readme_release_notes = $(shell if [[ -f "$(RELEASE_NOTES)" ]]; then	\
 fi)
 
 GIT_BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null || echo master)
-link = https://github.com/StarLabsLtd/firmware/raw/refs/heads/$(GIT_BRANCH)/$(OUTPUT_DIR)
+link = https://raw.githubusercontent.com/StarLabsLtd/firmware/$(GIT_BRANCH)/$(OUTPUT_DIR)
 
 
 push_to_git:

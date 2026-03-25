@@ -2,94 +2,390 @@
 
 set -euo pipefail
 
-# Colors
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-RESET=$(tput sgr0)
+if [[ -t 1 ]]; then
+	RED="$(tput setaf 1)"
+	GREEN="$(tput setaf 2)"
+	YELLOW="$(tput setaf 3)"
+	BLUE="$(tput setaf 4)"
+	BOLD="$(tput bold)"
+	RESET="$(tput sgr0)"
+	USE_TTY=1
+else
+	RED=""
+	GREEN=""
+	YELLOW=""
+	BLUE=""
+	BOLD=""
+	RESET=""
+	USE_TTY=0
+fi
 
-# Wait for charger if discharging
-while upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -q "state:\s*discharging"; do
-	echo "${YELLOW}Please connect the charger...${RESET}"
-	sleep 10
-done
+WORKING_DIR="$(mktemp -d /tmp/starlabs-fwup.XXXXXX)"
+trap 'rm -rf "$WORKING_DIR"' EXIT
 
-WORKING_DIR="/tmp"
-REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main/"
+REPO="https://github.com/StarLabsLtd/firmware/raw/refs/heads/main"
+RAW_SKU="$(cat /sys/class/dmi/id/product_sku)"
+case "$RAW_SKU" in
+I5-MXC|I5-SB)
+	SKU="I5"
+	;;
+*)
+	SKU="$RAW_SKU"
+	;;
+esac
+BIOS_VERSION="$(cat /sys/class/dmi/id/bios_version 2>/dev/null || true)"
 
-SKU_RAW=$(cat /sys/class/dmi/id/product_sku)
-SKU=$(echo "$SKU_RAW" | sed -e 's/-SB//' -e 's/-MXC//')
+declare -a TASK_KEYS=()
+declare -A TASK_LABELS=()
+declare -A TASK_STATUS=()
+declare -A TASK_DETAIL=()
+declare -A TASK_WANTED=()
 
-pushd "$WORKING_DIR" >/dev/null
+STARLITE_KEYBOARD_PRESENT=0
+STARFIGHTER_CAMERA_PRESENT=0
+STARFIGHTER_CAMERA_NODE=""
+STARFIGHTER_TRACKPAD_NODE=""
+STARLITE_TOUCHSCREEN_NODE=""
+LEXAR_PRESENT=0
+PENDING_UPDATES=0
 
-function get_fw_tools() {
-	if ! command -v nvme >/dev/null 2>&1; then
-		echo "Installing nvme-cli..."
-		if command -v apt-get >/dev/null 2>&1; then
-			sudo apt-get update -y && sudo apt-get install -y nvme-cli
-		elif command -v dnf >/dev/null 2>&1; then
-			sudo dnf install -y nvme-cli
-		elif command -v pacman >/dev/null 2>&1; then
-			sudo pacman -Sy --noconfirm nvme-cli
-		elif command -v zypper >/dev/null 2>&1; then
-			sudo zypper -n install nvme-cli
-		elif command -v apk >/dev/null 2>&1; then
-			sudo apk add --no-cache nvme-cli
-		else
-			echo "Please install nvme-cli manually."
+CAMERA_TARGET_VERSION="HYGD-240907-A"
+TRACKPAD_TARGET_VERSION="8196"
+COREBOOT_TARGET_VERSION="26.04"
+
+status_color()
+{
+	case "$1" in
+	pending) printf "%s" "$BLUE" ;;
+	checking|waiting|updating) printf "%s" "$YELLOW" ;;
+	done|up-to-date) printf "%s" "$GREEN" ;;
+	skipped|not-applicable) printf "%s" "$BLUE" ;;
+	failed) printf "%s" "$RED" ;;
+	*) printf "%s" "$RESET" ;;
+	esac
+}
+
+status_text()
+{
+	case "$1" in
+	pending) printf "PENDING" ;;
+	checking) printf "CHECKING" ;;
+	waiting) printf "WAITING" ;;
+	updating) printf "UPDATING" ;;
+	done) printf "DONE" ;;
+	up-to-date) printf "UP-TO-DATE" ;;
+	skipped) printf "SKIPPED" ;;
+	not-applicable) printf "N/A" ;;
+	failed) printf "FAILED" ;;
+	*) printf "%s" "$1" ;;
+	esac
+}
+
+render_tasks()
+{
+	local key color text
+
+	if (( USE_TTY )); then
+		printf '\033[H\033[J'
+	fi
+
+	printf "%sStar Labs Firmware Updater%s\n\n" "$BOLD" "$RESET"
+	printf "System: %s%s%s\n" "$BOLD" "$RAW_SKU" "$RESET"
+	if [[ -n "$BIOS_VERSION" ]]; then
+		printf "BIOS:   %s\n" "$BIOS_VERSION"
+	fi
+	printf "\n"
+
+	for key in "${TASK_KEYS[@]}"; do
+		color="$(status_color "${TASK_STATUS[$key]}")"
+		text="$(status_text "${TASK_STATUS[$key]}")"
+		printf "%s[%-10s]%s %s" "$color" "$text" "$RESET" "${TASK_LABELS[$key]}"
+		if [[ -n "${TASK_DETAIL[$key]:-}" ]]; then
+			printf " %s(%s)%s" "$BLUE" "${TASK_DETAIL[$key]}" "$RESET"
 		fi
+		printf "\n"
+	done
+}
+
+add_task()
+{
+	local key="$1"
+	local label="$2"
+	local status="${3:-pending}"
+	local detail="${4:-}"
+
+	TASK_KEYS+=("$key")
+	TASK_LABELS["$key"]="$label"
+	TASK_STATUS["$key"]="$status"
+	TASK_DETAIL["$key"]="$detail"
+	TASK_WANTED["$key"]=0
+}
+
+set_task()
+{
+	local key="$1"
+	local status="$2"
+	local detail="${3:-}"
+
+	TASK_STATUS["$key"]="$status"
+	TASK_DETAIL["$key"]="$detail"
+	render_tasks
+}
+
+mark_task_wanted()
+{
+	local key="$1"
+
+	TASK_WANTED["$key"]=1
+	PENDING_UPDATES=1
+}
+
+task_is_wanted()
+{
+	[[ "${TASK_WANTED[$1]:-0}" == "1" ]]
+}
+
+ansi_strip()
+{
+	sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,3})?)?[mGK]//g'
+}
+
+download_to()
+{
+	local relpath="$1"
+	local dest="$2"
+	local url="${REPO}/${relpath}"
+
+	if [[ -s "$dest" ]]; then
+		return 0
+	fi
+
+	if command -v wget >/dev/null 2>&1; then
+		wget -q "$url" -O "$dest"
+	elif command -v curl >/dev/null 2>&1; then
+		curl -fsSL "$url" -o "$dest"
+	else
+		echo "Missing wget/curl; cannot download $relpath" >&2
+		return 1
 	fi
 }
 
-# Touchscreen
-function update_touchscreen() {
-	for SYS in /sys/class/hidraw/hidraw*; do
-		if grep -qFx "hid:b0018g0004v000027C6p00000111" "$SYS/device/modalias"; then
-			wget -q "$REPO/binaries/gdixupdate"
-			chmod +x gdixupdate
-			wget -q "$REPO/StarLite/MkV/touchscreen/GT7387P_00.A1.11.25(373E).bin"
+ensure_binary()
+{
+	local name="$1"
+	local path="${WORKING_DIR}/${name}"
 
-			if sudo ./gdixupdate -d "/dev/$(basename "$SYS")" -s 7387 -f -i "$WORKING_DIR/GT7387P_00.A1.11.25(373E).bin"; then
-				echo "Touchscreen update complete."
-			else
-				echo "Touchscreen update failed!"
-			fi
-		fi
-	done || true
+	download_to "binaries/${name}" "$path"
+	chmod +x "$path"
+	printf "%s\n" "$path"
 }
 
-# Keyboard
-function update_keyboard() {
-	if lsusb -d 1018:1006 >/dev/null 2>&1; then
-		current_version=$(lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }')
-		if [[ "$current_version" == "1.08" ]] || [[ "$current_version" == "1.09" ]]; then
-			echo "Keyboard is already up-to-date"
-		else
-			wget -q "$REPO/binaries/kb-usb-flasher"
-			chmod +x kb-usb-flasher
+wait_for_charger()
+{
+	while upower -i /org/freedesktop/UPower/devices/battery_BAT0 2>/dev/null | grep -q "state:\\s*discharging"; do
+		printf "%sPlease connect the charger...%s\n" "$YELLOW" "$RESET"
+		sleep 10
+	done
+}
 
-			if [[ "$current_version" == "1.03" ]] || [[ "$current_version" == "1.05" ]]; then
-				wget -q "$REPO/StarLite/MkV/keyboard/1.09/1.09.bin" -O kbfw.bin
-			elif [[ "$current_version" == "1.04" ]] || [[ "$current_version" == "1.06" ]]; then
-				wget -q "$REPO/StarLite/MkV/keyboard/1.08/1.08.bin" -O kbfw.bin
-			fi
+version_ge()
+{
+	[[ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" == "$2" ]]
+}
 
-			if [[ -f "kbfw.bin" ]]; then
-				if sudo ./kb-usb-flasher --rom-in kbfw.bin write -s 0x6000; then
-					echo "Updating keyboard - do not disconnect your keyboard."
-					sleep 10
-					echo "Keyboard update complete. Please disconnect and reconnect your keyboard."
-				else
-					echo "Keyboard update failed!"
-				fi
-			fi
-		fi
+firmware_setup_path()
+{
+	if [[ -n "$BIOS_VERSION" ]] && version_ge "$BIOS_VERSION" "26.02"; then
+		printf "Settings -> Security"
+	else
+		printf "Platform Setup Menu"
 	fi
 }
 
-function update_ssd() {
+offer_reboot_to_firmware_setup()
+{
+	local reply
+
+	if (( ! USE_TTY )); then
+		return 1
+	fi
+
+	printf "\n%sReboot into firmware setup now?%s [Y/n] " "$YELLOW" "$RESET"
+	read -r reply || true
+	if [[ -z "$reply" || "$reply" =~ ^[Yy]$ ]]; then
+		sudo systemctl reboot --firmware-setup
+		exit 1
+	fi
+	return 1
+}
+
+print_coreboot_setup_instructions()
+{
+	local path
+
+	path="$(firmware_setup_path)"
+	printf "\n%sFirmware setup change required.%s\n" "$RED" "$RESET" >&2
+	printf "Open %s and disable the required option, then boot Linux and re-run this updater.\n" "$path" >&2
+}
+
+battery_capacity()
+{
+	local node
+
+	for node in /sys/class/power_supply/BAT*/capacity; do
+		[[ -r "$node" ]] || continue
+		cat "$node"
+		return 0
+	done
+
+	upower -i /org/freedesktop/UPower/devices/battery_BAT0 2>/dev/null | awk '/percentage:/ {gsub(/%/, "", $2); print $2; exit}'
+}
+
+charger_connected()
+{
+	local node
+
+	for node in /sys/class/power_supply/AC*/online /sys/class/power_supply/ADP*/online; do
+		[[ -r "$node" ]] || continue
+		[[ "$(cat "$node")" == "1" ]] && return 0
+	done
+
+	upower -i /org/freedesktop/UPower/devices/battery_BAT0 2>/dev/null | grep -Eq 'state:\s*(charging|fully-charged)'
+}
+
+secure_boot_enabled()
+{
+	if command -v mokutil >/dev/null 2>&1; then
+		mokutil --sb-state 2>/dev/null | grep -q "SecureBoot enabled"
+		return
+	fi
+
+	python3 - <<'PY'
+from pathlib import Path
+for p in Path('/sys/firmware/efi/efivars').glob('SecureBoot-*'):
+    data = p.read_bytes()
+    raise SystemExit(0 if data[-1] == 1 else 1)
+raise SystemExit(1)
+PY
+}
+
+bios_lock_state()
+{
+	local line
+
+	command -v fwupdmgr >/dev/null 2>&1 || return 1
+	line="$(fwupdmgr security --force 2>/dev/null | ansi_strip | awk -F':' '/SPI BIOS region/ {gsub(/^[[:space:]]+/, "", $2); print $2; exit}')"
+	[[ -n "$line" ]] || return 1
+	printf "%s\n" "$line"
+}
+
+flashrom_access_check()
+{
+	local tool="$1"
+	local output rc
+
+	set +e
+	output="$(sudo "$tool" -p internal --flash-name 2>&1)"
+	rc=$?
+	set -e
+
+	printf "%s" "$output"
+	return "$rc"
+}
+
+discover_touchscreen()
+{
+	if [[ -z "$STARLITE_TOUCHSCREEN_NODE" ]]; then
+		set_task touchscreen not-applicable
+		return
+	fi
+
+	mark_task_wanted touchscreen
+	set_task touchscreen pending "version check unavailable"
+}
+
+discover_keyboard()
+{
+	local current_version
+
+	if (( STARLITE_KEYBOARD_PRESENT == 0 )); then
+		set_task keyboard skipped "not connected"
+		return
+	fi
+
+	current_version="$(find_starlite_keyboard_version || true)"
+	case "$current_version" in
+	1.08|1.09)
+		set_task keyboard up-to-date "$current_version"
+		;;
+	1.03|1.05)
+		mark_task_wanted keyboard
+		set_task keyboard pending "$current_version -> 1.09"
+		;;
+	1.04|1.06)
+		mark_task_wanted keyboard
+		set_task keyboard pending "$current_version -> 1.08"
+		;;
+	*)
+		set_task keyboard skipped "unknown version ${current_version:-n/a}"
+		;;
+	esac
+}
+
+discover_trackpad()
+{
+	local tool current_version
+
+	if [[ -z "$STARFIGHTER_TRACKPAD_NODE" ]]; then
+		set_task trackpad not-applicable
+		return
+	fi
+
+	tool="$(ensure_binary pixtpfwup)"
+	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
+	if [[ -n "$current_version" && "$current_version" == "$TRACKPAD_TARGET_VERSION" ]]; then
+		set_task trackpad up-to-date "$current_version"
+	else
+		mark_task_wanted trackpad
+		set_task trackpad pending "${current_version:-unknown} -> ${TRACKPAD_TARGET_VERSION}"
+	fi
+}
+
+discover_camera()
+{
+	local version
+
+	if (( STARFIGHTER_CAMERA_PRESENT == 0 )) || [[ -z "$STARFIGHTER_CAMERA_NODE" ]]; then
+		set_task camera skipped "not connected"
+		return
+	fi
+
+	version="$(find_starfighter_camera_version || true)"
+	if [[ "$version" == "$CAMERA_TARGET_VERSION" ]]; then
+		set_task camera up-to-date "$version"
+	else
+		mark_task_wanted camera
+		set_task camera pending "${version:-unknown} -> ${CAMERA_TARGET_VERSION}"
+	fi
+}
+
+discover_ssd()
+{
+	local mn sn fr info rest size code model ssdbin ssdfw currfw_digits
+
+	if ! detect_lexar_nm620; then
+		set_task ssd not-applicable
+		return
+	fi
+
+	ensure_nvme_cli >/dev/null 2>&1 || {
+		mark_task_wanted ssd
+		set_task ssd pending "nvme-cli needed"
+		return
+	}
+
 	IFS=$'\t' read -r mn sn fr < <(
-		sudo nvme id-ctrl /dev/nvme0 | awk -F':' '
+		sudo nvme id-ctrl /dev/nvme0 2>/dev/null | awk -F':' '
 			/^[[:space:]]*mn[[:space:]]*:/ {m=$2}
 			/^[[:space:]]*sn[[:space:]]*:/ {s=$2}
 			/^[[:space:]]*fr[[:space:]]*:/ {f=$2}
@@ -100,107 +396,647 @@ function update_ssd() {
 				s = substr(s, length(s)-4)
 				printf "%s\t%s\t%s\n", m, s, f
 			}'
-		)
+	)
 
 	info="$mn $sn"
-	if [[ "$info" == "Lexar SSD NM620"* ]]; then
-		# Strip leading model text, leaving "<size> <last5>"
-		rest=$(echo "$info" | sed 's/.*Lexar SSD NM620[[:space:]]*//')	# e.g. "1TB P110W"
-		size="${rest%% *}"
-		code="${rest##* }"
-		model="${code}/${size}"
+	rest="$(echo "$info" | sed 's/.*Lexar SSD NM620[[:space:]]*//')"
+	size="${rest%% *}"
+	code="${rest##* }"
+	model="${code}/${size}"
+	ssdbin=""
+	ssdfw=""
 
-		# Map to bin + expected firmware numeric (from your table)
-		ssdbin=""; ssdfw=""
-		case "$model" in
-			"P1103/1TB")	ssdbin="KC2RCADC.bin"; ssdfw="16391" ;;
-			"P1103/512GB")	ssdbin="KC2RCALC.bin"; ssdfw="16391" ;;
-			"P110W/2TB")	ssdbin="ATH1CA2C.bin"; ssdfw="16422" ;;
-			"P110W/1TB")	ssdbin="ATH1CALC.bin"; ssdfw="16422" ;;
-			"P110W/512GB")	ssdbin="ATH1CADC.bin"; ssdfw="16422" ;;
-			"P111D/2TB")	ssdbin="YIQZCB2C.bin"; ssdfw="13767" ;;
-			"P1125/2TB")	ssdbin="OOD4CA4C.bin"; ssdfw="32900" ;;
-			"P112W/512GB")	ssdbin="ATH1CADC.bin"; ssdfw="16263" ;;
-			"P1157/1TB")	ssdbin="KCA1AA4C.bin"; ssdfw="28241" ;;
-			"P113V/1TB")	ssdbin="UK3SCELC.bin"; ssdfw="16943" ;;
-			"P113V/2TB")	ssdbin="UK3SCE2C.bin"; ssdfw="16943" ;;
-		esac
+	case "$model" in
+	"P1103/1TB") ssdbin="KC2RCADC.bin"; ssdfw="16391" ;;
+	"P1103/512GB") ssdbin="KC2RCALC.bin"; ssdfw="16391" ;;
+	"P110W/2TB") ssdbin="ATH1CA2C.bin"; ssdfw="16422" ;;
+	"P110W/1TB") ssdbin="ATH1CALC.bin"; ssdfw="16422" ;;
+	"P110W/512GB") ssdbin="ATH1CADC.bin"; ssdfw="16422" ;;
+	"P111D/2TB") ssdbin="YIQZCB2C.bin"; ssdfw="13767" ;;
+	"P1125/2TB") ssdbin="OOD4CA4C.bin"; ssdfw="32900" ;;
+	"P112W/512GB") ssdbin="ATH1CADC.bin"; ssdfw="16263" ;;
+	"P1157/1TB") ssdbin="KCA1AA4C.bin"; ssdfw="28241" ;;
+	"P113V/1TB") ssdbin="UK3SCELC.bin"; ssdfw="13294" ;;
+	"P113V/2TB") ssdbin="UK3SCE2C.bin"; ssdfw="13294" ;;
+	*)
+		set_task ssd skipped "unknown ${model}"
+		return
+		;;
+	esac
 
-		# Current firmware revision as digits only (e.g. SN28192 -> 28192)
-		currfw_digits=$(echo "$fr" | tr -cd '0-9' | sed 's/^0*//')
-
-		if [[ -n "$currfw_digits" && -n "$ssdfw" && "$currfw_digits" == "$ssdfw" ]]; then
-			echo "SSD firmware up to date (current fr=$currfw_digits matches expected $ssdfw)."
-			return 0
-		fi
-
-		if wget -q "$REPO/Lexar/NM620/$model/$ssdbin" -O ssdfw.bin; then
-			sudo nvme fw-download -f ssdfw.bin /dev/nvme0n1 && \
-			sudo nvme fw-commit -s 1 -a 3 /dev/nvme0n1
-		fi
+	currfw_digits="$(echo "${fr:-}" | tr -cd '0-9' | sed 's/^0*//')"
+	if [[ -n "$currfw_digits" && "$currfw_digits" == "$ssdfw" ]]; then
+		set_task ssd up-to-date "$currfw_digits"
+	else
+		mark_task_wanted ssd
+		set_task ssd pending "${currfw_digits:-unknown} -> ${ssdfw}"
 	fi
 }
 
-function update_coreboot() {
-	function sku_to_board() {
-		case "$1" in
-			Y1) echo "byte_cezanne" ;;
-			Y2) echo "byte_adl" ;;
-			Y3) echo "byte_twl" ;;
-			L3) echo "labtop_kbl" ;;
-			L4) echo "labtop_cml" ;;
-			I2) echo "lite_apl" ;;
-			I3) echo "lite_glk" ;;
-			I4) echo "lite_glkr" ;;
-			I5) echo "lite_adl" ;;
-			B5) echo "starbook_tgl" ;;
-			B6-I) echo "starbook_adl" ;;
-			B62-I) echo "starbook_rpl" ;;
-			B7-N) echo "starbook_adl_n" ;;
-			B7-U) echo "starbook_mtl" ;;
-			F1) echo "starfighter_rpl" ;;
-			F2) echo "starfighter_mtl" ;;
-			HZ) echo "adl_horizon" ;;
+discover_coreboot()
+{
+	if [[ "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
+		set_task coreboot up-to-date "$BIOS_VERSION"
+	else
+		mark_task_wanted coreboot
+		set_task coreboot pending "${BIOS_VERSION:-unknown} -> ${COREBOOT_TARGET_VERSION}"
+	fi
+}
+
+discover_updates()
+{
+	for key in "${TASK_KEYS[@]}"; do
+		set_task "$key" checking
+		case "$key" in
+		touchscreen) discover_touchscreen ;;
+		keyboard) discover_keyboard ;;
+		trackpad) discover_trackpad ;;
+		camera) discover_camera ;;
+		ssd) discover_ssd ;;
+		coreboot) discover_coreboot ;;
 		esac
-	}
+	done
+}
 
-	echo "${YELLOW}Coreboot updates now use UEFI capsules via fwupd (no flashrom ROM downloads).${RESET}"
+add_prerequisite_tasks()
+{
+	if (( PENDING_UPDATES == 0 )); then
+		return
+	fi
 
-	board=$(sku_to_board "$SKU")
-	if [[ -z "${board:-}" ]]; then
-		echo "${YELLOW}Unknown SKU '$SKU_RAW' (mapped '$SKU'); skipping coreboot update.${RESET}"
+	add_task prereq-ac "Charger connected"
+	add_task prereq-battery "Battery at least 30%%"
+
+	if task_is_wanted coreboot; then
+		add_task prereq-bios-lock "BIOS Lock disabled"
+		add_task prereq-secure-boot "Secure Boot disabled"
+		add_task prereq-flashrom "Flashrom access"
+	fi
+}
+
+check_charger_task()
+{
+	set_task prereq-ac checking
+	if charger_connected; then
+		set_task prereq-ac done
+	else
+		set_task prereq-ac failed "connect AC power"
+		return 1
+	fi
+}
+
+check_battery_task()
+{
+	local pct
+
+	set_task prereq-battery checking
+	pct="$(battery_capacity || true)"
+	if [[ -z "$pct" ]]; then
+		set_task prereq-battery failed "battery status unavailable"
+		return 1
+	fi
+	if (( pct >= 30 )); then
+		set_task prereq-battery done "${pct}%%"
+	else
+		set_task prereq-battery failed "${pct}%%"
+		return 1
+	fi
+}
+
+check_bios_lock_task()
+{
+	local state path
+
+	set_task prereq-bios-lock checking
+	state="$(bios_lock_state || true)"
+	case "$state" in
+	Unlocked|Disabled)
+		set_task prereq-bios-lock done "$state"
+		return 0
+		;;
+	Locked)
+		set_task prereq-bios-lock failed "$state"
+		path="$(firmware_setup_path)"
+		printf "\n%sBIOS Lock is enabled.%s\n" "$RED" "$RESET" >&2
+		printf "Open %s and disable BIOS Lock, then boot Linux and re-run this updater.\n" "$path" >&2
+		offer_reboot_to_firmware_setup || true
+		return 1
+		;;
+	*)
+		set_task prereq-bios-lock done "not reported"
+		return 0
+		;;
+	esac
+}
+
+check_secure_boot_task()
+{
+	local path
+
+	set_task prereq-secure-boot checking
+	if secure_boot_enabled; then
+		set_task prereq-secure-boot failed "enabled"
+		path="$(firmware_setup_path)"
+		printf "\n%sSecure Boot is enabled.%s\n" "$RED" "$RESET" >&2
+		printf "Open %s, disable Secure Boot, then boot Linux and re-run this updater.\n" "$path" >&2
+		offer_reboot_to_firmware_setup || true
+		return 1
+	fi
+
+	set_task prereq-secure-boot done
+}
+
+check_flashrom_task()
+{
+	local tool output rc
+
+	set_task prereq-flashrom checking
+	tool="$(ensure_binary flashrom)"
+	set +e
+	output="$(flashrom_access_check "$tool")"
+	rc=$?
+	set -e
+	if (( rc == 0 )); then
+		set_task prereq-flashrom done
 		return 0
 	fi
 
-	latest_version=$(wget -qO- "${REPO}README.md" | awk -F'[][]' '/^####[[:space:]]*\\[[0-9]+\\.[0-9]+\\]/ { print $2; exit }')
-	if [[ -z "${latest_version:-}" ]]; then
-		echo "${RED}Failed to determine latest coreboot release version from README.md.${RESET}"
+	if [[ "$output" == *"/dev/mem"* || "$output" == *"iomem"* || "$output" == *"Operation not permitted"* || "$output" == *"Permission denied"* ]]; then
+		set_task prereq-flashrom failed "kernel blocked flashrom"
+		printf "\n%sFlashrom access is blocked by the running kernel.%s\n" "$RED" "$RESET" >&2
+		printf "If Secure Boot is already disabled, add %siomem=relaxed%s to your kernel command line, reboot, and re-run this updater.\n" "$BOLD" "$RESET" >&2
+		printf "This is most common on Fedora and Arch.\n" >&2
 		return 1
 	fi
 
-	cab_url="${REPO}${board}/${latest_version}/coreboot-${SKU}.cab"
-	cab_file="${WORKING_DIR}/coreboot-${SKU}.cab"
+	set_task prereq-flashrom failed "probe failed"
+	printf "\n%sFlashrom probe failed.%s\n%s\n" "$RED" "$RESET" "$output" >&2
+	return 1
+}
 
-	echo "${YELLOW}Downloading ${cab_url}${RESET}"
-	if ! wget -q "$cab_url" -O "$cab_file"; then
-		echo "${RED}Failed to download coreboot CAB for SKU '$SKU'.${RESET}"
-		return 1
+run_prerequisite_checks()
+{
+	check_charger_task || return 1
+	check_battery_task || return 1
+
+	if task_is_wanted coreboot; then
+		check_bios_lock_task || return 1
+		check_secure_boot_task || return 1
+		check_flashrom_task || return 1
+	fi
+}
+
+find_starlite_keyboard_version()
+{
+	lsusb -d 1018:1006 -v 2>/dev/null | awk '/bcdDevice/ { print $2; exit }'
+}
+
+has_starlite_keyboard()
+{
+	[[ -n "$(find_starlite_keyboard_version)" ]]
+}
+
+find_starlite_touchscreen_node()
+{
+	local sys
+
+	for sys in /sys/class/hidraw/hidraw*; do
+		[[ -e "$sys/device/modalias" ]] || continue
+		grep -qFx "hid:b0018g0004v000027C6p00000111" "$sys/device/modalias" || continue
+		printf "/dev/%s\n" "$(basename "$sys")"
+		return 0
+	done
+	return 1
+}
+
+find_starfighter_trackpad_node()
+{
+	local sys modalias
+
+	for sys in /sys/class/hidraw/hidraw*; do
+		[[ -e "$sys/device/modalias" ]] || continue
+		modalias="$(cat "$sys/device/modalias" 2>/dev/null || true)"
+		case "$modalias" in
+		*0000093A*p00000274*|*0000093A*p00000279*)
+			printf "/dev/%s\n" "$(basename "$sys")"
+			return 0
+			;;
+		esac
+	done
+	return 1
+}
+
+find_starfighter_camera_usb_dir()
+{
+	local sys text product
+
+	for sys in /sys/bus/usb/devices/*; do
+		[[ -f "$sys/idVendor" && -f "$sys/idProduct" ]] || continue
+		text="$(cat "$sys/idVendor" 2>/dev/null || true) $(cat "$sys/idProduct" 2>/dev/null || true)"
+		[[ "$text" == "1bcf 2ced" ]] || continue
+		product="$(cat "$sys/product" 2>/dev/null || true)"
+		if [[ "$product" == "Hy-UXGA(9240)-Camera" ]]; then
+			printf "%s\n" "$sys"
+			return 0
+		fi
+	done
+	return 1
+}
+
+find_starfighter_camera_node()
+{
+	local usbdir video
+
+	usbdir="$(find_starfighter_camera_usb_dir)" || return 1
+	for video in "$usbdir"/video4linux/video*; do
+		[[ -e "$video" ]] || continue
+		printf "/dev/%s\n" "$(basename "$video")"
+		return 0
+	done
+	return 1
+}
+
+find_starfighter_camera_version()
+{
+	local usbdir
+
+	usbdir="$(find_starfighter_camera_usb_dir)" || return 1
+	cat "$usbdir/manufacturer" 2>/dev/null || true
+}
+
+wait_for_optional_device()
+{
+	local label="$1"
+	local detect_fn="$2"
+	local timeout="$3"
+	local elapsed=0
+
+	printf "%sConnect %s now.%s Waiting up to %ss. Press Enter to skip.\n" \
+		"$YELLOW" "$label" "$RESET" "$timeout"
+
+	while (( elapsed < timeout )); do
+		if "$detect_fn" >/dev/null 2>&1; then
+			return 0
+		fi
+		if (( USE_TTY )) && read -r -t 1 _; then
+			return 1
+		fi
+		sleep 1
+		((elapsed+=2))
+	done
+	return 1
+}
+
+ensure_nvme_cli()
+{
+	if command -v nvme >/dev/null 2>&1; then
+		return 0
 	fi
 
-	if command -v fwupdmgr >/dev/null 2>&1; then
-		sudo fwupdmgr install "$cab_file"
-	elif command -v fwupdtool >/dev/null 2>&1; then
-		sudo fwupdtool install-blob "$cab_file"
+	if command -v apt-get >/dev/null 2>&1; then
+		sudo apt-get update -y && sudo apt-get install -y nvme-cli
+	elif command -v dnf >/dev/null 2>&1; then
+		sudo dnf install -y nvme-cli
+	elif command -v pacman >/dev/null 2>&1; then
+		sudo pacman -Sy --noconfirm nvme-cli
+	elif command -v zypper >/dev/null 2>&1; then
+		sudo zypper -n install nvme-cli
+	elif command -v apk >/dev/null 2>&1; then
+		sudo apk add --no-cache nvme-cli
 	else
-		echo "${RED}Neither fwupdmgr nor fwupdtool is installed; cannot apply coreboot capsule.${RESET}"
-		echo "${YELLOW}Install fwupd, then run: sudo fwupdmgr install \"$cab_file\"${RESET}"
 		return 1
 	fi
 }
 
-get_fw_tools
-update_touchscreen
-update_keyboard
-update_ssd
-update_coreboot
-echo "Done"
+trackpad_current_version()
+{
+	local tool="$1"
+	local node="$2"
+
+	sudo "$tool" "$node" get_fwver 2>&1 | awk '/The firmware version is/ {print $5; exit}'
+}
+
+update_touchscreen()
+{
+	local tool fw
+
+	set_task touchscreen checking
+	if [[ -z "$STARLITE_TOUCHSCREEN_NODE" ]]; then
+		set_task touchscreen not-applicable
+		return 0
+	fi
+
+	tool="$(ensure_binary gdixupdate)"
+	fw="${WORKING_DIR}/GT7387P_00.A1.11.25(373E).bin"
+	download_to "touchscreen/starlite-mkv/GT7387P_00.A1.11.25(373E).bin" "$fw"
+
+	set_task touchscreen updating
+	if sudo "$tool" -d "$STARLITE_TOUCHSCREEN_NODE" -s 7387 -f -i "$fw"; then
+		set_task touchscreen "done"
+	else
+		set_task touchscreen failed
+	fi
+}
+
+update_keyboard()
+{
+	local current_version tool fw
+
+	set_task keyboard checking
+	if (( STARLITE_KEYBOARD_PRESENT == 0 )); then
+		set_task keyboard skipped
+		return 0
+	fi
+
+	current_version="$(find_starlite_keyboard_version)"
+	case "$current_version" in
+	1.08|1.09)
+		set_task keyboard up-to-date "$current_version"
+		return 0
+		;;
+	1.03|1.05)
+		fw="${WORKING_DIR}/kbfw.bin"
+		download_to "keyboard/starlite-mkv/1.09/1.09.bin" "$fw"
+		;;
+	1.04|1.06)
+		fw="${WORKING_DIR}/kbfw.bin"
+		download_to "keyboard/starlite-mkv/1.08/1.08.bin" "$fw"
+		;;
+	*)
+		set_task keyboard skipped "unknown version ${current_version:-n/a}"
+		return 0
+		;;
+	esac
+
+	tool="$(ensure_binary kb-usb-flasher)"
+	set_task keyboard updating "$current_version"
+	if sudo "$tool" --rom-in "$fw" write -s 0x6000; then
+		set_task keyboard "done"
+	else
+		set_task keyboard failed
+	fi
+}
+
+update_trackpad()
+{
+	local tool fw current_version
+
+	set_task trackpad checking
+	if [[ -z "$STARFIGHTER_TRACKPAD_NODE" ]]; then
+		set_task trackpad not-applicable
+		return 0
+	fi
+
+	tool="$(ensure_binary pixtpfwup)"
+	fw="${WORKING_DIR}/PT279_V2004.bin"
+	download_to "trackpad/starfighter/PT279_V2004.bin" "$fw"
+	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
+
+	if [[ -n "$current_version" && "$current_version" == "$TRACKPAD_TARGET_VERSION" ]]; then
+		set_task trackpad up-to-date "$current_version"
+		return 0
+	fi
+
+	set_task trackpad updating "${current_version:-unknown}"
+	if sudo "$tool" "$STARFIGHTER_TRACKPAD_NODE" up "$fw"; then
+		set_task trackpad "done"
+	else
+		set_task trackpad failed
+	fi
+}
+
+update_camera()
+{
+	local tool fw version
+
+	set_task camera checking
+	if (( STARFIGHTER_CAMERA_PRESENT == 0 )) || [[ -z "$STARFIGHTER_CAMERA_NODE" ]]; then
+		set_task camera skipped
+		return 0
+	fi
+
+	version="$(find_starfighter_camera_version || true)"
+	if [[ "$version" == "$CAMERA_TARGET_VERSION" ]]; then
+		set_task camera up-to-date "$version"
+		return 0
+	fi
+
+	tool="$(ensure_binary hygdtool)"
+	fw="${WORKING_DIR}/HYGD-SPCA2092C-OV2740-1920x1080-30-15fps-N-AML-240907.bin"
+	download_to "camera/starfighter/HYGD-SPCA2092C-OV2740-1920x1080-30-15fps-N-AML-240907.bin" "$fw"
+
+	set_task camera updating "${version:-unknown}"
+	if sudo "$tool" --device "$STARFIGHTER_CAMERA_NODE" write "$fw"; then
+		set_task camera "done"
+	else
+		set_task camera failed
+	fi
+}
+
+detect_lexar_nm620()
+{
+	local mn sn rest size code
+
+	command -v nvme >/dev/null 2>&1 || return 1
+	[[ -e /dev/nvme0 && -e /dev/nvme0n1 ]] || return 1
+
+	IFS=$'\t' read -r mn sn _ < <(
+		sudo nvme id-ctrl /dev/nvme0 2>/dev/null | awk -F':' '
+			/^[[:space:]]*mn[[:space:]]*:/ {m=$2}
+			/^[[:space:]]*sn[[:space:]]*:/ {s=$2}
+			END {
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", m)
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
+				s = substr(s, length(s)-4)
+				printf "%s\t%s\n", m, s
+			}'
+	)
+
+	[[ "$mn $sn" == "Lexar SSD NM620"* ]]
+}
+
+update_ssd()
+{
+	local mn sn fr info rest size code model ssdbin ssdfw currfw_digits fw
+
+	set_task ssd checking
+	if ! detect_lexar_nm620; then
+		set_task ssd not-applicable
+		return 0
+	fi
+
+	wait_for_charger
+	ensure_nvme_cli || {
+		set_task ssd failed "nvme-cli missing"
+		return 0
+	}
+
+	IFS=$'\t' read -r mn sn fr < <(
+		sudo nvme id-ctrl /dev/nvme0 2>/dev/null | awk -F':' '
+			/^[[:space:]]*mn[[:space:]]*:/ {m=$2}
+			/^[[:space:]]*sn[[:space:]]*:/ {s=$2}
+			/^[[:space:]]*fr[[:space:]]*:/ {f=$2}
+			END {
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", m)
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
+				gsub(/^[[:space:]]+|[[:space:]]+$/, "", f)
+				s = substr(s, length(s)-4)
+				printf "%s\t%s\t%s\n", m, s, f
+			}'
+	)
+
+	info="$mn $sn"
+	rest="$(echo "$info" | sed 's/.*Lexar SSD NM620[[:space:]]*//')"
+	size="${rest%% *}"
+	code="${rest##* }"
+	model="${code}/${size}"
+	ssdbin=""
+	ssdfw=""
+
+	case "$model" in
+	"P1103/1TB") ssdbin="KC2RCADC.bin"; ssdfw="16391" ;;
+	"P1103/512GB") ssdbin="KC2RCALC.bin"; ssdfw="16391" ;;
+	"P110W/2TB") ssdbin="ATH1CA2C.bin"; ssdfw="16422" ;;
+	"P110W/1TB") ssdbin="ATH1CALC.bin"; ssdfw="16422" ;;
+	"P110W/512GB") ssdbin="ATH1CADC.bin"; ssdfw="16422" ;;
+	"P111D/2TB") ssdbin="YIQZCB2C.bin"; ssdfw="13767" ;;
+	"P1125/2TB") ssdbin="OOD4CA4C.bin"; ssdfw="32900" ;;
+	"P112W/512GB") ssdbin="ATH1CADC.bin"; ssdfw="16263" ;;
+	"P1157/1TB") ssdbin="KCA1AA4C.bin"; ssdfw="28241" ;;
+	"P113V/1TB") ssdbin="UK3SCELC.bin"; ssdfw="13294" ;;
+	"P113V/2TB") ssdbin="UK3SCE2C.bin"; ssdfw="13294" ;;
+	*)
+		set_task ssd skipped "unknown ${model}"
+		return 0
+		;;
+	esac
+
+	currfw_digits="$(echo "${fr:-}" | tr -cd '0-9' | sed 's/^0*//')"
+	if [[ -n "$currfw_digits" && "$currfw_digits" == "$ssdfw" ]]; then
+		set_task ssd up-to-date "$currfw_digits"
+		return 0
+	fi
+
+	fw="${WORKING_DIR}/ssdfw.bin"
+	download_to "ssd/lexar-nm620/${model}/${ssdbin}" "$fw"
+	set_task ssd updating "${currfw_digits:-unknown}"
+	if sudo nvme fw-download -f "$fw" /dev/nvme0n1 && sudo nvme fw-commit -s 1 -a 3 /dev/nvme0n1; then
+		set_task ssd "done"
+	else
+		set_task ssd failed
+	fi
+}
+
+update_coreboot()
+{
+	local tool reset_tool fw
+	local -a flashrom_flags=()
+
+	set_task coreboot checking
+	wait_for_charger
+
+	tool="$(ensure_binary flashrom)"
+	reset_tool="$(ensure_binary reset-cmos)"
+	fw="${WORKING_DIR}/${SKU}.bios"
+	download_to "roms/${SKU}.bios" "$fw"
+
+	if [[ "$SKU" != "B6-A" ]]; then
+		flashrom_flags=(--fmap -n -N -i COREBOOT -i EC)
+	fi
+
+	set_task coreboot updating "$BIOS_VERSION"
+	if sudo "$tool" -p internal -w "$fw" "${flashrom_flags[@]}"; then
+		set_task coreboot "done"
+		printf "\n%scoreboot update complete. The system will now reset CMOS and shut down.%s\n" \
+			"$GREEN" "$RESET"
+		sudo "$reset_tool" || true
+		sudo shutdown now
+	else
+		set_task coreboot failed
+	fi
+}
+
+prepare_optional_devices()
+{
+	if [[ "$RAW_SKU" == I5* ]]; then
+		if wait_for_optional_device "the StarLite keyboard" has_starlite_keyboard 45; then
+			STARLITE_KEYBOARD_PRESENT=1
+		fi
+	fi
+
+	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
+		if wait_for_optional_device "the StarFighter camera" find_starfighter_camera_node 45; then
+			STARFIGHTER_CAMERA_PRESENT=1
+			STARFIGHTER_CAMERA_NODE="$(find_starfighter_camera_node || true)"
+		fi
+	fi
+}
+
+build_task_list()
+{
+	STARLITE_TOUCHSCREEN_NODE="$(find_starlite_touchscreen_node || true)"
+	STARFIGHTER_TRACKPAD_NODE="$(find_starfighter_trackpad_node || true)"
+	if detect_lexar_nm620; then
+		LEXAR_PRESENT=1
+	fi
+
+	if [[ -n "$STARLITE_TOUCHSCREEN_NODE" ]]; then
+		add_task touchscreen "StarLite touchscreen"
+	fi
+	if [[ "$RAW_SKU" == I5* ]]; then
+		if (( STARLITE_KEYBOARD_PRESENT == 1 )); then
+			add_task keyboard "StarLite keyboard"
+		else
+			add_task keyboard "StarLite keyboard" skipped "not connected"
+		fi
+	fi
+	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]] && [[ -n "$STARFIGHTER_TRACKPAD_NODE" ]]; then
+		add_task trackpad "StarFighter trackpad"
+	fi
+	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
+		if (( STARFIGHTER_CAMERA_PRESENT == 1 )); then
+			add_task camera "StarFighter camera"
+		else
+			add_task camera "StarFighter camera" skipped "not connected"
+		fi
+	fi
+	if (( LEXAR_PRESENT == 1 )); then
+		add_task ssd "Lexar NM620 SSD"
+	fi
+	add_task coreboot "coreboot"
+}
+
+main()
+{
+	prepare_optional_devices
+	build_task_list
+	render_tasks
+	discover_updates
+	add_prerequisite_tasks
+	render_tasks
+
+	if (( PENDING_UPDATES == 0 )); then
+		printf "\n%sAll firmware is already up to date.%s\n" "$GREEN" "$RESET"
+		return 0
+	fi
+
+	run_prerequisite_checks || exit 1
+
+	for key in "${TASK_KEYS[@]}"; do
+		if ! task_is_wanted "$key"; then
+			continue
+		fi
+		case "$key" in
+		touchscreen) update_touchscreen ;;
+		keyboard) update_keyboard ;;
+		trackpad) update_trackpad ;;
+		camera) update_camera ;;
+		ssd) update_ssd ;;
+		coreboot) update_coreboot ;;
+		esac
+	done
+
+	printf "\n%sAll firmware checks complete.%s\n" "$GREEN" "$RESET"
+}
+
+main "$@"

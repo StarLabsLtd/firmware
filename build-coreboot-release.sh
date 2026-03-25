@@ -19,16 +19,19 @@ build_targets=(
 	adl_horizon
 )
 
-required_firmware_version=26.02
+required_firmware_version=26.04
 
 usage() {
 	cat <<'EOF'
 Usage:
-  ./build-coreboot-release.sh <board> <version> <release_notes.md> [<coreboot.cap>]
+  ./build-coreboot-release.sh <board> <version> <release_notes.md> [<payload>]
 
 Notes:
-  - If <coreboot.cap> is provided, it is used as the capsule payload.
-  - If not provided, coreboot is built from COREBOOT_DIR (default: ../coreboot).
+  - If <payload> is provided, it is used as the release payload.
+  - .cap inputs generate the CAB/EFI artifacts, but roms/<sku>.bios still comes from
+    COREBOOT_DIR/build/coreboot.rom if available.
+  - .rom/.bios inputs also populate roms/<sku>.bios directly.
+  - If no payload is provided, coreboot is built from COREBOOT_DIR (default: ../coreboot).
 
 Boards:
   all

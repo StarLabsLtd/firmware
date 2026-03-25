@@ -19,12 +19,14 @@ BOARD_DIR = $(model)
 OUTPUT_DIR = $(BOARD_DIR)/$(version)
 
 WORK_DIR = $(OUTPUT_DIR)/.work
+ROMS_DIR = roms
 
 RELEASE_NOTES = $(WORK_DIR)/release_notes.md
 METAINFO = $(WORK_DIR)/$(sku).$(target).metainfo.xml
 PAYLOAD = $(WORK_DIR)/$(sku).$(file_type)
 PAYLOAD_FILENAME = $(notdir $(PAYLOAD))
 CAB = $(OUTPUT_DIR)/coreboot-$(sku).cab
+ROM = $(ROMS_DIR)/$(sku).bios
 STARTUP_NSH = $(WORK_DIR)/startup.nsh
 EFI_ZIP = $(OUTPUT_DIR)/efi-$(sku).zip
 RELEASES_README = README.md
@@ -40,6 +42,9 @@ $(OUTPUT_DIR):
 
 $(WORK_DIR):						| $(OUTPUT_DIR)
 	rm -rf $@
+	mkdir -p $@
+
+$(ROMS_DIR):
 	mkdir -p $@
 
 CAPSULE_APP_EFI ?= binaries/CapsuleApp.efi
@@ -74,6 +79,30 @@ $(PAYLOAD):						| $(WORK_DIR)
 			exit 1; \
 		fi; \
 		cp "$(COREBOOT_DIR)/build/coreboot.cap" "$@"; \
+	fi
+
+$(ROM):						$(PAYLOAD) | $(ROMS_DIR)
+	@if [[ -n "$(binary)" ]]; then \
+		case "$(binary)" in \
+		*.rom|*.bios) \
+			cp "$(binary)" "$@"; \
+			;; \
+		*) \
+			if [[ -f "$(COREBOOT_DIR)/build/coreboot.rom" ]]; then \
+				cp "$(COREBOOT_DIR)/build/coreboot.rom" "$@"; \
+			else \
+				echo "ERROR: no raw ROM available for $(sku)"; \
+				echo "       provide binary=/path/to/<sku>.bios or build from source so $(COREBOOT_DIR)/build/coreboot.rom exists"; \
+				exit 1; \
+			fi; \
+			;; \
+		esac; \
+	else \
+		if [[ ! -f "$(COREBOOT_DIR)/build/coreboot.rom" ]]; then \
+			echo "ERROR: $(COREBOOT_DIR)/build/coreboot.rom was not generated."; \
+			exit 1; \
+		fi; \
+		cp "$(COREBOOT_DIR)/build/coreboot.rom" "$@"; \
 	fi
 
 # Standard CAB
@@ -146,7 +175,7 @@ push_to_git:
 		printf "\n#### [$(version)] $(date)\n" >> "$(RELEASES_README)"; \
 		printf '$(readme_release_notes)\n' >> "$(RELEASES_README)"; \
 	fi
-	git add $(CAB) $(EFI_ZIP) $(RELEASES_README)
+	git add $(CAB) $(EFI_ZIP) $(ROM) $(RELEASES_README)
 	if git diff --cached --quiet; then \
 		echo "NOTE: No changes to commit"; \
 	else \
@@ -167,7 +196,7 @@ push_to_git:
 		} | git commit -F -; \
 	fi
 
-release: 					$(CAB) $(EFI_ZIP)
+release: 					$(CAB) $(EFI_ZIP) $(ROM)
 
 ifeq ($(PUSH),1)
 	$(MAKE) push_to_git
@@ -179,6 +208,7 @@ help:
 	printf "Usage\n"
 	printf "\nThis repo stores coreboot releases as:\n"
 	printf "  <board>/<version>/{coreboot-<sku>.cab, efi-<sku>.zip}\n"
+	printf "  roms/<sku>.bios\n"
 
 	printf "\nmodel:\n"
 	printf "%-25s %s\n"	"lite_apl"		"StarLite Mk II"
@@ -206,6 +236,7 @@ help:
 
 	printf "\nExample usage:\n"
 	printf "./build-coreboot-release.sh starbook_adl 8.18 /path/to/release_notes.md [/path/to/coreboot.cap]\n"
-	printf "\nIf no .cap is provided, coreboot is built from COREBOOT_DIR (default: ../coreboot).\n\n"
+	printf "\nIf no payload is provided, coreboot is built from COREBOOT_DIR (default: ../coreboot).\n"
+	printf "If a .rom/.bios payload is provided, it is also copied to roms/<sku>.bios.\n\n"
 
 .PHONY: help release push_to_git

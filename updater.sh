@@ -62,7 +62,10 @@ LEXAR_PRESENT=0
 PENDING_UPDATES=0
 SUDO_READY=0
 FLASHROM_PROBE_OUTPUT=""
-ALLOW_UNSUPPORTED_COREBOOT=0
+ALLOW_UNTESTED_COREBOOT=0
+REINSTALL=0
+SET_MIRROR_FLAG=0
+HAS_BATTERY=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
 TRACKPAD_TARGET_VERSION="8196"
@@ -85,11 +88,12 @@ COREBOOT_ALLOWED_SKUS=(
 usage()
 {
 	cat <<EOF
-Usage: $0 [--allow-unsupported-coreboot] [--help]
+Usage: $0 [--reinstall] [--set-mirror-flag] [--help]
 
-  --allow-unsupported-coreboot  Allow the coreboot update path on SKUs that are
-                                 not currently in the built-in allow-list.
-  --help                         Show this help text.
+  --reinstall                   Reinstall firmware even when the target version
+                                already matches the installed version.
+  --set-mirror-flag             Set the EC mirror flag and shut the system down.
+  --help                        Show this help text.
 EOF
 }
 
@@ -97,8 +101,14 @@ parse_args()
 {
 	while [[ $# -gt 0 ]]; do
 		case "$1" in
-		--allow-unsupported-coreboot)
-			ALLOW_UNSUPPORTED_COREBOOT=1
+		--i-have-a-programmer)
+			ALLOW_UNTESTED_COREBOOT=1
+			;;
+		--reinstall)
+			REINSTALL=1
+			;;
+		--set-mirror-flag)
+			SET_MIRROR_FLAG=1
 			;;
 		--help|-h)
 			usage
@@ -231,12 +241,51 @@ coreboot_allowed_sku()
 {
 	local allowed
 
-	if (( ALLOW_UNSUPPORTED_COREBOOT == 1 )); then
+	if (( ALLOW_UNTESTED_COREBOOT == 1 )); then
 		return 0
 	fi
 
 	for allowed in "${COREBOOT_ALLOWED_SKUS[@]}"; do
 		[[ "$SKU" == "$allowed" ]] && return 0
+	done
+
+	return 1
+}
+
+system_has_battery()
+{
+	local node
+
+	for node in /sys/class/power_supply/BAT*; do
+		[[ -e "$node" ]] || continue
+		return 0
+	done
+
+	if command -v upower >/dev/null 2>&1; then
+		upower -e 2>/dev/null | grep -q '/battery_'
+		return
+	fi
+
+	return 1
+}
+
+init_power_state()
+{
+	if system_has_battery; then
+		HAS_BATTERY=1
+	else
+		HAS_BATTERY=0
+	fi
+}
+
+power_checks_required()
+{
+	local key
+
+	for key in touchscreen keyboard trackpad camera ssd coreboot; do
+		if task_is_wanted "$key"; then
+			return 0
+		fi
 	done
 
 	return 1
@@ -318,6 +367,10 @@ ensure_sudo()
 
 wait_for_charger()
 {
+	if (( HAS_BATTERY == 0 )); then
+		return 0
+	fi
+
 	while upower -i /org/freedesktop/UPower/devices/battery_BAT0 2>/dev/null | grep -q "state:\\s*discharging"; do
 		printf "%sPlease connect the charger...%s\n" "$YELLOW" "$RESET"
 		sleep 10
@@ -550,7 +603,12 @@ discover_keyboard()
 	current_version="$(find_starlite_keyboard_version || true)"
 	case "$current_version" in
 	1.08|1.09)
-		set_task keyboard up-to-date "$current_version"
+		if (( REINSTALL == 1 )); then
+			mark_task_wanted keyboard
+			set_task keyboard pending "reinstall ${current_version}"
+		else
+			set_task keyboard up-to-date "$current_version"
+		fi
 		;;
 	1.03|1.05)
 		mark_task_wanted keyboard
@@ -584,7 +642,12 @@ discover_trackpad()
 
 	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
 	if trackpad_version_matches_target "$current_version"; then
-		set_task trackpad up-to-date "$current_version"
+		if (( REINSTALL == 1 )); then
+			mark_task_wanted trackpad
+			set_task trackpad pending "reinstall ${current_version}"
+		else
+			set_task trackpad up-to-date "$current_version"
+		fi
 	else
 		mark_task_wanted trackpad
 		set_task trackpad pending "${current_version:-version check failed} -> ${TRACKPAD_TARGET_VERSION_HEX}"
@@ -602,7 +665,12 @@ discover_camera()
 
 	version="$(find_starfighter_camera_version || true)"
 	if [[ "$version" == "$CAMERA_TARGET_VERSION" ]]; then
-		set_task camera up-to-date "$version"
+		if (( REINSTALL == 1 )); then
+			mark_task_wanted camera
+			set_task camera pending "reinstall ${version}"
+		else
+			set_task camera up-to-date "$version"
+		fi
 	else
 		mark_task_wanted camera
 		set_task camera pending "${version:-unknown} -> ${CAMERA_TARGET_VERSION}"
@@ -672,7 +740,12 @@ discover_ssd()
 
 	currfw_digits="$(echo "${fr:-}" | tr -cd '0-9' | sed 's/^0*//')"
 	if [[ -n "$currfw_digits" && "$currfw_digits" == "$ssdfw" ]]; then
-		set_task ssd up-to-date "$currfw_digits"
+		if (( REINSTALL == 1 )); then
+			mark_task_wanted ssd
+			set_task ssd pending "reinstall ${currfw_digits}"
+		else
+			set_task ssd up-to-date "$currfw_digits"
+		fi
 	else
 		mark_task_wanted ssd
 		set_task ssd pending "${currfw_digits:-unknown} -> ${ssdfw}"
@@ -687,11 +760,22 @@ discover_coreboot()
 	fi
 
 	if [[ "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
-		set_task coreboot up-to-date "$BIOS_VERSION"
+		if (( REINSTALL == 1 )); then
+			mark_task_wanted coreboot
+			set_task coreboot pending "reinstall ${BIOS_VERSION}"
+		else
+			set_task coreboot up-to-date "$BIOS_VERSION"
+		fi
 	else
 		mark_task_wanted coreboot
 		set_task coreboot pending "${BIOS_VERSION:-unknown} -> ${COREBOOT_TARGET_VERSION}"
 	fi
+}
+
+discover_mirror_flag()
+{
+	mark_task_wanted mirror-flag
+	set_task mirror-flag pending "requested"
 }
 
 discover_updates()
@@ -705,6 +789,7 @@ discover_updates()
 		camera) discover_camera ;;
 		ssd) discover_ssd ;;
 		coreboot) discover_coreboot ;;
+		mirror-flag) discover_mirror_flag ;;
 		esac
 	done
 }
@@ -743,8 +828,15 @@ add_prerequisite_tasks()
 		return
 	fi
 
-	add_task prereq-ac "Charger connected"
-	add_task prereq-battery "Battery at least 30%"
+	if power_checks_required; then
+		if (( HAS_BATTERY == 1 )); then
+			add_task prereq-ac "Charger connected"
+			add_task prereq-battery "Battery at least 30%"
+		else
+			add_task prereq-ac "Charger connected" not-applicable "no battery detected"
+			add_task prereq-battery "Battery at least 30%" not-applicable "no battery detected"
+		fi
+	fi
 
 	if task_is_wanted coreboot; then
 		add_task prereq-bios-lock "BIOS Lock disabled"
@@ -861,8 +953,10 @@ check_flashrom_task()
 
 run_prerequisite_checks()
 {
-	check_charger_task || return 1
-	check_battery_task || return 1
+	if power_checks_required && (( HAS_BATTERY == 1 )); then
+		check_charger_task || return 1
+		check_battery_task || return 1
+	fi
 
 	if task_is_wanted coreboot; then
 		check_bios_lock_task || return 1
@@ -1051,9 +1145,21 @@ update_keyboard()
 
 	current_version="$(find_starlite_keyboard_version)"
 	case "$current_version" in
-	1.08|1.09)
-		set_task keyboard up-to-date "$current_version"
-		return 0
+	1.08)
+		if (( REINSTALL == 0 )); then
+			set_task keyboard up-to-date "$current_version"
+			return 0
+		fi
+		fw="${WORKING_DIR}/kbfw.bin"
+		download_to "keyboard/starlite-mkv/1.08/1.08.bin" "$fw"
+		;;
+	1.09)
+		if (( REINSTALL == 0 )); then
+			set_task keyboard up-to-date "$current_version"
+			return 0
+		fi
+		fw="${WORKING_DIR}/kbfw.bin"
+		download_to "keyboard/starlite-mkv/1.09/1.09.bin" "$fw"
 		;;
 	1.03|1.05)
 		fw="${WORKING_DIR}/kbfw.bin"
@@ -1093,7 +1199,7 @@ update_trackpad()
 	download_to "trackpad/starfighter/PT279_V2004.bin" "$fw"
 	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
 
-	if trackpad_version_matches_target "$current_version"; then
+	if trackpad_version_matches_target "$current_version" && (( REINSTALL == 0 )); then
 		set_task trackpad up-to-date "$current_version"
 		return 0
 	fi
@@ -1117,7 +1223,7 @@ update_camera()
 	fi
 
 	version="$(find_starfighter_camera_version || true)"
-	if [[ "$version" == "$CAMERA_TARGET_VERSION" ]]; then
+	if [[ "$version" == "$CAMERA_TARGET_VERSION" ]] && (( REINSTALL == 0 )); then
 		set_task camera up-to-date "$version"
 		return 0
 	fi
@@ -1214,7 +1320,7 @@ update_ssd()
 	esac
 
 	currfw_digits="$(echo "${fr:-}" | tr -cd '0-9' | sed 's/^0*//')"
-	if [[ -n "$currfw_digits" && "$currfw_digits" == "$ssdfw" ]]; then
+	if [[ -n "$currfw_digits" && "$currfw_digits" == "$ssdfw" ]] && (( REINSTALL == 0 )); then
 		set_task ssd up-to-date "$currfw_digits"
 		return 0
 	fi
@@ -1261,6 +1367,10 @@ update_coreboot()
 	set_task coreboot updating "$BIOS_VERSION"
 	if sudo "$tool" -p internal -w "$fw" "${flashrom_flags[@]}" >"$flashrom_log" 2>&1; then
 		set_task coreboot "done"
+		if task_is_wanted mirror-flag; then
+			sudo "$reset_tool" || true
+			return 0
+		fi
 		if prompt_shutdown_after_coreboot_update; then
 			sudo "$reset_tool" || true
 			sudo shutdown now
@@ -1272,6 +1382,29 @@ update_coreboot()
 			sed 's/^/  /' "$flashrom_log" >&2
 		fi
 	fi
+}
+
+update_mirror_flag()
+{
+	local tool
+
+	set_task mirror-flag checking
+	tool="$(ensure_binary ectool)"
+	set_task mirror-flag updating
+	if sudo "$tool" -w 05 -z aa; then
+		set_task mirror-flag done
+		printf "\n%sMirror flag set. Shutting down now.%s\n" "$GREEN" "$RESET"
+		if sudo shutdown now; then
+			exit 0
+		fi
+		set_task mirror-flag failed "shutdown failed"
+		printf "\n%sMirror flag was set, but shutdown failed.%s\n" "$RED" "$RESET" >&2
+		return 1
+	fi
+
+	set_task mirror-flag failed
+	printf "\n%sFailed to set the mirror flag.%s\n" "$RED" "$RESET" >&2
+	return 1
 }
 
 prepare_optional_devices()
@@ -1322,11 +1455,15 @@ build_task_list()
 		add_task ssd "Lexar NM620 SSD"
 	fi
 	add_task coreboot "coreboot"
+	if (( SET_MIRROR_FLAG == 1 )); then
+		add_task mirror-flag "EC mirror flag"
+	fi
 }
 
 main()
 {
 	parse_args "$@"
+	init_power_state
 	prepare_optional_devices
 	build_task_list
 	render_tasks
@@ -1359,6 +1496,7 @@ main()
 		camera) update_camera ;;
 		ssd) update_ssd ;;
 		coreboot) update_coreboot ;;
+		mirror-flag) update_mirror_flag ;;
 		esac
 	done
 

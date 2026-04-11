@@ -46,6 +46,7 @@ I5-MXC|I5-SB)
 	;;
 esac
 BIOS_VERSION="$(cat /sys/class/dmi/id/bios_version 2>/dev/null || true)"
+BIOS_VENDOR="$(cat /sys/class/dmi/id/bios_vendor 2>/dev/null || true)"
 
 declare -a TASK_KEYS=()
 declare -A TASK_LABELS=()
@@ -64,6 +65,7 @@ SUDO_READY=0
 FLASHROM_PROBE_OUTPUT=""
 ALLOW_UNTESTED_COREBOOT=0
 REINSTALL=0
+COREBOOT_SWITCH=0
 SET_MIRROR_FLAG=0
 HAS_BATTERY=0
 
@@ -79,19 +81,25 @@ COREBOOT_ALLOWED_SKUS=(
 	B7-U
 	B7-N
 	B62-I
+	B6-A
 	B6-I
 	B5
 	Y3
 	Y2
 )
+COREBOOT_SWITCH_ALLOWED_SKUS=(
+	B6-A
+)
 
 usage()
 {
 	cat <<EOF
-Usage: $0 [--reinstall] [--set-mirror-flag] [--help]
+Usage: $0 [--reinstall] [--coreboot-switch] [--set-mirror-flag] [--help]
 
   --reinstall                   Reinstall firmware even when the target version
                                 already matches the installed version.
+  --coreboot-switch             Switch supported systems from AMI 26.04 to the
+                                beta coreboot ROM.
   --set-mirror-flag             Set the EC mirror flag and shut the system down.
   --help                        Show this help text.
 EOF
@@ -106,6 +114,9 @@ parse_args()
 			;;
 		--reinstall)
 			REINSTALL=1
+			;;
+		--coreboot-switch)
+			COREBOOT_SWITCH=1
 			;;
 		--set-mirror-flag)
 			SET_MIRROR_FLAG=1
@@ -250,6 +261,26 @@ coreboot_allowed_sku()
 	done
 
 	return 1
+}
+
+coreboot_switch_allowed_sku()
+{
+	local allowed
+
+	for allowed in "${COREBOOT_SWITCH_ALLOWED_SKUS[@]}"; do
+		[[ "$SKU" == "$allowed" ]] && return 0
+	done
+
+	return 1
+}
+
+coreboot_rom_relpath()
+{
+	if (( COREBOOT_SWITCH == 1 )); then
+		printf "roms/%s.coreboot.bios\n" "$SKU"
+	else
+		printf "roms/%s.bios\n" "$SKU"
+	fi
 }
 
 system_has_battery()
@@ -410,22 +441,11 @@ offer_reboot_to_firmware_setup()
 
 prompt_shutdown_after_coreboot_update()
 {
-	local reply
-
 	printf "\n%sFirmware update complete.%s\n" "$GREEN" "$RESET"
 	printf "To finish the update safely, shut the system down, disconnect the charger, and wait about 12 seconds until the LEDs flicker.\n"
-
-	if (( ! USE_TTY || ! HAS_TTY_INPUT )); then
-		printf "Shut the system down manually when you are ready.\n"
-		return 1
-	fi
-
-	printf "\n%sShut down now?%s [y/N] " "$YELLOW" "$RESET"
-	read -r reply </dev/tty || true
-	if [[ "$reply" =~ ^[Yy]$ ]]; then
-		return 0
-	fi
-	return 1
+	printf "Shutting down automatically in 8 seconds.\n"
+	sleep 8
+	return 0
 }
 
 print_coreboot_setup_instructions()
@@ -756,6 +776,27 @@ discover_coreboot()
 {
 	if ! coreboot_allowed_sku; then
 		set_task coreboot skipped "not enabled for ${RAW_SKU}"
+		return
+	fi
+
+	if (( COREBOOT_SWITCH == 1 )); then
+		if ! coreboot_switch_allowed_sku; then
+			set_task coreboot skipped "switch not enabled for ${RAW_SKU}"
+			return
+		fi
+
+		if [[ "$BIOS_VENDOR" == "American Megatrends International, LLC." &&
+		      "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
+			mark_task_wanted coreboot
+			set_task coreboot pending "AMI ${BIOS_VERSION} -> coreboot ${COREBOOT_TARGET_VERSION}"
+		elif [[ "$BIOS_VENDOR" == "coreboot" &&
+		        "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
+			set_task coreboot up-to-date "$BIOS_VERSION"
+		elif [[ "$BIOS_VENDOR" == "American Megatrends International, LLC." ]]; then
+			set_task coreboot skipped "update AMI to ${COREBOOT_TARGET_VERSION} first"
+		else
+			set_task coreboot skipped "requires AMI ${COREBOOT_TARGET_VERSION}"
+		fi
 		return
 	fi
 
@@ -1337,7 +1378,7 @@ update_ssd()
 
 update_coreboot()
 {
-	local tool reset_tool fw flashrom_log
+	local tool reset_tool fw flashrom_log relpath
 	local -a flashrom_flags=()
 
 	set_task coreboot checking
@@ -1346,16 +1387,17 @@ update_coreboot()
 	tool="$(ensure_binary flashrom)"
 	reset_tool="$(ensure_binary reset-cmos)"
 	fw="${WORKING_DIR}/${SKU}.bios"
-	if ! download_to "roms/${SKU}.bios" "$fw"; then
-		set_task coreboot failed "missing ${SKU}.bios"
+	relpath="$(coreboot_rom_relpath)"
+	if ! download_to "$relpath" "$fw"; then
+		set_task coreboot failed "missing $(basename "$relpath")"
 		printf "\n%sMissing BIOS payload for %s.%s\n" "$RED" "$RAW_SKU" "$RESET" >&2
-		printf "Expected %sroms/%s.bios%s in the firmware release.\n" "$BOLD" "$SKU" "$RESET" >&2
+		printf "Expected %s%s%s in the firmware release.\n" "$BOLD" "$relpath" "$RESET" >&2
 		return 0
 	fi
 	if [[ ! -s "$fw" ]]; then
-		set_task coreboot failed "missing ${SKU}.bios"
+		set_task coreboot failed "missing $(basename "$relpath")"
 		printf "\n%sMissing BIOS payload for %s.%s\n" "$RED" "$RAW_SKU" "$RESET" >&2
-		printf "Expected %sroms/%s.bios%s in the firmware release.\n" "$BOLD" "$SKU" "$RESET" >&2
+		printf "Expected %s%s%s in the firmware release.\n" "$BOLD" "$relpath" "$RESET" >&2
 		return 0
 	fi
 
@@ -1364,6 +1406,8 @@ update_coreboot()
 	fi
 
 	flashrom_log="${WORKING_DIR}/flashrom-coreboot.log"
+	printf "\n%sThis BIOS update will shut the system down automatically when flashing is complete.%s\n" "$YELLOW" "$RESET"
+	printf "After shutdown, disconnect the charger and wait about 12 seconds until the LEDs flicker before powering back on.\n"
 	set_task coreboot updating "$BIOS_VERSION"
 	if sudo "$tool" -p internal -w "$fw" "${flashrom_flags[@]}" >"$flashrom_log" 2>&1; then
 		set_task coreboot "done"

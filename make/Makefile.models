@@ -48,7 +48,7 @@ coreboot_caps	= d86dddc7-8e8e-45b8-a830-d5d602467bcc
 else ifeq ($(model),starbook_cezanne)
 name		= StarBook MkVI-AMD
 sku		= B6-A
-hwid		= b39593ad-7522-52a5-a4ab-1b2ca2153956
+hwid		= f6e1e859-6864-5a40-834e-31ced7f5bedd
 coreboot_caps	= 2ef5db2f-2791-4e62-bd7b-fdb23f83c615
 
 else ifeq ($(model),byte_cezanne)

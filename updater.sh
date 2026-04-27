@@ -84,6 +84,7 @@ COREBOOT_ALLOWED_SKUS=(
 	B6-A
 	B6-I
 	B5
+	Y1
 	Y3
 	Y2
 )
@@ -300,8 +301,25 @@ system_has_battery()
 	return 1
 }
 
+batteryless_sku()
+{
+	case "$SKU" in
+	Y1|Y2|Y3)
+		return 0
+		;;
+	*)
+		return 1
+		;;
+	esac
+}
+
 init_power_state()
 {
+	if batteryless_sku; then
+		HAS_BATTERY=0
+		return
+	fi
+
 	if system_has_battery; then
 		HAS_BATTERY=1
 	else
@@ -1401,7 +1419,7 @@ update_coreboot()
 		return 0
 	fi
 
-	if [[ "$SKU" != "B6-A" ]]; then
+	if [[ "$SKU" != "B6-A" && "$SKU" != "Y1" ]]; then
 		flashrom_flags=(--ifd -i bios -n -N)
 	fi
 

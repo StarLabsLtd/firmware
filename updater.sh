@@ -70,9 +70,10 @@ SET_MIRROR_FLAG=0
 HAS_BATTERY=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
+CAMERA_UPDATES_ENABLED=0
 TRACKPAD_TARGET_VERSION="8196"
 TRACKPAD_TARGET_VERSION_HEX="2004"
-COREBOOT_TARGET_VERSION="26.04"
+COREBOOT_TARGET_VERSION="26.05"
 COREBOOT_ALLOWED_SKUS=(
 	F2
 	F1
@@ -99,7 +100,7 @@ Usage: $0 [--reinstall] [--coreboot-switch] [--set-mirror-flag] [--help]
 
   --reinstall                   Reinstall firmware even when the target version
                                 already matches the installed version.
-  --coreboot-switch             Switch supported systems from AMI 26.04 to the
+  --coreboot-switch             Switch supported systems from AMI ${COREBOOT_TARGET_VERSION} to the
                                 beta coreboot ROM.
   --set-mirror-flag             Set the EC mirror flag and shut the system down.
   --help                        Show this help text.
@@ -244,7 +245,7 @@ note_relpath_for_task()
 	trackpad) printf "notes/trackpad/starfighter.txt" ;;
 	camera) printf "notes/camera/starfighter.txt" ;;
 	ssd) printf "notes/ssd/lexar-nm620.txt" ;;
-	coreboot) printf "26.04-release-notes.md" ;;
+	coreboot) printf "%s-release-notes.md" "$COREBOOT_TARGET_VERSION" ;;
 	*) return 1 ;;
 	esac
 }
@@ -695,6 +696,11 @@ discover_trackpad()
 discover_camera()
 {
 	local version
+
+	if (( CAMERA_UPDATES_ENABLED == 0 )); then
+		set_task camera skipped "disabled"
+		return
+	fi
 
 	if (( STARFIGHTER_CAMERA_PRESENT == 0 )) || [[ -z "$STARFIGHTER_CAMERA_NODE" ]]; then
 		set_task camera skipped "not connected"
@@ -1276,6 +1282,11 @@ update_camera()
 	local tool fw version camera_index
 
 	set_task camera checking
+	if (( CAMERA_UPDATES_ENABLED == 0 )); then
+		set_task camera skipped "disabled"
+		return 0
+	fi
+
 	if (( STARFIGHTER_CAMERA_PRESENT == 0 )) || [[ -z "$STARFIGHTER_CAMERA_NODE" ]]; then
 		set_task camera skipped
 		return 0
@@ -1477,7 +1488,7 @@ prepare_optional_devices()
 		fi
 	fi
 
-	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
+	if (( CAMERA_UPDATES_ENABLED == 1 )) && [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
 		if wait_for_optional_device "the StarFighter camera" find_starfighter_camera_node 45; then
 			STARFIGHTER_CAMERA_PRESENT=1
 			STARFIGHTER_CAMERA_NODE="$(find_starfighter_camera_node || true)"
@@ -1507,7 +1518,9 @@ build_task_list()
 		add_task trackpad "StarFighter trackpad"
 	fi
 	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
-		if (( STARFIGHTER_CAMERA_PRESENT == 1 )); then
+		if (( CAMERA_UPDATES_ENABLED == 0 )); then
+			add_task camera "StarFighter camera" skipped "disabled"
+		elif (( STARFIGHTER_CAMERA_PRESENT == 1 )); then
 			add_task camera "StarFighter camera"
 		else
 			add_task camera "StarFighter camera" skipped "not connected"

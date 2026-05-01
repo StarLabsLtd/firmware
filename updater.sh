@@ -553,7 +553,7 @@ print_iomem_relaxed_instructions()
 		;;
 	*" fedora "*)
 		printf "Fedora: run:\n" >&2
-		printf "  sudo grubby --update-kernel=ALL --args=\"iomem=relaxed\"\n" >&2
+		printf "  sudo grubby --update-kernel=ALL --no-etc-grub-update --args=\"iomem=relaxed\"\n" >&2
 		printf "  reboot\n" >&2
 		;;
 	*" arch "*|*" endeavouros "*|*" manjaro "*)

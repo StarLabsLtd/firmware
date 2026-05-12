@@ -67,6 +67,7 @@ ALLOW_UNTESTED_COREBOOT=0
 REINSTALL=0
 COREBOOT_SWITCH=0
 SET_MIRROR_FLAG=0
+CAMERA_ONLY=0
 HAS_BATTERY=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
@@ -96,8 +97,9 @@ COREBOOT_SWITCH_ALLOWED_SKUS=(
 usage()
 {
 	cat <<EOF
-Usage: $0 [--reinstall] [--coreboot-switch] [--set-mirror-flag] [--help]
+Usage: $0 [--camera-only] [--reinstall] [--coreboot-switch] [--set-mirror-flag] [--help]
 
+  --camera-only                 Only check and update the StarFighter camera.
   --reinstall                   Reinstall firmware even when the target version
                                 already matches the installed version.
   --coreboot-switch             Switch supported systems from AMI ${COREBOOT_TARGET_VERSION} to the
@@ -117,6 +119,9 @@ parse_args()
 		--reinstall)
 			REINSTALL=1
 			;;
+		--camera-only)
+			CAMERA_ONLY=1
+			;;
 		--coreboot-switch)
 			COREBOOT_SWITCH=1
 			;;
@@ -135,6 +140,13 @@ parse_args()
 		esac
 		shift
 	done
+
+	if (( CAMERA_ONLY == 1 )) && (( COREBOOT_SWITCH == 1 || SET_MIRROR_FLAG == 1 )); then
+		printf "%s--camera-only cannot be combined with coreboot or mirror-flag actions.%s\n" \
+			"$RED" "$RESET" >&2
+		usage >&2
+		exit 1
+	fi
 }
 
 status_color()
@@ -312,6 +324,11 @@ batteryless_sku()
 		return 1
 		;;
 	esac
+}
+
+starfighter_sku()
+{
+	[[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]
 }
 
 init_power_state()
@@ -696,6 +713,11 @@ discover_trackpad()
 discover_camera()
 {
 	local version
+
+	if ! starfighter_sku; then
+		set_task camera skipped "unsupported system"
+		return
+	fi
 
 	if (( CAMERA_UPDATES_ENABLED == 0 )); then
 		set_task camera skipped "disabled"
@@ -1482,13 +1504,13 @@ update_mirror_flag()
 
 prepare_optional_devices()
 {
-	if [[ "$RAW_SKU" == I5* ]]; then
+	if (( CAMERA_ONLY == 0 )) && [[ "$RAW_SKU" == I5* ]]; then
 		if wait_for_optional_device "the StarLite keyboard" has_starlite_keyboard 45; then
 			STARLITE_KEYBOARD_PRESENT=1
 		fi
 	fi
 
-	if (( CAMERA_UPDATES_ENABLED == 1 )) && [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
+	if (( CAMERA_UPDATES_ENABLED == 1 )) && starfighter_sku; then
 		if wait_for_optional_device "the StarFighter camera" find_starfighter_camera_node 45; then
 			STARFIGHTER_CAMERA_PRESENT=1
 			STARFIGHTER_CAMERA_NODE="$(find_starfighter_camera_node || true)"
@@ -1498,6 +1520,19 @@ prepare_optional_devices()
 
 build_task_list()
 {
+	if (( CAMERA_ONLY == 1 )); then
+		if ! starfighter_sku; then
+			add_task camera "StarFighter camera" skipped "unsupported system"
+		elif (( CAMERA_UPDATES_ENABLED == 0 )); then
+			add_task camera "StarFighter camera" skipped "disabled"
+		elif (( STARFIGHTER_CAMERA_PRESENT == 1 )); then
+			add_task camera "StarFighter camera"
+		else
+			add_task camera "StarFighter camera" skipped "not connected"
+		fi
+		return
+	fi
+
 	STARLITE_TOUCHSCREEN_NODE="$(find_starlite_touchscreen_node || true)"
 	STARFIGHTER_TRACKPAD_NODE="$(find_starfighter_trackpad_node || true)"
 	if detect_lexar_nm620; then
@@ -1514,10 +1549,10 @@ build_task_list()
 			add_task keyboard "StarLite keyboard" skipped "not connected"
 		fi
 	fi
-	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]] && [[ -n "$STARFIGHTER_TRACKPAD_NODE" ]]; then
+	if starfighter_sku && [[ -n "$STARFIGHTER_TRACKPAD_NODE" ]]; then
 		add_task trackpad "StarFighter trackpad"
 	fi
-	if [[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]; then
+	if starfighter_sku; then
 		if (( CAMERA_UPDATES_ENABLED == 0 )); then
 			add_task camera "StarFighter camera" skipped "disabled"
 		elif (( STARFIGHTER_CAMERA_PRESENT == 1 )); then
@@ -1547,7 +1582,19 @@ main()
 	render_tasks
 
 	if (( PENDING_UPDATES == 0 )); then
-		printf "\n%sAll firmware is already up to date.%s\n" "$GREEN" "$RESET"
+		if (( CAMERA_ONLY == 1 )); then
+			if [[ "${TASK_STATUS[camera]:-}" == "up-to-date" ]]; then
+				printf "\n%sStarFighter camera is already up to date.%s\n" "$GREEN" "$RESET"
+			else
+				printf "\n%sStarFighter camera update skipped" "$BLUE"
+				if [[ -n "${TASK_DETAIL[camera]:-}" ]]; then
+					printf ": %s" "${TASK_DETAIL[camera]}"
+				fi
+				printf ".%s\n" "$RESET"
+			fi
+		else
+			printf "\n%sAll firmware is already up to date.%s\n" "$GREEN" "$RESET"
+		fi
 		return 0
 	fi
 

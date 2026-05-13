@@ -57,6 +57,7 @@ declare -A TASK_WANTED=()
 STARLITE_KEYBOARD_PRESENT=0
 STARFIGHTER_CAMERA_PRESENT=0
 STARFIGHTER_CAMERA_NODE=""
+STARFIGHTER_CAMERA_PID=""
 STARFIGHTER_TRACKPAD_NODE=""
 STARLITE_TOUCHSCREEN_NODE=""
 LEXAR_PRESENT=0
@@ -1094,19 +1095,33 @@ find_starfighter_trackpad_node()
 
 find_starfighter_camera_usb_dir()
 {
-	local sys text product
+	local pid product sys vid
 
 	for sys in /sys/bus/usb/devices/*; do
 		[[ -f "$sys/idVendor" && -f "$sys/idProduct" ]] || continue
-		text="$(cat "$sys/idVendor" 2>/dev/null || true) $(cat "$sys/idProduct" 2>/dev/null || true)"
-		[[ "$text" == "1bcf 2ced" ]] || continue
+		vid="$(cat "$sys/idVendor" 2>/dev/null || true)"
+		pid="$(cat "$sys/idProduct" 2>/dev/null || true)"
+		[[ "$vid" == "1bcf" ]] || continue
 		product="$(cat "$sys/product" 2>/dev/null || true)"
-		if [[ "$product" == "Hy-UXGA(9240)-Camera" ]]; then
+
+		if [[ "$pid" == "2ced" && "$product" == "Hy-UXGA(9240)-Camera" ]]; then
+			printf "%s\n" "$sys"
+			return 0
+		fi
+		if [[ "$pid" == "0b09" ]]; then
 			printf "%s\n" "$sys"
 			return 0
 		fi
 	done
 	return 1
+}
+
+find_starfighter_camera_pid()
+{
+	local usbdir
+
+	usbdir="$(find_starfighter_camera_usb_dir)" || return 1
+	cat "$usbdir/idProduct" 2>/dev/null || true
 }
 
 find_starfighter_camera_node()
@@ -1301,7 +1316,7 @@ update_trackpad()
 
 update_camera()
 {
-	local tool fw version camera_index
+	local camera_index rc=1 tool fw version
 
 	set_task camera checking
 	if (( CAMERA_UPDATES_ENABLED == 0 )); then
@@ -1309,7 +1324,7 @@ update_camera()
 		return 0
 	fi
 
-	if (( STARFIGHTER_CAMERA_PRESENT == 0 )) || [[ -z "$STARFIGHTER_CAMERA_NODE" ]]; then
+	if (( STARFIGHTER_CAMERA_PRESENT == 0 )); then
 		set_task camera skipped
 		return 0
 	fi
@@ -1322,11 +1337,24 @@ update_camera()
 
 	tool="$(ensure_binary V4L2_FWUpdate_GNU_x86_64)"
 	fw="${WORKING_DIR}/HYGD-SPCA2092C-OV2740-1920x1080-30-15fps-N-AML-240907.bin"
-	camera_index="${STARFIGHTER_CAMERA_NODE#/dev/video}"
 	download_to "camera/starfighter/HYGD-SPCA2092C-OV2740-1920x1080-30-15fps-N-AML-240907.bin" "$fw"
 
 	set_task camera updating "${version:-unknown}"
-	if sudo "$tool" -D "$camera_index" -d "$fw"; then
+	if [[ -n "$STARFIGHTER_CAMERA_NODE" ]]; then
+		camera_index="${STARFIGHTER_CAMERA_NODE#/dev/video}"
+		if sudo "$tool" -D "$camera_index" -d "$fw"; then
+			rc=0
+		fi
+	elif [[ "$STARFIGHTER_CAMERA_PID" == "0b09" ]]; then
+		if sudo "$tool" -v 1bcf -p 0b09 -d "$fw"; then
+			rc=0
+		fi
+	else
+		set_task camera failed "no video node"
+		return 0
+	fi
+
+	if (( rc == 0 )); then
 		set_task camera "done"
 	else
 		set_task camera failed
@@ -1511,9 +1539,10 @@ prepare_optional_devices()
 	fi
 
 	if (( CAMERA_UPDATES_ENABLED == 1 )) && starfighter_sku; then
-		if wait_for_optional_device "the StarFighter camera" find_starfighter_camera_node 45; then
+		if wait_for_optional_device "the StarFighter camera" find_starfighter_camera_usb_dir 45; then
 			STARFIGHTER_CAMERA_PRESENT=1
 			STARFIGHTER_CAMERA_NODE="$(find_starfighter_camera_node || true)"
+			STARFIGHTER_CAMERA_PID="$(find_starfighter_camera_pid || true)"
 		fi
 	fi
 }

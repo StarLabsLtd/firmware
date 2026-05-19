@@ -1310,7 +1310,12 @@ update_trackpad()
 	if sudo "$tool" "$STARFIGHTER_TRACKPAD_NODE" up "$fw"; then
 		set_task trackpad "done"
 	else
-		set_task trackpad failed
+		current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
+		if trackpad_version_matches_target "$current_version"; then
+			set_task trackpad "done" "$current_version"
+		else
+			set_task trackpad failed
+		fi
 	fi
 }
 

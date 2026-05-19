@@ -1,2 +1,2 @@
-* Updates the StarFighter touchpad firmware to the tested PixArt 0x2004 release
+* Updates the StarFighter touchpad firmware to the tested PixArt 0x2005 release
 * This is the same touchpad firmware target used by the current fallback updater flow

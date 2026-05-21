@@ -17,6 +17,8 @@ build_targets=(
 	starfighter_rpl
 	starfighter_mtl
 	adl_horizon
+	starbook_cezanne
+	byte_cezanne
 )
 
 required_firmware_version=26.04

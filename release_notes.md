@@ -1,14 +1,5 @@
 General Updates: 
 * Added support for AMD Cezanne models (Byte Mk I and StarBook Mk VI)
-* Added coreboot support for Byte Mk I and StarBook Mk VI-AMD
-* Added StarFighter camera and touchpad firmware update support
-* Added payload TPM support
-
-New Options:
-* Custom power profile controls for PL1, PL2, PL4, and CPU thermal throttle temperature
-* Per-port PCIe power management controls
-* HDA DSP firmware setup toggle
-* Display scaling
 
 Bug Fixes / Enhancements:
 * Improved capsule update reliability with flash retry/verify, delayed SMMSTORE APM retries, and cache flush before reset
@@ -28,8 +19,6 @@ Bug Fixes / Enhancements:
 * Added Fn+F hot key for 100% fan duty
 * Stored the serial number in firmware variables
 * [StarFighter] Reduced touchpad startup delay and fixed touchpad settings not being applied
-* [StarFighter] Improved Wi-Fi, Bluetooth, and touchpad setup handling
-* [StarFighter] Updated touchpad firmware and added camera-only recovery/update support
 * [StarLite Mk V] Improved battery free operation and fixed auto-rotation on Ubuntu
 * [StarBook MkVIr2-Intel] Fixed blue sleep LED breathing
 * Improved keyboard scan debounce to reduce ghosting and missed keys

@@ -7,6 +7,8 @@ indent_2 := $(indent_1)$(indent_1)
 indent_3 := $(indent_2)$(indent_1)
 indent_4 := $(indent_2)$(indent_2)
 
+component_id_model = $(subst _,.,$(model))
+
 metadata_branch = $(if $(filter true,$(meta_branch)),$(indent_1)<branch>coreboot</branch>\n,)
 
 metadata_provides_1 = $(if $(meta_guid_1),$(indent_2)<firmware type=\"flashed\">$(meta_guid_1)</firmware>\n,)
@@ -16,7 +18,7 @@ metadata_requires_branch = $(if $(filter true,$(meta_branch)),$(indent_2)<client
 metadata_requires_firmware = $(if $(required_firmware_version),$(indent_2)<firmware compare=\"ge\" version=\"$(required_firmware_version)\"/>\n,)
 metadata_device_flags = $(if $(meta_device_flags),$(indent_2)<value key=\"LVFS::DeviceFlags\">$(meta_device_flags)</value>\n,)
 
-metadata_header = <\041-- Copyright 2023 Star Labs Online Limited -->\n<component type=\"firmware\">\n$(indent_1)<id>com.starlabs.$(sku).$(target)</id>\n$(indent_1)<name>$(name) $(target) firmware</name>\n$(indent_1)<summary>$(target) firmware for $(name)</summary>\n
+metadata_header = <\041-- Copyright 2023 Star Labs Online Limited -->\n<component type=\"firmware\">\n$(indent_1)<id>com.starlabs.$(component_id_model)</id>\n$(indent_1)<name>$(name) $(target) firmware</name>\n$(indent_1)<summary>$(target) firmware for $(name)</summary>\n
 metadata_description = $(indent_1)<description>\n$(indent_2)<p>Updating the $(target) firmware makes your computer more reliable and can add new features.</p>\n$(indent_1)</description>\n
 metadata_provides = $(indent_1)<provides>\n$(metadata_provides_1)$(metadata_provides_2)$(indent_1)</provides>\n
 metadata_requires = $(indent_1)<requires>\n$(indent_2)<id compare=\"ge\" version=\"$(meta_version)\">org.freedesktop.fwupd</id>\n$(indent_2)<hardware>$(hwid)</hardware>\n$(metadata_requires_firmware)$(metadata_requires_branch)$(indent_1)</requires>\n

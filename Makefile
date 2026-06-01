@@ -25,7 +25,7 @@ RELEASE_NOTES = $(WORK_DIR)/release_notes.md
 METAINFO = $(WORK_DIR)/$(sku).$(target).metainfo.xml
 PAYLOAD = $(WORK_DIR)/$(sku).$(file_type)
 PAYLOAD_FILENAME = $(notdir $(PAYLOAD))
-CAB = $(OUTPUT_DIR)/coreboot-$(sku).cab
+CAB = $(OUTPUT_DIR)/$(model).cab
 ROM = $(ROMS_DIR)/$(sku).bios
 STARTUP_NSH = $(WORK_DIR)/startup.nsh
 EFI_ZIP = $(OUTPUT_DIR)/efi-$(sku).zip
@@ -207,7 +207,7 @@ help:
 	printf "Star Labs Firmware\n\n"
 	printf "Usage\n"
 	printf "\nThis repo stores coreboot releases as:\n"
-	printf "  <board>/<version>/{coreboot-<sku>.cab, efi-<sku>.zip}\n"
+	printf "  <board>/<version>/{<board>.cab, efi-<sku>.zip}\n"
 	printf "  roms/<sku>.bios\n"
 
 	printf "\nmodel:\n"
@@ -238,5 +238,6 @@ help:
 	printf "./build-coreboot-release.sh starbook_adl 8.18 /path/to/release_notes.md [/path/to/coreboot.cap]\n"
 	printf "\nIf no payload is provided, coreboot is built from COREBOOT_DIR (default: ../coreboot).\n"
 	printf "If a .rom/.bios payload is provided, it is also copied to roms/<sku>.bios.\n\n"
+	printf "Set meta_no_ux_capsule=1 to add LVFS::DeviceFlags=no-ux-capsule.\n\n"
 
 .PHONY: help release push_to_git

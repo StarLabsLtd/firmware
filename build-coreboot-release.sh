@@ -21,7 +21,7 @@ build_targets=(
 	byte_cezanne
 )
 
-required_firmware_version=26.04
+required_firmware_version=26.05
 
 usage() {
 	cat <<'EOF'

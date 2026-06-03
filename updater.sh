@@ -609,7 +609,7 @@ print_iomem_relaxed_instructions()
 	case " ${os_id} ${os_like} " in
 	*" ubuntu "*|*" debian "*|*" linuxmint "*|*" pop "*)
 		printf "Ubuntu/Debian: run:\n" >&2
-		printf "  sudo sed -i 's/^\\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\\)\"/\\1 iomem=relaxed\"/' /etc/default/grub\n" >&2
+		printf '%s\n' "  sudo sed -i 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)\"/\1 iomem=relaxed\"/' /etc/default/grub" >&2
 		printf "  sudo update-grub\n" >&2
 		printf "  reboot\n" >&2
 		;;
@@ -620,7 +620,7 @@ print_iomem_relaxed_instructions()
 		;;
 	*" arch "*|*" endeavouros "*|*" manjaro "*)
 		printf "Arch: run:\n" >&2
-		printf "  sudo sed -i 's/^\\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\\)\"/\\1 iomem=relaxed\"/' /etc/default/grub\n" >&2
+		printf '%s\n' "  sudo sed -i 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)\"/\1 iomem=relaxed\"/' /etc/default/grub" >&2
 		printf "  sudo grub-mkconfig -o /boot/grub/grub.cfg\n" >&2
 		printf "  reboot\n" >&2
 		;;

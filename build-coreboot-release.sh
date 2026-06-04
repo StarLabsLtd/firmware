@@ -4,23 +4,23 @@
 set -euo pipefail
 
 build_targets=(
-	byte_cezanne
-	byte_adl
-	byte_twl
+	adl_horizon
+	lite_adl
+	lite_glkr
+	lite_glk
+	starfighter_mtl
+	starfighter_rpl
+	starbook_mtl
+	starbook_adl_n
+	starbook_rpl
+	starbook_cezanne
+	starbook_adl
+	starbook_tgl
 	labtop_cml
 	labtop_kbl
-	lite_glk
-	lite_glkr
-	lite_adl
-	starbook_adl
-	starbook_adl_n
-	starbook_mtl
-	starbook_rpl
-	starbook_tgl
-	starfighter_rpl
-	starfighter_mtl
-	adl_horizon
-	starbook_cezanne
+	byte_twl
+	byte_adl
+	byte_cezanne
 )
 
 required_firmware_version=26.05

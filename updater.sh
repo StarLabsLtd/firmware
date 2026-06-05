@@ -118,6 +118,8 @@ HAS_BATTERY=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
 CAMERA_UPDATES_ENABLED=1
+COREBOOT_UPDATES_ENABLED=0
+COREBOOT_DISABLED_MESSAGE="We are releasing coreboot 26.06 now, please try again later"
 TRACKPAD_TARGET_VERSION="8197"
 TRACKPAD_TARGET_VERSION_HEX="2005"
 COREBOOT_ALLOWED_SKUS=(
@@ -340,6 +342,18 @@ coreboot_rom_relpath()
 	else
 		printf "roms/%s.bios\n" "$SKU"
 	fi
+}
+
+coreboot_updates_paused()
+{
+	[[ "${TASK_STATUS[coreboot]:-}" == "skipped" &&
+	   "${TASK_DETAIL[coreboot]:-}" == "$COREBOOT_DISABLED_MESSAGE" ]]
+}
+
+print_coreboot_disabled_notice()
+{
+	coreboot_updates_paused || return 0
+	printf "\n%s%s%s\n" "$YELLOW" "$COREBOOT_DISABLED_MESSAGE" "$RESET"
 }
 
 system_has_battery()
@@ -865,6 +879,11 @@ discover_ssd()
 
 discover_coreboot()
 {
+	if (( COREBOOT_UPDATES_ENABLED == 0 )); then
+		set_task coreboot skipped "$COREBOOT_DISABLED_MESSAGE"
+		return
+	fi
+
 	if ! coreboot_allowed_sku; then
 		set_task coreboot skipped "not enabled for ${RAW_SKU}"
 		return
@@ -1670,6 +1689,9 @@ main()
 				fi
 				printf ".%s\n" "$RESET"
 			fi
+		elif coreboot_updates_paused; then
+			print_coreboot_disabled_notice
+			printf "%sAll other firmware is already up to date.%s\n" "$GREEN" "$RESET"
 		else
 			printf "\n%sAll firmware is already up to date.%s\n" "$GREEN" "$RESET"
 		fi
@@ -1700,6 +1722,7 @@ main()
 		esac
 	done
 
+	print_coreboot_disabled_notice
 	printf "\n%sAll firmware checks complete.%s\n" "$GREEN" "$RESET"
 }
 

@@ -37,7 +37,7 @@ else
 	SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
 fi
 
-COREBOOT_TARGET_VERSION="26.05"
+COREBOOT_TARGET_VERSION="26.06"
 
 firmware_raw_branch()
 {

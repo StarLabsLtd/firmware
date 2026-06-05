@@ -2,10 +2,8 @@
 
 set -euo pipefail
 
-# If stdout is a terminal but its terminfo is missing on this host (common
-# over SSH with an exotic client TERM such as xterm-ghostty/xterm-kitty),
-# fall back to a near-universal entry so the tput calls below don't abort
-# the whole script under `set -e`.
+# If stdout is a terminal but its terminfo is missing on this host
+# tput calls abort the whole script under `set -e`. This avoids that
 if [[ -t 1 ]] && ! tput sgr0 >/dev/null 2>&1; then
 	export TERM=xterm-256color
 fi

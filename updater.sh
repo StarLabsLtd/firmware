@@ -91,6 +91,7 @@ I5-MXC|I5-SB)
 	;;
 esac
 BIOS_VERSION="$(cat /sys/class/dmi/id/bios_version 2>/dev/null || true)"
+BIOS_VENDOR="$(cat /sys/class/dmi/id/bios_vendor 2>/dev/null || true)"
 
 declare -a TASK_KEYS=()
 declare -A TASK_LABELS=()
@@ -314,6 +315,11 @@ coreboot_allowed_sku()
 coreboot_rom_relpath()
 {
 	printf "roms/%s.bios\n" "$SKU"
+}
+
+b6a_non_coreboot()
+{
+	[[ "$SKU" == "B6-A" && "${BIOS_VENDOR,,}" != "coreboot" ]]
 }
 
 system_has_battery()
@@ -859,8 +865,19 @@ discover_coreboot()
 
 discover_mirror_flag()
 {
-	mark_task_wanted mirror-flag
-	set_task mirror-flag pending "requested"
+	if (( SET_MIRROR_FLAG == 1 )); then
+		mark_task_wanted mirror-flag
+		set_task mirror-flag pending "requested"
+		return
+	fi
+
+	if b6a_non_coreboot && task_is_wanted coreboot; then
+		mark_task_wanted mirror-flag
+		set_task mirror-flag pending "required after B6-A flash"
+		return
+	fi
+
+	set_task mirror-flag skipped "not required"
 }
 
 discover_updates()
@@ -1488,7 +1505,11 @@ update_coreboot()
 
 	flashrom_log="${WORKING_DIR}/flashrom-coreboot.log"
 	printf "\n%sThis BIOS update will shut the system down automatically when flashing is complete.%s\n" "$YELLOW" "$RESET"
-	printf "After shutdown, disconnect the charger and wait about 12 seconds until the LEDs flicker before powering back on.\n"
+	if b6a_non_coreboot; then
+		printf "After shutdown, leave the charger connected and press the power button to finish the update.\n"
+	else
+		printf "After shutdown, disconnect the charger and wait about 12 seconds until the LEDs flicker before powering back on.\n"
+	fi
 	set_task coreboot updating "$BIOS_VERSION"
 	if sudo "$tool" -p internal -w "$fw" "${flashrom_flags[@]}" >"$flashrom_log" 2>&1; then
 		set_task coreboot "done"
@@ -1518,7 +1539,14 @@ update_mirror_flag()
 	set_task mirror-flag updating
 	if sudo "$tool" -w 05 -z aa; then
 		set_task mirror-flag done
-		printf "\n%sMirror flag set. Shutting down now.%s\n" "$GREEN" "$RESET"
+		if b6a_non_coreboot; then
+			printf "\n%sMirror flag set.%s\n" "$GREEN" "$RESET"
+			printf "Leave the charger connected. After shutdown, press the power button to finish the update.\n"
+			printf "Shutting down automatically in 8 seconds.\n"
+			sleep 8
+		else
+			printf "\n%sMirror flag set. Shutting down now.%s\n" "$GREEN" "$RESET"
+		fi
 		if sudo shutdown now; then
 			exit 0
 		fi
@@ -1596,7 +1624,7 @@ build_task_list()
 		add_task ssd "Lexar NM620 SSD"
 	fi
 	add_task coreboot "coreboot"
-	if (( SET_MIRROR_FLAG == 1 )); then
+	if (( SET_MIRROR_FLAG == 1 )) || b6a_non_coreboot; then
 		add_task mirror-flag "EC mirror flag"
 	fi
 }

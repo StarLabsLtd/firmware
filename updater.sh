@@ -91,7 +91,6 @@ I5-MXC|I5-SB)
 	;;
 esac
 BIOS_VERSION="$(cat /sys/class/dmi/id/bios_version 2>/dev/null || true)"
-BIOS_VENDOR="$(cat /sys/class/dmi/id/bios_vendor 2>/dev/null || true)"
 
 declare -a TASK_KEYS=()
 declare -A TASK_LABELS=()
@@ -111,7 +110,6 @@ SUDO_READY=0
 FLASHROM_PROBE_OUTPUT=""
 ALLOW_UNTESTED_COREBOOT=0
 REINSTALL=0
-COREBOOT_SWITCH=0
 SET_MIRROR_FLAG=0
 CAMERA_ONLY=0
 HAS_BATTERY=0
@@ -124,30 +122,28 @@ COREBOOT_ALLOWED_SKUS=(
 	F2
 	F1
 	HZ
-	I3
 	I5
-	L4
+	I3
 	B7-U
 	B7-N
 	B62-I
+	B6-A
 	B6-I
 	B5
-	Y3
+	L4
+	L3
+	Y1
 	Y2
+	Y3
 )
-COREBOOT_SWITCH_ALLOWED_SKUS=(
-)
-
 usage()
 {
 	cat <<EOF
-Usage: $0 [--camera-only] [--reinstall] [--coreboot-switch] [--set-mirror-flag] [--help]
+Usage: $0 [--camera-only] [--reinstall] [--set-mirror-flag] [--help]
 
   --camera-only                 Only check and update the StarFighter camera.
   --reinstall                   Reinstall firmware even when the target version
                                 already matches the installed version.
-  --coreboot-switch             Switch supported systems from AMI ${COREBOOT_TARGET_VERSION} to the
-                                beta coreboot ROM.
   --set-mirror-flag             Set the EC mirror flag and shut the system down.
   --help                        Show this help text.
 EOF
@@ -166,9 +162,6 @@ parse_args()
 		--camera-only)
 			CAMERA_ONLY=1
 			;;
-		--coreboot-switch)
-			COREBOOT_SWITCH=1
-			;;
 		--set-mirror-flag)
 			SET_MIRROR_FLAG=1
 			;;
@@ -185,8 +178,8 @@ parse_args()
 		shift
 	done
 
-	if (( CAMERA_ONLY == 1 )) && (( COREBOOT_SWITCH == 1 || SET_MIRROR_FLAG == 1 )); then
-		printf "%s--camera-only cannot be combined with coreboot or mirror-flag actions.%s\n" \
+	if (( CAMERA_ONLY == 1 )) && (( SET_MIRROR_FLAG == 1 )); then
+		printf "%s--camera-only cannot be combined with mirror-flag actions.%s\n" \
 			"$RED" "$RESET" >&2
 		usage >&2
 		exit 1
@@ -321,24 +314,9 @@ coreboot_allowed_sku()
 	return 1
 }
 
-coreboot_switch_allowed_sku()
-{
-	local allowed
-
-	for allowed in "${COREBOOT_SWITCH_ALLOWED_SKUS[@]}"; do
-		[[ "$SKU" == "$allowed" ]] && return 0
-	done
-
-	return 1
-}
-
 coreboot_rom_relpath()
 {
-	if (( COREBOOT_SWITCH == 1 )); then
-		printf "roms/%s.coreboot.bios\n" "$SKU"
-	else
-		printf "roms/%s.bios\n" "$SKU"
-	fi
+	printf "roms/%s.bios\n" "$SKU"
 }
 
 system_has_battery()
@@ -866,27 +844,6 @@ discover_coreboot()
 {
 	if ! coreboot_allowed_sku; then
 		set_task coreboot skipped "not enabled for ${RAW_SKU}"
-		return
-	fi
-
-	if (( COREBOOT_SWITCH == 1 )); then
-		if ! coreboot_switch_allowed_sku; then
-			set_task coreboot skipped "switch not enabled for ${RAW_SKU}"
-			return
-		fi
-
-		if [[ "$BIOS_VENDOR" == "American Megatrends International, LLC." &&
-		      "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
-			mark_task_wanted coreboot
-			set_task coreboot pending "AMI ${BIOS_VERSION} -> coreboot ${COREBOOT_TARGET_VERSION}"
-		elif [[ "$BIOS_VENDOR" == "coreboot" &&
-		        "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
-			set_task coreboot up-to-date "$BIOS_VERSION"
-		elif [[ "$BIOS_VENDOR" == "American Megatrends International, LLC." ]]; then
-			set_task coreboot skipped "update AMI to ${COREBOOT_TARGET_VERSION} first"
-		else
-			set_task coreboot skipped "requires AMI ${COREBOOT_TARGET_VERSION}"
-		fi
 		return
 	fi
 

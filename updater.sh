@@ -124,12 +124,15 @@ COREBOOT_ALLOWED_SKUS=(
 	F1
 	HZ
 	I5
+	I3
 	B7-U
 	B7-N
 	B62-I
 	B6-A
 	B6-I
 	B5
+	L4
+	L3
 	Y1
 	Y3
 	Y2

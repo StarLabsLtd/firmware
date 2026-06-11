@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+# terminfo missing on this host? fall back so tput calls don't abort
+if [[ -t 1 ]] && ! tput sgr0 >/dev/null 2>&1; then
+	export TERM=xterm-256color
+fi
+
 if [[ -t 1 ]]; then
 	RED="$(tput setaf 1)"
 	GREEN="$(tput setaf 2)"

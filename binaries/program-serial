@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import os
+import pwd
+import re
+import shutil
+import struct
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+CFR_GUID = "ceae4c1d-335b-4685-a4a0-fc4a94eea085"
+EFI_ATTRS = 0x00000007
+SERIAL_VAR = "serial_number"
+REBOOT_REQUIRED = 3
+
+
+def _die(message: str, code: int = 2) -> None:
+    print(message, file=sys.stderr)
+    raise SystemExit(code)
+
+
+def _user_home() -> Path:
+    sudo_user = os.environ.get("SUDO_USER")
+    if os.geteuid() == 0 and sudo_user:
+        try:
+            return Path(pwd.getpwnam(sudo_user).pw_dir)
+        except KeyError:
+            pass
+    return Path.home()
+
+
+def _read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8", errors="ignore").strip()
+    except OSError:
+        return ""
+
+
+def _product_sku() -> str:
+    return re.sub(r"[^A-Za-z0-9]", "", _read_text(Path("/sys/class/dmi/id/product_sku"))).upper()
+
+
+def _product_serial_raw() -> str:
+    serial = _read_text(Path("/sys/class/dmi/id/product_serial"))
+    if serial and serial != "To be filled by O.E.M.":
+        return serial
+    try:
+        proc = subprocess.run(
+            ["sudo", "dmidecode", "-s", "system-serial-number"],
+            check=False,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+        )
+    except OSError:
+        return ""
+    return proc.stdout.strip()
+
+
+def _serial_width(prefix: str, raw: str) -> int:
+    raw_clean = re.sub(r"[^A-Za-z0-9]", "", raw).upper()
+    if prefix and raw_clean.startswith(prefix) and raw_clean[len(prefix) :].isdigit():
+        return max(1, len(raw_clean) - len(prefix))
+    return 5
+
+
+def _is_unset_serial(prefix: str, raw: str) -> bool:
+    raw_clean = re.sub(r"[^A-Za-z0-9]", "", raw).upper()
+    if not raw_clean or raw_clean == "UNKNOWN" or raw_clean == "TOBEFILLEDBYOEM":
+        return True
+    if raw_clean.isdigit() and set(raw_clean) == {"0"}:
+        return True
+    if re.fullmatch(r"[A-Z0-9]{2,4}0{4,6}", raw_clean):
+        return True
+    if prefix and raw_clean.startswith(prefix):
+        suffix = raw_clean[len(prefix) :]
+        return bool(suffix) and suffix.isdigit() and int(suffix) == 0
+    return False
+
+
+def _normalize_serial(value: str, prefix: str, width: int) -> tuple[str, int, str]:
+    serial = re.sub(r"[^A-Za-z0-9]", "", value).upper()
+    if not serial:
+        _die("No serial number entered")
+    if not prefix:
+        _die("Unable to determine serial prefix from product SKU")
+
+    if serial.isdigit():
+        suffix = serial.zfill(width)
+        full = f"{prefix}{suffix}"
+    elif serial.startswith(prefix):
+        suffix = serial[len(prefix) :]
+        full = serial
+    elif len(serial) > width and serial[-width:].isdigit():
+        suffix = serial[-width:]
+        full = serial
+    else:
+        _die(f"Serial must start with {prefix} or be a {width}-digit numeric suffix")
+
+    if not suffix.isdigit():
+        _die("Serial suffix must be numeric")
+    if len(suffix) != width:
+        _die(f"Serial suffix must be {width} digits for this machine")
+
+    suffix_value = int(suffix, 10)
+    if suffix_value == 0:
+        _die("Refusing to program an all-zero serial suffix")
+    if suffix_value > 0xFFFFFFFF:
+        _die("Serial suffix is too large for the coreboot CFR u32 value")
+
+    return full, suffix_value, suffix
+
+
+def _report_path(order_name: str | None) -> Path | None:
+    if not order_name:
+        return None
+    return _user_home() / "Documents" / "TestSuite" / "orders" / f"{order_name}.json"
+
+
+def _load_report(path: Path | None) -> dict:
+    if not path or not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _set_nested(data: dict, dotted_key: str, value: str) -> None:
+    cur = data
+    parts = dotted_key.split(".")
+    for key in parts[:-1]:
+        next_value = cur.get(key)
+        if not isinstance(next_value, dict):
+            next_value = {}
+            cur[key] = next_value
+        cur = next_value
+    cur[parts[-1]] = value
+
+
+def _save_report(path: Path | None, data: dict) -> None:
+    if not path:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f"{path.name}.tmp.{os.getpid()}")
+    tmp.write_text(json.dumps(data, indent="\t") + "\n", encoding="utf-8")
+    tmp.replace(path)
+
+
+def _update_report(order_name: str | None, full_serial: str, suffix: str, efivar_path: Path) -> None:
+    path = _report_path(order_name)
+    report = _load_report(path)
+    if not report:
+        return
+
+    _set_nested(report, "Build.Serial.Target", full_serial)
+    _set_nested(report, "Build.Serial.Suffix", suffix)
+    _set_nested(report, "Build.Serial.Efivar", str(efivar_path))
+    _set_nested(report, "Build.Serial.Status", "Programmed")
+    _set_nested(report, "Tests.Serial", "Pass")
+    _set_nested(
+        report,
+        "Build.Serial.ProgrammedAt",
+        datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+    )
+    _save_report(path, report)
+
+    if order_name:
+        subprocess.run(["ts-git-sync", order_name], check=False)
+
+
+def _efivar_path() -> Path:
+    base = Path("/sys/firmware/efi/efivars")
+    return base / f"{SERIAL_VAR}-{CFR_GUID}"
+
+
+def _write_efivar(path: Path, suffix_value: int) -> None:
+    helper = r"""
+import os
+import struct
+import subprocess
+import sys
+
+path = sys.argv[1]
+value = int(sys.argv[2])
+attrs = int(sys.argv[3], 0)
+
+if os.path.exists(path):
+    subprocess.run(["chattr", "-i", path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+data = struct.pack("<II", attrs, value)
+fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
+with os.fdopen(fd, "wb", closefd=True) as fh:
+    fh.write(data)
+
+with open(path, "rb") as fh:
+    readback = fh.read(len(data))
+if readback != data:
+    raise SystemExit(f"efivar readback mismatch: expected {data.hex()}, got {readback.hex()}")
+"""
+    command = [sys.executable, "-c", helper, str(path), str(suffix_value), hex(EFI_ATTRS)]
+    if os.geteuid() != 0:
+        command.insert(0, "sudo")
+    subprocess.run(command, check=True)
+
+
+def _read_efivar_suffix(path: Path) -> int | None:
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return None
+    if len(data) < 8:
+        return None
+    attrs, value = struct.unpack("<II", data[:8])
+    if attrs != EFI_ATTRS:
+        return None
+    return value
+
+
+def _dialog_available() -> bool:
+    return bool(os.environ.get("TERM")) and Path("/dev/tty").exists() and shutil.which("dialog")
+
+
+def _prompt_serial(prefix: str, width: int, raw: str, no_dialog: bool) -> str | None:
+    example = f"{prefix}{1:0{width}d}" if prefix else "Y300001"
+    message = (
+        f"Current serial is unset ({raw or 'blank'}).\n\n"
+        f"Enter the full serial number, for example {example}."
+    )
+
+    if not no_dialog and _dialog_available():
+        proc = subprocess.run(
+            ["dialog", "--stdout", "--title", "Serial Number", "--inputbox", message, "12", "72", ""],
+            check=False,
+            text=True,
+            stdout=subprocess.PIPE,
+        )
+        subprocess.run(["clear"], check=False)
+        if proc.returncode != 0:
+            return None
+        return proc.stdout.strip()
+
+    print(message, file=sys.stderr)
+    try:
+        return input("Serial number: ").strip()
+    except EOFError:
+        return None
+
+
+def _confirm(full_serial: str, suffix_value: int, path: Path, dry_run: bool, no_dialog: bool) -> bool:
+    payload = struct.pack("<II", EFI_ATTRS, suffix_value).hex()
+    message = (
+        f"Write {full_serial} to coreboot CFR EFI variable store?\n\n"
+        f"{path}\n\n"
+        f"Payload: {payload}\n\n"
+        "The SMBIOS serial will not update until the machine reboots."
+    )
+    if dry_run:
+        print(f"[DRY RUN] {message}", file=sys.stderr)
+        return True
+
+    if not no_dialog and _dialog_available():
+        proc = subprocess.run(
+            ["dialog", "--title", "Confirm Serial", "--yesno", message, "16", "86"],
+            check=False,
+        )
+        subprocess.run(["clear"], check=False)
+        return proc.returncode == 0
+
+    print(message, file=sys.stderr)
+    try:
+        return input("Write serial? [y/N] ").strip().lower() == "y"
+    except EOFError:
+        return False
+
+
+def _reboot_prompt(no_dialog: bool) -> None:
+    message = (
+        "Serial number written.\n\n"
+        "Continuing without SMBIOS serial verification. The SMBIOS serial should "
+        "update after the next reboot."
+    )
+    print(message, file=sys.stderr)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Program the StarLabs coreboot CFR serial_number EFI variable")
+    parser.add_argument("order_name", nargs="?", help="Order name, e.g. SLS17389")
+    parser.add_argument("serial", nargs="?", help="Full serial, or numeric suffix")
+    parser.add_argument("--serial", dest="serial_opt", help="Full serial, or numeric suffix")
+    parser.add_argument("--check", action="store_true", help="Return success if the CFR efivar matches the serial")
+    parser.add_argument("--dry-run", action="store_true", help="Validate and print the write without touching efivarfs")
+    parser.add_argument("--no-dialog", action="store_true", help="Use plain stdin/stdout prompts instead of dialog")
+    args = parser.parse_args()
+
+    prefix = _product_sku()
+    raw = _product_serial_raw()
+    width = _serial_width(prefix, raw)
+    path = _efivar_path()
+    report = _load_report(_report_path(args.order_name))
+    report_target = ""
+    if isinstance(report.get("Build"), dict) and isinstance(report["Build"].get("Serial"), dict):
+        report_target = str(report["Build"]["Serial"].get("Target") or "").strip()
+
+    if args.check:
+        entered = args.serial_opt or args.serial or report_target
+        if not entered:
+            print("No serial target available", file=sys.stderr)
+            return 1
+        full_serial, suffix_value, suffix = _normalize_serial(entered, prefix, width)
+        actual_value = _read_efivar_suffix(path)
+        if actual_value == suffix_value:
+            print(f"Programmed: {full_serial} ({suffix})", file=sys.stderr)
+            return 0
+        print(
+            f"Not programmed: expected suffix {suffix_value}, got {actual_value if actual_value is not None else 'missing'}",
+            file=sys.stderr,
+        )
+        return 1
+
+    if not args.serial and not args.serial_opt and not _is_unset_serial(prefix, raw):
+        print(f"Serial already set: {raw}", file=sys.stderr)
+        return 0
+
+    entered = args.serial_opt or args.serial
+    if not entered:
+        entered = _prompt_serial(prefix, width, raw, args.no_dialog)
+    if not entered:
+        print("Serial programming cancelled", file=sys.stderr)
+        return 2
+
+    full_serial, suffix_value, suffix = _normalize_serial(entered, prefix, width)
+    if not _confirm(full_serial, suffix_value, path, args.dry_run, args.no_dialog):
+        print("Serial programming cancelled", file=sys.stderr)
+        return 2
+
+    if args.dry_run:
+        print(f"[DRY RUN] serial={full_serial} suffix={suffix_value} efivar={path}", file=sys.stderr)
+        return 0
+
+    _write_efivar(path, suffix_value)
+    _update_report(args.order_name, full_serial, suffix, path)
+    _reboot_prompt(args.no_dialog)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

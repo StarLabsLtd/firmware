@@ -113,6 +113,7 @@ ALLOW_UNTESTED_COREBOOT=0
 REINSTALL=0
 SET_MIRROR_FLAG=0
 CAMERA_ONLY=0
+IGNORE_AC=0
 HAS_BATTERY=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
@@ -140,11 +141,12 @@ COREBOOT_ALLOWED_SKUS=(
 usage()
 {
 	cat <<EOF
-Usage: $0 [--camera-only] [--reinstall] [--set-mirror-flag] [--help]
+Usage: $0 [--camera-only] [--reinstall] [--ignore-ac] [--set-mirror-flag] [--help]
 
   --camera-only                 Only check and update the StarFighter camera.
   --reinstall                   Reinstall firmware even when the target version
                                 already matches the installed version.
+  --ignore-ac                   Skip charger detection when AC status is wrong.
   --set-mirror-flag             Set the EC mirror flag and shut the system down.
   --help                        Show this help text.
 EOF
@@ -159,6 +161,9 @@ parse_args()
 			;;
 		--reinstall)
 			REINSTALL=1
+			;;
+		--ignore-ac)
+			IGNORE_AC=1
 			;;
 		--camera-only)
 			CAMERA_ONLY=1
@@ -462,6 +467,10 @@ ensure_sudo()
 
 wait_for_charger()
 {
+	if (( IGNORE_AC == 1 )); then
+		return 0
+	fi
+
 	if (( HAS_BATTERY == 0 )); then
 		return 0
 	fi
@@ -935,7 +944,11 @@ add_prerequisite_tasks()
 
 	if power_checks_required; then
 		if (( HAS_BATTERY == 1 )); then
-			add_task prereq-ac "Charger connected"
+			if (( IGNORE_AC == 1 )); then
+				add_task prereq-ac "Charger connected" skipped "--ignore-ac"
+			else
+				add_task prereq-ac "Charger connected"
+			fi
 			add_task prereq-battery "Battery at least 30%"
 		else
 			add_task prereq-ac "Charger connected" not-applicable "no battery detected"
@@ -1059,7 +1072,9 @@ check_flashrom_task()
 run_prerequisite_checks()
 {
 	if power_checks_required && (( HAS_BATTERY == 1 )); then
-		check_charger_task || return 1
+		if (( IGNORE_AC == 0 )); then
+			check_charger_task || return 1
+		fi
 		check_battery_task || return 1
 	fi
 
@@ -1068,6 +1083,16 @@ run_prerequisite_checks()
 		check_secure_boot_task || return 1
 		check_flashrom_task || return 1
 	fi
+}
+
+warn_ignore_ac()
+{
+	if (( IGNORE_AC == 0 )); then
+		return 0
+	fi
+
+	printf "\n%sWarning: --ignore-ac is active.%s\n" "$YELLOW" "$RESET" >&2
+	printf "The updater will not verify or wait for charger power. Use this only when the charger is connected but AC status is reported incorrectly.\n" >&2
 }
 
 find_starlite_keyboard_version()
@@ -1661,6 +1686,7 @@ main()
 	fi
 
 	show_release_notes
+	warn_ignore_ac
 
 	if ! ensure_sudo; then
 		printf "\n%sSudo authentication is required to continue.%s\n" "$RED" "$RESET" >&2

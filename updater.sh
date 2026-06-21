@@ -515,9 +515,23 @@ offer_reboot_to_firmware_setup()
 prompt_shutdown_after_coreboot_update()
 {
 	printf "\n%sFirmware update complete.%s\n" "$GREEN" "$RESET"
-	printf "To finish the update safely, shut the system down, disconnect the charger, and wait about 12 seconds until the LEDs flicker.\n"
-	printf "Shutting down automatically in 8 seconds.\n"
-	sleep 8
+	printf "To finish the update safely:\n"
+	printf "  1. Let this updater shut the system down.\n"
+	if b6a_non_coreboot; then
+		printf "  2. Leave the charger connected.\n"
+		printf "  3. Press the power button to finish the update.\n"
+	else
+		printf "  2. Disconnect the charger.\n"
+		printf "  3. Wait about 12 seconds until the LEDs flicker.\n"
+		printf "  4. Reconnect the charger, then power back on.\n"
+	fi
+	if (( USE_TTY && HAS_TTY_INPUT )); then
+		printf "Press Enter to shut down now, or wait 60 seconds.\n"
+		read -r -t 60 _ </dev/tty || true
+	else
+		printf "Shutting down automatically in 60 seconds.\n"
+		sleep 60
+	fi
 	return 0
 }
 
@@ -607,7 +621,7 @@ print_iomem_relaxed_instructions()
 		;;
 	*" fedora "*)
 		printf "Fedora: run:\n" >&2
-		printf "  sudo grubby --update-kernel=ALL --no-etc-grub-update --args=\"iomem=relaxed\"\n" >&2
+		printf "  sudo grubby --update-kernel=ALL --args=\"iomem=relaxed\" --no-etc-grub-update\n" >&2
 		printf "  reboot\n" >&2
 		;;
 	*" arch "*|*" endeavouros "*|*" manjaro "*)

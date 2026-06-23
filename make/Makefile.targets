@@ -6,6 +6,5 @@ meta_type		= X-System
 meta_format		= pair
 meta_no_ux_capsule	= 0
 meta_device_flags	= $(if $(filter 1 true yes,$(meta_no_ux_capsule)),no-ux-capsule,)
-meta_branch		= true
 meta_guid_1		= $(coreboot_caps)
 file_type		= cap

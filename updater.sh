@@ -118,8 +118,8 @@ HAS_BATTERY=0
 
 CAMERA_TARGET_VERSION="HYGD-240907-A"
 CAMERA_UPDATES_ENABLED=1
-TRACKPAD_TARGET_VERSION="8197"
-TRACKPAD_TARGET_VERSION_HEX="2005"
+TRACKPAD_TARGET_VERSION="8199"
+TRACKPAD_TARGET_VERSION_HEX="2007"
 COREBOOT_ALLOWED_SKUS=(
 	F2
 	F1
@@ -1353,8 +1353,8 @@ update_trackpad()
 	fi
 
 	tool="$(ensure_binary pixtpfwup)"
-	fw="${WORKING_DIR}/PT279_V2005.bin"
-	download_to "trackpad/starfighter/PT279_V2005.bin" "$fw"
+	fw="${WORKING_DIR}/PT279_V2007.bin"
+	download_to "trackpad/starfighter/PT279_V2007.bin" "$fw"
 	current_version="$(trackpad_current_version "$tool" "$STARFIGHTER_TRACKPAD_NODE" || true)"
 
 	if trackpad_version_matches_target "$current_version" && (( REINSTALL == 0 )); then

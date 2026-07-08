@@ -70,7 +70,7 @@ $(PAYLOAD):						| $(WORK_DIR)
 	else \
 		sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="$(version)"/' $(COREBOOT_DIR)/configs/config.starlabs_$(model); \
 		rm -rf $(COREBOOT_DIR)/build 2>/dev/null; \
-		make -C $(COREBOOT_DIR) clean; \
+		make -C $(COREBOOT_DIR) distclean; \
 		make -C $(COREBOOT_DIR) defconfig KBUILD_DEFCONFIG=configs/config.starlabs_$(model); \
 		make -C $(COREBOOT_DIR) -j $(shell nproc); \
 		if [[ ! -f "$(COREBOOT_DIR)/build/coreboot.cap" ]]; then \

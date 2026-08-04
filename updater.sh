@@ -37,6 +37,7 @@ else
 	SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
 fi
 
+FIRMWARE_RELEASE_BRANCH="26.07"
 COREBOOT_TARGET_VERSION="26.06"
 
 firmware_raw_branch()
@@ -56,7 +57,7 @@ firmware_raw_branch()
 		fi
 	fi
 
-	printf "%s\n" "$COREBOOT_TARGET_VERSION"
+	printf "%s\n" "$FIRMWARE_RELEASE_BRANCH"
 }
 
 firmware_raw_repo()

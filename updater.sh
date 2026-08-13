@@ -28,60 +28,15 @@ fi
 
 WORKING_DIR="$(mktemp -d /tmp/starlabs-fwup.XXXXXX)"
 trap 'rm -rf "$WORKING_DIR"' EXIT
-SCRIPT_SOURCE="$0"
-SCRIPT_FROM_STDIN=0
-if [[ "$SCRIPT_SOURCE" == "bash" || "$SCRIPT_SOURCE" == "-bash" ]]; then
+if [[ "$0" == "bash" || "$0" == "-bash" ]]; then
 	SCRIPT_DIR="$PWD"
-	SCRIPT_FROM_STDIN=1
 else
-	SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
+	SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 fi
 
-FIRMWARE_RELEASE_BRANCH="26.07"
-COREBOOT_TARGET_VERSION="26.06"
-
-firmware_raw_branch()
-{
-	local branch=""
-
-	if [[ -n "${STARLABS_FIRMWARE_BRANCH:-}" ]]; then
-		printf "%s\n" "$STARLABS_FIRMWARE_BRANCH"
-		return 0
-	fi
-
-	if [[ "$SCRIPT_FROM_STDIN" != "1" ]] && command -v git >/dev/null 2>&1; then
-		branch="$(git -C "$SCRIPT_DIR" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
-		if [[ -n "$branch" ]]; then
-			printf "%s\n" "$branch"
-			return 0
-		fi
-	fi
-
-	printf "%s\n" "$FIRMWARE_RELEASE_BRANCH"
-}
-
-firmware_raw_repo()
-{
-	local branch="$1"
-	local base="${STARLABS_FIRMWARE_RAW_BASE:-https://raw.githubusercontent.com/StarLabsLtd/firmware}"
-
-	if [[ -n "${STARLABS_FIRMWARE_REPO:-}" ]]; then
-		printf "%s\n" "${STARLABS_FIRMWARE_REPO%/}"
-		return 0
-	fi
-
-	case "$branch" in
-	refs/*)
-		printf "%s/%s\n" "${base%/}" "$branch"
-		;;
-	*)
-		printf "%s/refs/heads/%s\n" "${base%/}" "$branch"
-		;;
-	esac
-}
-
-FIRMWARE_BRANCH="$(firmware_raw_branch)"
-REPO="$(firmware_raw_repo "$FIRMWARE_BRANCH")"
+COREBOOT_TARGET_VERSION="26.08"
+REPO="${STARLABS_FIRMWARE_REPO:-https://raw.githubusercontent.com/StarLabsLtd/firmware/refs/heads/main}"
+REPO="${REPO%/}"
 RAW_SKU="$(cat /sys/class/dmi/id/product_sku)"
 case "$RAW_SKU" in
 I5-MXC|I5-SB)

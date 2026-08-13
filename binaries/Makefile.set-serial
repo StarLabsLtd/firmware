@@ -1,0 +1,23 @@
+CLANG := clang
+LD := ld
+
+EDK2_PATH ?= ../../edk2
+
+CFLAGS := --target=x86_64-pc-win32-coff -I$(EDK2_PATH)/MdePkg/Include \
+	-I$(EDK2_PATH)/MdePkg/Include/X64 -ffreestanding -fshort-wchar \
+	-mno-red-zone -fno-stack-protector -fno-builtin -Wall -Wextra -Werror
+LDFLAGS := -mi386pep --subsystem 10 --entry efi_main --image-base 0 \
+	--enable-reloc-section
+
+.PHONY: all clean
+
+all: set-serial.efi
+
+set-serial.obj: set-serial.c
+	$(CLANG) $(CFLAGS) -c $< -o $@
+
+set-serial.efi: set-serial.obj
+	$(LD) $(LDFLAGS) -o $@ $<
+
+clean:
+	rm -f set-serial.obj set-serial.efi

@@ -1,25 +1,23 @@
 General Updates:
-* Updated Intel microcode and Intel FSP binaries, including public IoT FSP builds where available
-* Added capsule-on-disk handoff support, including AMD capsule update support
-* Added runtime firmware setting support for safe options and Merlin EC persistent storage
+* Added support for StarBook Mk VIII
+* Added persistent embedded-controller diagnostics for post-reset fault analysis
+* Added runtime controls for firmware settings
 
-New Options:
-* AC-connect power-on control
-* IBECC support on supported platforms
+New options:
+* [Power Reporting] Option to not tell the OS that the system is not charging with AC connected
+* [Automatic Start] Start automatically when a charger is connected, power is restored after a loss or never.
+* [Audio Device ID] Interim option to use the old audio IDs, required for Windows until all drivers are updated
 
 Security Updates:
-* Enabled SMM BIOS write protection on StarLite Mk III/IV
-* Improved TPM probing so TPM ACPI tables are only exposed for present TPMs
-* Fixed TPM2 event log entry packing for better PCR reconstruction
-* Hid Intel PTT when the Management Engine is disabled and added split FSP lockdown policy
+* Improved TPM detection and event-log handoff
+* Updated the Secure Boot revocation database
 
 Bug Fixes / Enhancements:
-* Charge limit settings now persist in EC storage and apply after full power-off (G3)
-* [StarFighter] Touchpad report rate can now be applied at runtime
-* Improved S4/S5 wake handling and ACPI Time and Alarm Device support
-* Improved hibernation resume reliability when firmware wake alarms are enabled
-* Fixed USB hub topology, Bluetooth disable, and USB-C data-device descriptions across supported boards
-* Fixed Type-C DisplayPort VBT types and tolerated absent Thunderbolt aliases
-* Improved low-battery and AC handling on Merlin EC boards
-* Improved AMD Cezanne sleep, power-button, and GPIO IRQ handling
-* Reduced unnecessary ACPI devices when hardware is absent or disabled
+* Fixed regression with PCAT legacy interrupts
+* Both ports can be used for empty or absent battery
+* Fixed invalid battery capacity data being shown in firmware setup
+* Reduced unnecessary boot delays searching for slow USB drives
+* Switch to new audio codec IDs, to pick up linux quirks designed to microphone noise
+* [StarBook Mk V] Switch to Software Connection Manager to work around linux bug
+* [StarFighter Mk I] More power efficient GPIO config
+* [StarBook Mk IVr2] More power efficient GPIO config

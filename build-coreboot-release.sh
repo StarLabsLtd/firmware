@@ -13,6 +13,7 @@ build_targets=(
 	starbook_mtl
 	starbook_adl_n
 	starbook_rpl
+	starbook_rpl_u
 	starbook_cezanne
 	starbook_adl
 	starbook_tgl

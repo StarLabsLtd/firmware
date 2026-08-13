@@ -64,6 +64,12 @@ sku		= B62-I
 hwid		= 12122d1c-c383-5583-9cb7-3ba8d220913d
 coreboot_caps	= 6d5381ba-53ea-426e-bf5d-a9c722b1f45f
 
+else ifeq ($(model),starbook_rpl_u)
+name		= StarBook Horizon Plus
+sku		= B8
+hwid		= 808d4a4d-30cd-526d-8420-7b95d0c5f41d
+coreboot_caps	= 41627bd8-70a0-490d-b834-5de90ccfb56d
+
 else ifeq ($(model),byte_adl)
 name		= Byte MkII
 sku		= Y2

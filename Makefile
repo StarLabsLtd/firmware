@@ -18,49 +18,29 @@ date = $(shell date '+%Y-%m-%d')
 BOARD_DIR = $(model)
 OUTPUT_DIR = $(BOARD_DIR)/$(version)
 
-WORK_DIR = $(OUTPUT_DIR)/.work
 ROMS_DIR = roms
 
-RELEASE_NOTES = $(WORK_DIR)/release_notes.md
-METAINFO = $(WORK_DIR)/$(sku).$(target).metainfo.xml
-PAYLOAD = $(WORK_DIR)/$(sku).$(file_type)
+RELEASE_NOTES = $(OUTPUT_DIR)/release_notes.md
+METAINFO = $(OUTPUT_DIR)/$(sku).$(target).metainfo.xml
+PAYLOAD = $(OUTPUT_DIR)/$(sku).$(file_type)
 PAYLOAD_FILENAME = $(notdir $(PAYLOAD))
-CAB = $(OUTPUT_DIR)/$(model).cab
+CAB = $(OUTPUT_DIR)/.work/$(model).cab
 ROM = $(ROMS_DIR)/$(sku).bios
-STARTUP_NSH = $(WORK_DIR)/startup.nsh
-EFI_ZIP = $(OUTPUT_DIR)/efi-$(sku).zip
 RELEASES_README = README.md
 
 SUPPORT_LINK = https://support.starlabs.systems/kb/firmware/getting-started
-CAB_URL = $(link)/$(notdir $(CAB))
-EFI_ZIP_URL = $(link)/$(notdir $(EFI_ZIP))
 
-.SILENT: help $(STARTUP_NSH) $(METAINFO)
+.SILENT: help $(METAINFO)
 
 $(OUTPUT_DIR):
-	mkdir -p $@
-
-$(WORK_DIR):						| $(OUTPUT_DIR)
-	rm -rf $@
 	mkdir -p $@
 
 $(ROMS_DIR):
 	mkdir -p $@
 
-CAPSULE_APP_EFI ?= binaries/CapsuleApp.efi
-EFI_PAYLOAD = $(PAYLOAD)
-EFI_TOOL_EFI = $(CAPSULE_APP_EFI)
-
-$(CAPSULE_APP_EFI):
-	echo "ERROR: Missing $@"
-	echo "       Provide an EDK2 CapsuleApp build (UEFI Shell app) at this path,"
-	echo "       or override CAPSULE_APP_EFI=/path/to/CapsuleApp.efi"
-	exit 1
-
-
 COREBOOT_DIR ?= "../coreboot"
 
-$(PAYLOAD):						| $(WORK_DIR)
+$(PAYLOAD):						| $(OUTPUT_DIR)
 	@if [[ -n "$(binary)" ]]; then \
 		if [[ ! -f "$(binary)" ]]; then \
 			echo "ERROR: binary file not found: $(binary)"; \
@@ -107,25 +87,16 @@ $(ROM):						$(PAYLOAD) | $(ROMS_DIR)
 
 # Standard CAB
 METAINFO_DEPS = Makefile make/Makefile.metadata make/Makefile.targets make/Makefile.models
-$(METAINFO):					$(METAINFO_DEPS) $(RELEASE_NOTES) | $(WORK_DIR)
+$(METAINFO):					$(METAINFO_DEPS) $(RELEASE_NOTES) | $(OUTPUT_DIR)
 	printf '$(metadata)' > $@
 
-$(CAB):						$(METAINFO) $(PAYLOAD) $(RELEASE_NOTES) | $(OUTPUT_DIR)
+$(CAB):						$(METAINFO) $(PAYLOAD) $(RELEASE_NOTES)
+	mkdir -p $(dir $@)
 	gcab -cn $@ $^
-
-# EFI Shell
-STARTUP_NSH_DEPS = Makefile make/Makefile.nsh_script
-$(STARTUP_NSH):					$(STARTUP_NSH_DEPS) $(RELEASE_NOTES) | $(WORK_DIR)
-	printf '$(nsh_script)' > $@
-
-$(EFI_ZIP):					$(STARTUP_NSH)					\
-						$(EFI_PAYLOAD)				\
-						$(EFI_TOOL_EFI)
-	zip -rj $@ $^
 
 
 # Release notes
-$(RELEASE_NOTES):				| $(WORK_DIR)
+$(RELEASE_NOTES):				| $(OUTPUT_DIR)
 	if [[ ! -z "$(release_notes)" && -f "$(release_notes)" ]]; then \
 	  cp $(release_notes) $(RELEASE_NOTES); \
 	else \
@@ -175,7 +146,7 @@ push_to_git:
 		printf "\n#### [$(version)] $(date)\n" >> "$(RELEASES_README)"; \
 		printf '$(readme_release_notes)\n' >> "$(RELEASES_README)"; \
 	fi
-	git add $(CAB) $(EFI_ZIP) $(ROM) $(RELEASES_README)
+	git add $(METAINFO) $(PAYLOAD) $(RELEASE_NOTES) $(ROM) $(RELEASES_README)
 	if git diff --cached --quiet; then \
 		echo "NOTE: No changes to commit"; \
 	else \
@@ -189,25 +160,26 @@ push_to_git:
 			printf "Date: %s\n" "$(date)"; \
 			printf "Support: %s\n" "$(SUPPORT_LINK)"; \
 			printf "\nArtifacts:\n"; \
-			printf "  CAB: %s\n" "$(CAB_URL)"; \
-			printf "  EFI ZIP: %s\n" "$(EFI_ZIP_URL)"; \
+			printf "  Capsule: %s\n" "$(link)/$(notdir $(PAYLOAD))"; \
+			printf "  Metadata: %s\n" "$(link)/$(notdir $(METAINFO))"; \
 			printf "\nRelease notes:\n"; \
 			if [[ -f "$(RELEASE_NOTES)" ]]; then awk '{ sub(/\r$$/, ""); print }' "$(RELEASE_NOTES)"; fi; \
 		} | git commit -F -; \
 	fi
 
-release: 					$(CAB) $(EFI_ZIP) $(ROM)
+release: 					$(PAYLOAD) $(METAINFO) $(RELEASE_NOTES) $(ROM)
 
 ifeq ($(PUSH),1)
-	$(MAKE) push_to_git
+release: push_to_git
 endif
-	rm -rf "$(WORK_DIR)"
+
+cab: 						$(CAB)
 
 help:
 	printf "Star Labs Firmware\n\n"
 	printf "Usage\n"
 	printf "\nThis repo stores coreboot releases as:\n"
-	printf "  <board>/<version>/{<board>.cab, efi-<sku>.zip}\n"
+	printf "  <board>/<version>/{<sku>.cap, <sku>.coreboot.metainfo.xml, release_notes.md}\n"
 	printf "  roms/<sku>.bios\n"
 
 	printf "\nmodel:\n"
@@ -240,4 +212,4 @@ help:
 	printf "If a .rom/.bios payload is provided, it is also copied to roms/<sku>.bios.\n\n"
 	printf "Set meta_no_ux_capsule=1 to add LVFS::DeviceFlags=no-ux-capsule.\n\n"
 
-.PHONY: help release push_to_git
+.PHONY: help release cab push_to_git

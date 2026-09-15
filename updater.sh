@@ -486,6 +486,12 @@ version_ge()
 	[[ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" == "$2" ]]
 }
 
+coreboot_uses_capsules()
+{
+	[[ "$BIOS_VENDOR" == "coreboot" && -n "$BIOS_VERSION" ]] &&
+		version_ge "$BIOS_VERSION" "26.05"
+}
+
 firmware_setup_path()
 {
 	if [[ -n "$BIOS_VERSION" ]] && version_ge "$BIOS_VERSION" "26.02"; then
@@ -897,7 +903,7 @@ discover_mirror_flag()
 		return
 	fi
 
-	if b6a_non_coreboot && task_is_wanted coreboot; then
+	if b6a_non_coreboot && ! coreboot_uses_capsules && task_is_wanted coreboot; then
 		mark_task_wanted mirror-flag
 		set_task mirror-flag pending "required after B6-A flash"
 		return
@@ -1697,6 +1703,11 @@ main()
 			printf "\n%sAll firmware is already up to date.%s\n" "$GREEN" "$RESET"
 		fi
 		return 0
+	fi
+
+	if task_is_wanted coreboot && coreboot_uses_capsules; then
+		printf "\n%sThis firmware must be updated through LVFS.%s\n" "$YELLOW" "$RESET"
+		return 1
 	fi
 
 	show_release_notes

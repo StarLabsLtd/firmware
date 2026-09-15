@@ -1,0 +1,62 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+<component type="firmware">
+  <id>com.starlabs.starfighter.rpl</id>
+  <name>StarFighter MkI coreboot firmware</name>
+  <summary>coreboot firmware for StarFighter MkI</summary>
+  <description>
+    <p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+  </description>
+  <provides>
+    <firmware type="flashed">ac75492e-18ad-477d-a719-710a0ddb6c2c</firmware>
+  </provides>
+  <requires>
+    <id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+    <hardware>9299159f-8ac4-5e25-81f3-e8cf2ae62f32</hardware>
+    <firmware compare="ge" version="26.05"/>
+  </requires>
+  <url type="homepage">https://starlabs.systems</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <developer_name>Star Labs</developer_name>
+  <custom>
+    <value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+    <value key="LVFS::VersionFormat">pair</value>
+  </custom>
+  <categories>
+    <category>X-System</category>
+  </categories>
+  <releases>
+    <release urgency="medium" version="26.09" date="2026-09-15">
+      <checksum filename="F1.cap" target="content"/>
+      <description>
+        <p>General Updates:</p>
+        <ul>
+          <li>Improved runtime application of supported firmware settings, without requiring a restart</li>
+          <li>Improved firmware and embedded-controller recovery and diagnostics after an unexpected reset</li>
+        </ul>
+        <p>New Options:</p>
+        <ul>
+          <li>[Charging Priority] Choose Automatic, Charging, or Performance power policy. Automatic reserves adapter power for charging while the battery is more than 20elow its configured target</li>
+        </ul>
+        <p>Security Updates:</p>
+        <ul>
+          <li>Improved TPM event-log handling, including measurements for EFI boot images and GPT data</li>
+          <li>Protected RTC CMOS settings on supported Intel systems</li>
+        </ul>
+        <p>Bug Fixes / Enhancements:</p>
+        <ul>
+          <li>Improved USB-C and USB hub recovery, including SuperSpeed devices after reset</li>
+          <li>Improved Windows device power management for Wi-Fi, Bluetooth, touch, and PCIe devices</li>
+          <li>Improved capsule-update reliability and preservation of firmware settings</li>
+          <li>Improved firmware setup battery reporting and boot logo recovery</li>
+          <li>Improved charging behaviour under heavy system load</li>
+          <li>[StarLite Mk V] Corrected accelerometer face-up and face-down orientation</li>
+          <li>[StarBook Mk VI AMD] Improved wake from suspend</li>
+          <li>[StarFighter] Touchpad settings now apply immediately</li>
+          <li>[Horizon / StarBook] Corrected USB port descriptions and Type-C location data</li>
+          <li>[Horizon / StarBook Mk VII-U] Corrected 13.4-inch ISO keyboard Backslash and Hash key mapping</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

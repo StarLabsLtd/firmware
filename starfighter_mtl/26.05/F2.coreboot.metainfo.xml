@@ -1,0 +1,54 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+<component type="firmware">
+  <id>com.starlabs.F2.coreboot</id>
+  <name>StarFighter MkII coreboot firmware</name>
+  <summary>coreboot firmware for StarFighter MkII</summary>
+  <description>
+    <p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+  </description>
+  <provides>
+    <firmware type="flashed">75b29ff6-e882-41c7-903f-5af89e004113</firmware>
+  </provides>
+  <requires>
+    <id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+    <hardware>daf3f999-158b-5339-917b-117d8707fee7</hardware>
+    <firmware compare="ge" version="26.04"/>
+  </requires>
+  <url type="homepage">https://starlabs.systems</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <developer_name>Star Labs</developer_name>
+  <custom>
+    <value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+    <value key="LVFS::VersionFormat">pair</value>
+    <value key="LVFS::DeviceFlags">no-ux-capsule</value>
+  </custom>
+  <categories>
+    <category>X-System</category>
+  </categories>
+  <releases>
+    <release urgency="medium" version="26.05" date="2026-04-30">
+      <checksum filename="F2.cap" target="content"/>
+      <description>
+        <p>General Updates:</p>
+        <ul>
+          <li>Added support for AMD Cezanne models (Byte Mk I and StarBook Mk VI)</li>
+          <li>Added coreboot support for Byte Mk I and StarBook Mk VI-AMD</li>
+        </ul>
+        <p>New Options:</p>
+        <ul>
+          <li>Custom power profile controls for PL1, PL2, PL4, and CPU thermal throttle temperature</li>
+          <li>Per-port PCIe power management controls</li>
+          <li>HDA DSP firmware setup toggle</li>
+        </ul>
+        <p>Bug Fixes / Enhancements:</p>
+        <ul>
+          <li>Reduced false CPU throttling from charge-controller PROCHOT while preserving brown-out protection</li>
+          <li>[StarFighter] Reduced touchpad startup delay and fixed touchpad settings not being applied</li>
+          <li>[StarFighter] Improved Wi-Fi, Bluetooth, and touchpad setup handling</li>
+          <li>[StarLite Mk V] Improved battery free operation</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

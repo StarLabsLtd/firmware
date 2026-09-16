@@ -1,0 +1,61 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+<component type="firmware">
+  <id>com.starlabs.starbook.adl.n</id>
+  <name>StarBook MkVII-N coreboot firmware</name>
+  <summary>coreboot firmware for StarBook MkVII-N</summary>
+  <description>
+    <p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+  </description>
+  <provides>
+    <firmware type="flashed">231fcee3-2374-416d-8218-088c90199a77</firmware>
+  </provides>
+  <requires>
+    <id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+    <hardware>a03a57fd-a71b-5166-a2f2-5eef4ad5c22d</hardware>
+    <firmware compare="ge" version="26.05"/>
+  </requires>
+  <url type="homepage">https://starlabs.systems</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <developer_name>Star Labs</developer_name>
+  <custom>
+    <value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+    <value key="LVFS::VersionFormat">pair</value>
+  </custom>
+  <categories>
+    <category>X-System</category>
+  </categories>
+  <releases>
+    <release urgency="medium" version="26.06" date="2026-06-16">
+      <checksum filename="B7-N.cap" target="content"/>
+      <description>
+        <p>General Updates:</p>
+        <ul>
+          <li>Added support for AMD Cezanne models (Byte Mk I and StarBook Mk VI)</li>
+        </ul>
+        <p>Bug Fixes / Enhancements:</p>
+        <ul>
+          <li>Improved capsule update reliability</li>
+          <li>Fixed hibernation failures caused by inconsistent payload memory maps</li>
+          <li>Ignored malformed OS-created UEFI variable records instead of blocking boot</li>
+          <li>Avoided EDK2 serial port reinitialisation</li>
+          <li>Dropped shell networking when networking support is disabled</li>
+          <li>Disable TPM1</li>
+          <li>Fixed PCR0 Reconstruction</li>
+          <li>Improved HiDPI logo, console text, and graphics handoff handling</li>
+          <li>Reduced false CPU throttling from charge-controller PROCHOT while preserving brown-out protection</li>
+          <li>Improved low battery handling with a warning splash, adjusted wake threshold, and graceful critical battery shutdown</li>
+          <li>Dynamically set PL4 from charger and battery state</li>
+          <li>Fixed memory speed changes reusing stale training data</li>
+          <li>Fixed ANX7447 dead battery charging</li>
+          <li>Added Fn+F hot key for 100 0.000000an duty</li>
+          <li>Stored the serial number in firmware variables</li>
+          <li>[StarFighter] Reduced touchpad startup delay and fixed touchpad settings not being applied</li>
+          <li>[StarLite Mk V] Improved battery free operation and fixed auto-rotation on Ubuntu</li>
+          <li>[StarBook MkVIr2-Intel] Fixed blue sleep LED breathing</li>
+          <li>Improved keyboard scan debounce to reduce ghosting and missed keys</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

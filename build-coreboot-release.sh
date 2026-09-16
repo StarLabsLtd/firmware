@@ -32,7 +32,7 @@ Usage:
 
 Notes:
   - If <payload> is provided, it is used as the release payload.
-  - .cap inputs generate the CAB/EFI artifacts, but roms/<sku>.bios still comes from
+  - .cap inputs are retained with release metadata, but roms/<sku>.bios still comes from
     COREBOOT_DIR/build/coreboot.rom if available.
   - .rom/.bios inputs also populate roms/<sku>.bios directly.
   - If no payload is provided, coreboot is built from COREBOOT_DIR (default: ../coreboot).

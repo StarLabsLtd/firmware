@@ -1,0 +1,60 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+<component type="firmware">
+  <id>com.starlabs.labtop.cml</id>
+  <name>LabTop MkIV coreboot firmware</name>
+  <summary>coreboot firmware for LabTop MkIV</summary>
+  <description>
+    <p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+  </description>
+  <provides>
+    <firmware type="flashed">d33fbe7d-90b9-493e-9a94-2a63dc915044</firmware>
+  </provides>
+  <requires>
+    <id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+    <hardware>baf1d04e-fd16-5e6a-93cc-1c23d171f879</hardware>
+    <firmware compare="ge" version="26.05"/>
+  </requires>
+  <url type="homepage">https://starlabs.systems</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <developer_name>Star Labs</developer_name>
+  <custom>
+    <value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+    <value key="LVFS::VersionFormat">pair</value>
+  </custom>
+  <categories>
+    <category>X-System</category>
+  </categories>
+  <releases>
+    <release urgency="medium" version="26.09" date="2026-09-24">
+      <checksum filename="L4.cap" target="content"/>
+      <description>
+        <p>General Updates:</p>
+        <ul>
+          <li>Improved runtime application of supported firmware settings, without requiring a restart</li>
+          <li>Improved firmware and embedded-controller recovery and diagnostics after an unexpected reset</li>
+        </ul>
+        <p>New Options:</p>
+        <ul>
+          <li>[Charging Priority] Choose Automatic, Charging, or Performance power policy. Automatic reserves adapter power for charging while the battery is more than 20elow its configured target</li>
+        </ul>
+        <p>Security Updates:</p>
+        <ul>
+          <li>Improved TPM event-log handling, including measurements for EFI boot images and GPT data</li>
+          <li>Protected RTC CMOS settings on supported Intel systems</li>
+        </ul>
+        <p>Bug Fixes / Enhancements:</p>
+        <ul>
+          <li>Improved USB-C and USB hub recovery, including SuperSpeed devices after reset</li>
+          <li>Improved Windows device power management for Wi-Fi, Bluetooth, touch, and PCIe devices</li>
+          <li>Improved firmware setup battery reporting and boot logo recovery</li>
+          <li>[StarLite Mk V] Corrected accelerometer face-up and face-down orientation</li>
+          <li>[StarBook Mk VI AMD] Improved wake from suspend</li>
+          <li>[StarFighter] Touchpad settings now apply immediately</li>
+          <li>[StarBook] Corrected USB port location data</li>
+          <li>[Horizon] Corrected eyboard Backslash mapping</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

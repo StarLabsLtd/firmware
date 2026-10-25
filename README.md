@@ -2,44 +2,6 @@
 
 Version history below is shared across all supported coreboot boards in this repository, starting from when release notes became unified across boards.
 
-#### [26.02] 2026-02-18
->     General Updates:
->     * Improved sleep/wake and reset reliability
->     * Added support for EFI capsules for easier, more secure updates
->     * Updated BIOS setup layout, with a simpler user interface and clearer security shortcuts
->     
->     New Options:
->     * [StarFighter] Memory Speed
->     
->     Security Updates:
->     * Add an option to lock the BIOS Setup with a password
->     * BIOS Lock is now enabled by default
->     * Added TCG OPAL Storage disk encryption support, including S3 unlock support
->     * Improved Secure Boot key enrollment behavior when a KEK is already present
->     
->     Bug Fixes / Enhancements:
->     * Fixed power LED “breathing” behavior in S3
->     * Fixed Wake-on-LAN on Byte (including Wake-on-LAN in S5 where supported)
->     * [StarFighter] Enabled the card reader
-
-#### [26.01] 2026-02-03
->     General Updates:
->     * Improved sleep/wake and reset reliability
->     * Added support for EFI capsules for easier, more secure updates
->     * Updated BIOS setup lauouy, with simpler user-interface
->     
->     New Options:
->     * [StarFighter] Memory Speed
->     
->     Security Updates:
->     * Add an option to lock the BIOS Setup with a password
->     * BIOS Lock is now enabled by default
->     
->     Bug Fixes / Enhancements:
->     * Fixed power LED “breathing” behavior in sleep (S3).
->     * Fixed Wake-on-LAN on Byte
->     * Updated platform defaults based on fan presence
-
 #### [25.12] 2025-12-11
 >     General Updates
 >     * EC startup time has been reduced from 415ms to 170ms
@@ -73,6 +35,44 @@ Version history below is shared across all supported coreboot boards in this rep
 >     * Fixed disabling the card reader
 >     * Fixed Device Manager constantly refreshing on Windows
 >     * Fixed the capabilities reported by the TPM driver
+
+#### [26.01] 2026-02-03
+>     General Updates:
+>     * Improved sleep/wake and reset reliability
+>     * Added support for EFI capsules for easier, more secure updates
+>     * Updated BIOS setup lauouy, with simpler user-interface
+>     
+>     New Options:
+>     * [StarFighter] Memory Speed
+>     
+>     Security Updates:
+>     * Add an option to lock the BIOS Setup with a password
+>     * BIOS Lock is now enabled by default
+>     
+>     Bug Fixes / Enhancements:
+>     * Fixed power LED “breathing” behavior in sleep (S3).
+>     * Fixed Wake-on-LAN on Byte
+>     * Updated platform defaults based on fan presence
+
+#### [26.02] 2026-02-18
+>     General Updates:
+>     * Improved sleep/wake and reset reliability
+>     * Added support for EFI capsules for easier, more secure updates
+>     * Updated BIOS setup layout, with a simpler user interface and clearer security shortcuts
+>     
+>     New Options:
+>     * [StarFighter] Memory Speed
+>     
+>     Security Updates:
+>     * Add an option to lock the BIOS Setup with a password
+>     * BIOS Lock is now enabled by default
+>     * Added TCG OPAL Storage disk encryption support, including S3 unlock support
+>     * Improved Secure Boot key enrollment behavior when a KEK is already present
+>     
+>     Bug Fixes / Enhancements:
+>     * Fixed power LED “breathing” behavior in S3
+>     * Fixed Wake-on-LAN on Byte (including Wake-on-LAN in S5 where supported)
+>     * [StarFighter] Enabled the card reader
 
 #### [26.04] 2026-04-10
 >     General Updates:

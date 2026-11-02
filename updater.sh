@@ -42,6 +42,9 @@ case "$RAW_SKU" in
 I5-MXC|I5-SB)
 	SKU="I5"
 	;;
+F1-A)
+	SKU="F2-A"
+	;;
 *)
 	SKU="$RAW_SKU"
 	;;
@@ -67,6 +70,7 @@ SUDO_READY=0
 FLASHROM_PROBE_OUTPUT=""
 ALLOW_UNTESTED_COREBOOT=0
 REINSTALL=0
+COREBOOT_SWITCH=0
 SET_MIRROR_FLAG=0
 CAMERA_ONLY=0
 IGNORE_AC=0
@@ -98,11 +102,12 @@ COREBOOT_ALLOWED_SKUS=(
 usage()
 {
 	cat <<EOF
-Usage: $0 [--camera-only] [--reinstall] [--ignore-ac] [--set-mirror-flag] [--help]
+Usage: $0 [--camera-only] [--reinstall] [--coreboot-switch] [--ignore-ac] [--set-mirror-flag] [--help]
 
   --camera-only                 Only check and update the StarFighter camera.
   --reinstall                   Reinstall firmware even when the target version
                                 already matches the installed version.
+  --coreboot-switch             Install the optional AMD StarFighter coreboot beta.
   --ignore-ac                   Skip charger detection when AC status is wrong.
   --set-mirror-flag             Set the EC mirror flag and shut the system down.
   --help                        Show this help text.
@@ -118,6 +123,9 @@ parse_args()
 			;;
 		--reinstall)
 			REINSTALL=1
+			;;
+		--coreboot-switch)
+			COREBOOT_SWITCH=1
 			;;
 		--ignore-ac)
 			IGNORE_AC=1
@@ -146,6 +154,14 @@ parse_args()
 			"$RED" "$RESET" >&2
 		usage >&2
 		exit 1
+	fi
+
+	if (( COREBOOT_SWITCH == 1 )); then
+		if [[ "$SKU" != "F2-A" ]] || (( CAMERA_ONLY == 1 )); then
+			printf "%s--coreboot-switch requires an AMD StarFighter.%s\n" "$RED" "$RESET" >&2
+			exit 1
+		fi
+		COREBOOT_TARGET_VERSION="26.10"
 	fi
 }
 
@@ -257,7 +273,9 @@ note_relpath_for_task()
 	trackpad) printf "notes/trackpad/starfighter.txt" ;;
 	camera) printf "notes/camera/starfighter.txt" ;;
 	ssd) printf "notes/ssd/lexar-nm620.txt" ;;
-	coreboot) printf "%s-release-notes.md" "$COREBOOT_TARGET_VERSION" ;;
+	coreboot)
+		phx_ami_return || printf "%s-release-notes.md" "$COREBOOT_TARGET_VERSION"
+		;;
 	*) return 1 ;;
 	esac
 }
@@ -265,6 +283,11 @@ note_relpath_for_task()
 coreboot_allowed_sku()
 {
 	local allowed
+
+	if [[ "$SKU" == "F2-A" ]]; then
+		phx_firmware_switch
+		return
+	fi
 
 	if (( ALLOW_UNTESTED_COREBOOT == 1 )); then
 		return 0
@@ -279,7 +302,22 @@ coreboot_allowed_sku()
 
 coreboot_rom_relpath()
 {
-	printf "roms/%s.bios\n" "$SKU"
+	if (( COREBOOT_SWITCH == 1 )); then
+		printf "roms/%s.coreboot.bios\n" "$SKU"
+	else
+		printf "roms/%s.bios\n" "$SKU"
+	fi
+}
+
+phx_ami_return()
+{
+	[[ "$SKU" == "F2-A" && "$BIOS_VENDOR" == "coreboot" ]] &&
+		(( COREBOOT_SWITCH == 0 ))
+}
+
+phx_firmware_switch()
+{
+	[[ "$SKU" == "F2-A" ]] && { (( COREBOOT_SWITCH == 1 )) || phx_ami_return; }
 }
 
 b6a_non_coreboot()
@@ -318,7 +356,7 @@ batteryless_sku()
 
 starfighter_sku()
 {
-	[[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" ]]
+	[[ "$RAW_SKU" == "F1" || "$RAW_SKU" == "F1-A" || "$RAW_SKU" == "F2" || "$RAW_SKU" == "F2-A" ]]
 }
 
 init_power_state()
@@ -606,6 +644,11 @@ bios_lock_state()
 	output="$(get_flashrom_probe_output || true)"
 	[[ -n "$output" ]] || return 1
 
+	if phx_ami_return && [[ "$output" == *"ROM Armor is possibly active"* ]]; then
+		printf "ROM Armor may be enabled\n"
+		return 0
+	fi
+
 	if [[ "$output" == *"SMM protection is enabled"* ]]; then
 		printf "SMM_BWP enabled\n"
 		return 0
@@ -839,6 +882,27 @@ discover_coreboot()
 		return
 	fi
 
+	if phx_ami_return; then
+		mark_task_wanted coreboot
+		set_task coreboot pending "coreboot ${BIOS_VERSION:-unknown} -> AMI ARN39EP023"
+		return
+	fi
+
+	if (( COREBOOT_SWITCH == 1 )); then
+		case "$BIOS_VENDOR" in
+		American\ Megatrends*)
+			mark_task_wanted coreboot
+			set_task coreboot pending "AMI ${BIOS_VERSION} -> coreboot beta ${COREBOOT_TARGET_VERSION}"
+			return
+			;;
+		coreboot) ;;
+		*)
+			set_task coreboot skipped "unsupported BIOS vendor"
+			return
+			;;
+		esac
+	fi
+
 	if [[ "$BIOS_VERSION" == "$COREBOOT_TARGET_VERSION" ]]; then
 		if (( REINSTALL == 1 )); then
 			mark_task_wanted coreboot
@@ -860,9 +924,10 @@ discover_mirror_flag()
 		return
 	fi
 
-	if b6a_non_coreboot && ! coreboot_uses_capsules && task_is_wanted coreboot; then
+	if task_is_wanted coreboot &&
+	   { phx_firmware_switch || { b6a_non_coreboot && ! coreboot_uses_capsules; }; }; then
 		mark_task_wanted mirror-flag
-		set_task mirror-flag pending "required after B6-A flash"
+		set_task mirror-flag pending "required after firmware switch"
 		return
 	fi
 
@@ -977,8 +1042,18 @@ check_bios_lock_task()
 	state="$(bios_lock_state || true)"
 	case "$state" in
 	"SMM_BWP disabled")
-		set_task prereq-bios-lock done "$state"
+		if phx_ami_return; then
+			set_task prereq-bios-lock skipped "verify ROM Armor in firmware setup"
+		else
+			set_task prereq-bios-lock done "$state"
+		fi
 		return 0
+		;;
+	"ROM Armor may be enabled")
+		set_task prereq-bios-lock failed "$state"
+		printf "\n%sROM Armor may be blocking flash access.%s\n" "$RED" "$RESET" >&2
+		printf "Open Settings -> Security, disable ROM Armor, reboot, and re-run this updater.\n" >&2
+		return 1
 		;;
 	"SMM_BWP enabled")
 		set_task prereq-bios-lock failed "$state"
@@ -1504,13 +1579,13 @@ update_coreboot()
 		return 0
 	fi
 
-	if [[ "$SKU" != "B6-A" && "$SKU" != "Y1" ]]; then
+	if [[ "$SKU" != "B6-A" && "$SKU" != "Y1" && "$SKU" != "F2-A" ]]; then
 		flashrom_flags=(--ifd -i bios -n -N)
 	fi
 
 	flashrom_log="${WORKING_DIR}/flashrom-coreboot.log"
 	printf "\n%sThis BIOS update will shut the system down automatically when flashing is complete.%s\n" "$YELLOW" "$RESET"
-	if b6a_non_coreboot; then
+	if b6a_non_coreboot || phx_firmware_switch; then
 		printf "After shutdown, leave the charger connected and press the power button to finish the update.\n"
 	else
 		printf "After shutdown, disconnect the charger and wait about 12 seconds until the LEDs flicker before powering back on.\n"
@@ -1540,11 +1615,15 @@ update_mirror_flag()
 	local tool
 
 	set_task mirror-flag checking
+	if task_is_wanted coreboot && [[ "${TASK_STATUS[coreboot]}" != "done" ]]; then
+		set_task mirror-flag skipped "firmware update did not complete"
+		return 1
+	fi
 	tool="$(ensure_binary ectool)"
 	set_task mirror-flag updating
 	if sudo "$tool" -w 05 -z aa; then
 		set_task mirror-flag done
-		if b6a_non_coreboot; then
+		if b6a_non_coreboot || phx_firmware_switch; then
 			printf "\n%sMirror flag set.%s\n" "$GREEN" "$RESET"
 			printf "Leave the charger connected. After shutdown, press the power button to finish the update.\n"
 			printf "Shutting down automatically in 8 seconds.\n"
@@ -1629,7 +1708,7 @@ build_task_list()
 		add_task ssd "Lexar NM620 SSD"
 	fi
 	add_task coreboot "coreboot"
-	if (( SET_MIRROR_FLAG == 1 )) || b6a_non_coreboot; then
+	if (( SET_MIRROR_FLAG == 1 )) || b6a_non_coreboot || phx_firmware_switch; then
 		add_task mirror-flag "EC mirror flag"
 	fi
 }
@@ -1662,9 +1741,12 @@ main()
 		return 0
 	fi
 
-	if task_is_wanted coreboot && coreboot_uses_capsules; then
+	if task_is_wanted coreboot && coreboot_uses_capsules && ! phx_ami_return; then
 		printf "\n%sThis firmware must be updated through LVFS.%s\n" "$YELLOW" "$RESET"
 		return 1
+	fi
+	if task_is_wanted coreboot && phx_ami_return; then
+		printf "\n%sReturning to AMI requires ROM Armor to be disabled in firmware setup.%s\n" "$YELLOW" "$RESET"
 	fi
 
 	show_release_notes

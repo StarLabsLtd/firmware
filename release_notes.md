@@ -1,20 +1,15 @@
 General Updates:
-* Improved runtime application of supported firmware settings, without requiring a restart
-* Improved firmware and embedded-controller recovery and diagnostics after an unexpected reset
-
-New Options:
-* [Charging Priority] Choose Automatic, Charging, or Performance power policy. Automatic reserves adapter power for charging while the battery is more than 20% below its configured target
+* Improved USB-C charger detection and power-source selection, including startup with a low or discharged battery
+* Improved the balance between system performance and battery charging when using Charging Priority
+* Improved SSD and wireless initialization during startup and resume
 
 Security Updates:
-* Improved TPM event-log handling, including measurements for EFI boot images and GPT data
-* Protected RTC CMOS settings on supported Intel systems
+* Updated the Secure Boot revocation database
+* Improved protection of platform reset and TPM measurements on supported systems
 
 Bug Fixes / Enhancements:
-* Improved USB-C and USB hub recovery, including SuperSpeed devices after reset
-* Improved Windows device power management for Wi-Fi, Bluetooth, touch, and PCIe devices
-* Improved firmware setup battery reporting and boot logo recovery
-* [StarLite Mk V] Corrected accelerometer face-up and face-down orientation
-* [StarBook Mk VI AMD] Improved wake from suspend
-* [StarFighter] Touchpad settings now apply immediately
-* [StarBook] Corrected USB port location data
-* [Horizon] Corrected eyboard Backslash mapping
+* Improved keyboard release handling to prevent repeated or missed keystrokes
+* Improved recovery from embedded-controller and power-delivery initialization failures
+* Improved SSD detection and handling across suspend and resume
+* Improved USB device recovery after reset
+* Fixed cold reset behaviour

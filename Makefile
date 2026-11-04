@@ -41,7 +41,7 @@ $(ROMS_DIR):
 COREBOOT_DIR ?= "../coreboot"
 
 $(PAYLOAD):						| $(OUTPUT_DIR)
-	@if [[ -n "$(binary)" ]]; then \
+	@set -e; if [[ -n "$(binary)" ]]; then \
 		if [[ ! -f "$(binary)" ]]; then \
 			echo "ERROR: binary file not found: $(binary)"; \
 			exit 1; \

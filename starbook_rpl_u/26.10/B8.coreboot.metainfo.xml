@@ -1,0 +1,54 @@
+<!-- Copyright 2023 Star Labs Online Limited -->
+<component type="firmware">
+  <id>com.starlabs.starbook.rpl.u</id>
+  <name>StarBook Horizon Plus coreboot firmware</name>
+  <summary>coreboot firmware for StarBook Horizon Plus</summary>
+  <description>
+    <p>Updating the coreboot firmware makes your computer more reliable and can add new features.</p>
+  </description>
+  <provides>
+    <firmware type="flashed">41627bd8-70a0-490d-b834-5de90ccfb56d</firmware>
+  </provides>
+  <requires>
+    <id compare="ge" version="1.7.7">org.freedesktop.fwupd</id>
+    <hardware>808d4a4d-30cd-526d-8420-7b95d0c5f41d</hardware>
+    <firmware compare="ge" version="26.05"/>
+  </requires>
+  <url type="homepage">https://starlabs.systems</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <developer_name>Star Labs</developer_name>
+  <custom>
+    <value key="LVFS::UpdateProtocol">org.uefi.capsule</value>
+    <value key="LVFS::VersionFormat">pair</value>
+  </custom>
+  <categories>
+    <category>X-System</category>
+  </categories>
+  <releases>
+    <release urgency="medium" version="26.10" date="2026-11-05">
+      <checksum filename="B8.cap" target="content"/>
+      <description>
+        <p>General Updates:</p>
+        <ul>
+          <li>Improved USB-C charger detection and power-source selection, including startup with a low or discharged battery</li>
+          <li>Improved the balance between system performance and battery charging when using Charging Priority</li>
+          <li>Improved SSD and wireless initialization during startup and resume</li>
+        </ul>
+        <p>Security Updates:</p>
+        <ul>
+          <li>Updated the Secure Boot revocation database</li>
+          <li>Improved protection of platform reset and TPM measurements on supported systems</li>
+        </ul>
+        <p>Bug Fixes / Enhancements:</p>
+        <ul>
+          <li>Improved keyboard release handling to prevent repeated or missed keystrokes</li>
+          <li>Improved recovery from embedded-controller and power-delivery initialization failures</li>
+          <li>Improved SSD detection and handling across suspend and resume</li>
+          <li>Improved USB device recovery after reset</li>
+          <li>Fixed cold reset behaviour</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -1,0 +1,95 @@
+diff --git a/flashrom.c b/flashrom.c
+index 034b1e7b..de8585d1 100644
+--- a/flashrom.c
++++ b/flashrom.c
+@@ -2052,12 +2052,11 @@ int prepare_flash_access(struct flashctx *const flash,
+ 
+ void finalize_flash_access(struct flashctx *const flash)
+ {
+-	deregister_chip_restore(flash);
+ 	/* Leave the chip as firmware reading with 3-Byte addresses expects it */
+ 	if (flash->in_4ba_mode && spi_exit_4ba(flash))
+ 		msg_cwarn("Failed to leave 4-Byte address mode.\n");
+-	if (flash->address_high_byte > 0 && spi_set_extended_address(flash, 0))
+-		msg_cwarn("Failed to reset the extended address register.\n");
++	if (deregister_chip_restore(flash))
++		msg_cwarn("Failed to restore chip state.\n");
+ 	unmap_flash(flash);
+ }
+ 
+diff --git a/spi25.c b/spi25.c
+index 549db8a6..5bdb4b1e 100644
+--- a/spi25.c
++++ b/spi25.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <stddef.h>
++#include <stdlib.h>
+ #include "platform/string.h"
+ #include <stdbool.h>
+ #include "flashchips.h"
+@@ -360,8 +361,28 @@ static int spi_write_extended_address_register(struct flashctx *const flash, con
+ 	return result;
+ }
+ 
++static int spi_restore_extended_address(struct flashctx *flash, void *data)
++{
++	const uint8_t original = *(uint8_t *)data;
++	free(data);
++	return spi_write_extended_address_register(flash, original);
++}
++
+ int spi_set_extended_address(struct flashctx *const flash, const uint8_t addr_high)
+ {
++	if (flash->address_high_byte == -1) {
++		const uint8_t command = flash->chip->feature_bits & FEATURE_4BA_EAR_C5C8 ?
++			JEDEC_READ_EXT_ADDR_REG : ALT_READ_EXT_ADDR_REG_16;
++		uint8_t *original = malloc(sizeof(*original));
++		if (!original)
++			return -1;
++		if (spi_send_command(flash, 1, 1, &command, original) ||
++		    register_chip_restore(spi_restore_extended_address, flash, original)) {
++			free(original);
++			return -1;
++		}
++		flash->address_high_byte = *original;
++	}
+ 	if (flash->address_high_byte != addr_high &&
+ 	    spi_write_extended_address_register(flash, addr_high))
+ 		return -1;
+diff --git a/tests/sfdp.c b/tests/sfdp.c
+index f5fd31d0..eb2bbf47 100644
+--- a/tests/sfdp.c
++++ b/tests/sfdp.c
+@@ -158,6 +158,13 @@ static int emu_spi_command(const struct flashctx *flash, unsigned int writecnt,
+ 		emu->ear = writearr[1];
+ 		emu->ear_set |= emu->ear != 0;
+ 		break;
++	case JEDEC_READ_EXT_ADDR_REG:
++	case ALT_READ_EXT_ADDR_REG_16:
++		assert_int_equal(writearr[0] == JEDEC_READ_EXT_ADDR_REG ? EMU_4BA_EAR : EMU_4BA_BANK,
++				 emu->method);
++		assert_int_equal(readcnt, 1);
++		readarr[0] = emu->ear;
++		break;
+ 	case JEDEC_READ:
+ 	case JEDEC_READ_4BA:
+ 		emu_jedec_read(emu, writecnt, readcnt, writearr, readarr);
+@@ -395,6 +402,7 @@ static void run_32mib_read(const uint8_t *data, size_t len, enum emu_4ba_method
+ 		.len = len,
+ 		.method = method,
+ 		.size = 32 * MiB,
++		.ear = method == EMU_4BA_BANK || method == EMU_4BA_EAR ? 1 : 0,
+ 		.native_only = features & SPI_MASTER_NO_4BA_MODES,
+ 	};
+ 	struct registered_master mst = {
+@@ -428,6 +436,8 @@ static void run_32mib_read(const uint8_t *data, size_t len, enum emu_4ba_method
+ 		assert_int_equal(0, spi_exit_4ba(&flash));
+ 		assert_false(is_4ba_mode(&emu));
+ 	}
++	finalize_flash_access(&flash);
++	assert_int_equal(method == EMU_4BA_BANK || method == EMU_4BA_EAR ? 1 : 0, emu.ear);
+ }
+ 
+ static void run_4ba_read(uint8_t methods, enum emu_4ba_method method)
